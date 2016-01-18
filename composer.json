@@ -1,0 +1,20 @@
+{
+    "name": "danack/public",
+
+    "description": "publications e.g. slide, presentations",
+
+    "require-dev": {
+    },
+    
+    "require":{
+        "danack/jig": "^0.20.4",
+        "intahwebz/configurator": "^0.2.8",
+        "oyejorge/less.php": "v1.7.0.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Docs": "src/"
+        }
+    },
+    "prefer-stable": true
+}
