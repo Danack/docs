@@ -22,14 +22,14 @@ server {
     # listen 8080;
     server_name docs.test docs.basereality.test docs.basereality.com docs.test.basereality.com;
 
-    access_log  ${'nginx_log_directory'}/blog.access.log;
-    error_log  ${'nginx_log_directory'}/blog.error.log;
+    access_log  ${'nginx_log_directory'}/docs.access.log;
+    error_log  ${'nginx_log_directory'}/docs.error.log;
 
-    root ${'blog_root_directory'}/public;
+    root ${'docs_root_directory'}/public;
 
     client_max_body_size 1m;
     
-    rewrite ^/(.*)/$ /$1 permanent;
+    # rewrite ^/(.*)/$ /$1 permanent;
 
     error_page  404  /404.html;
     location = /404.html {
@@ -69,15 +69,18 @@ server {
         allow 127.0.0.1;
         deny all;
         fastcgi_param  QUERY_STRING       \$query_string;
-        include       ${'blog_root_directory'}/data/config_template/fastcgi.conf;
+        include       ${'docs_root_directory'}/data/config_template/fastcgi.conf;
         fastcgi_pass   unix:${'phpfpm_fullsocketpath'};
     }
 
+    location  /index.php {
+        fastcgi_param  QUERY_STRING \$query_string;
+        fastcgi_pass   unix:/var/run/php-fpm/php-fpm-docs-docs.sock;
+        include       /home/github/docs/docs/data/config_template/fastcgi.conf;
+    }
+
     location  / {
-        try_files \$uri /index.php =404;
-        fastcgi_param  QUERY_STRING  \$query_string;
-        fastcgi_pass   unix:${'phpfpm_fullsocketpath'};
-        include       ${'blog_root_directory'}/data/config_template/fastcgi.conf;
+        try_files \$uri \$uri/index.html /index.php;
     }
 }
 

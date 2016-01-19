@@ -19,7 +19,7 @@ listen = ${'phpfpm_fullsocketpath'}
 ; List of ipv4 addresses of FastCGI clients which are allowed to connect.
 listen.allowed_clients = 127.0.0.1
 
-listen.owner = blog
+listen.owner = docs
 listen.group = ${'phpfpm_group'}
 listen.mode = 0664
 
@@ -43,7 +43,7 @@ pm.max_spare_servers = 10
 pm.max_requests = 5000
 
 ; The URI to view the FPM status page.
-pm.status_path = /blog-status
+pm.status_path = /docs-status
 
 ; Additional php.ini defines
 php_admin_value[memory_limit] = ${'phpfpm_www_maxmemory'}
@@ -51,9 +51,8 @@ php_admin_value[error_log] = ${'php_errorlog_directory'}/\$pool-error.log
 
 security.limit_extensions = .php
 
-include = ${'blog_root_directory'}/autogen/php.fpm.ini
+include = ${'docs_root_directory'}/autogen/php.fpm.ini
 
-; env[foo] = \$bar
 
 END;
 

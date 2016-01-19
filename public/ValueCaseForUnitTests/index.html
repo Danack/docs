@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Making the value case for unit tests</title>
+
+        <meta name="description" content="Making the value case for unit tests">
+        <meta name="author" content="Dan Ackroyd">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="theme">
+        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststyle">
+
+        <style type="text/css">
+        /* overrides */
+        body {
+            background: #a8fcfc;
+            /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+            background: -webkit-radial-gradient(center, circle cover, #efefef 45%, #b7b7b7 75%);
+            /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+            background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+            /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+            /*background-color: #fdfdfd; */
+        }
+        .reveal section img {
+            border: 0;
+            background: none;
+            box-shadow: 0 0 #000;
+        }
+        .reveal pre {
+            /*width: 100%; */
+            font-size: 0.68em;
+            margin-left: 0px;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        /*.reveal pre code {
+            max-height: 600px;
+        }*/
+
+        .light {
+            color: #efefef !important;
+            background-color: #1f1f1f;
+            padding: 40px !important;
+        }
+
+        .spaceTop {
+            margin-top: 50px !important;
+        }
+        .spaceBottom {
+            margin-bottom: 50px !important;
+        }
+
+        h2, p, section { text-align: left; }
+        .reveal .slides {text-align: left; }
+        
+        
+        h1, h2, h3, h4, h5 {
+            font-family: "Quicksand", sans-serif !important;
+            font-weight: 200 !important;
+            /*text-transform: uppercase; */
+        }
+            
+        .embiggen { 
+            font-size: 1.2em !important;  
+        }
+        .emlargen {
+            font-size: 1.05em !important;
+        }
+        
+        .emsmallen { 
+            font-size: 0.8em !important;  
+        }
+        .finale {
+            font-size: 192px !important;
+            text-align: center !important;
+            margin-bottom: 148px !important;
+        }
+        
+        .subtle {
+            color: #7c7c7c;
+        }
+        
+        .smallText {
+            font-size: 24px !important;
+        }
+        
+        blockquote {
+            background-color: #ffffff !important;
+        }
+            
+        pre, .danackCode {
+            font-size: 26px;
+            background: white;
+            /* width: auto !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+             
+            
+            minimum-width: 640px !important;
+            display: inline-block !important;
+            */
+        }
+
+        .rotate {
+            /* Safari */
+            -webkit-transform: rotate(-90deg);
+            
+            /* Firefox */
+            -moz-transform: rotate(-90deg);
+            
+            /* IE */
+            -ms-transform: rotate(-90deg);
+            
+            /* Opera */
+            -o-transform: rotate(-90deg);
+            
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+        
+        </style>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!-- <script type="text/javascript" src="./Speeding up the Web with PHP 7_files/jquery.min.js"></script> -->
+        <script src="./plugin/jquery/jquery.min.js"></script>
+        <script src="./plugin/highcharts/highcharts.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+<!-- *************************** -->
+<section>
+    <h1>Making the value case for Unit Tests</h1>
+    <p>
+        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+    </p>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h1>Quality or Value</h1>
+</section>
+
+                
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Who to persuade</h2>
+  <ul>
+    <li>Programmers</li>
+    <li>Sales weasels</li>
+    <li>Project managers</li>
+    <li>Most senior management</li>
+    <li>Financial director (or client's financial director)</li>
+  </ul>
+</section>
+    
+
+
+
+<!-- *************************** -->
+<section class="emsmallen">
+
+    <table>
+      <tr>
+        <th>
+          Without tests
+        </th>
+        <th>
+          With unit tests
+        </th>
+      </tr>
+
+  
+      <tr>
+        <td>Client find something is broken</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Reports a bug</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Front line support analyses it</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Second line support tries to make repro case</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Triaged to a developer who has to drop what they're doing</td>
+        <td></td>
+      </tr>
+
+      
+      <tr>
+        <td>Developer has to analyze bug</td>
+        <td>Look at broken unit test</td>
+      </tr>
+      
+      <tr>
+        <td>This code broke something</td>
+        <td>This code broke something</td>
+      </tr>
+
+      </table>
+
+  <div style="height: 1em"></div>
+
+  <p class="emsmallen subtle">
+    (Let's pretend these are the only two scenarios)
+  </p>
+</section>
+    
+
+
+<!-- *************************** -->
+<section>
+  <h2>An hour is not fungible</h2>
+  <ul>
+    <li>Some time in the next week</li>
+    <li>Immediately at 3pm</li>
+    <li>Immediately at 5:15pm on a Friday</li> 
+    <li>Immediately at 3am on a Sunday morning</li>  
+  </ul>
+</section>
+    
+
+
+<!-- *************************** -->
+<section>
+    <h1>Benefit minus cost</h1>
+</section>
+    
+
+
+<!-- *************************** -->
+<section>
+  <h2>Benefit</h2>
+  <p>
+    Probability test prevents bug occurring in production * cost of fixing bug in production
+  </p>
+  
+  <h2>Cost</h2>
+  <p>
+    Cost of writing test + cost of maintaining test
+  </p>
+</section>
+    
+
+    
+
+
+<section data-background="white">
+  <svg width="1200" height="800" style="background-color: #fff">
+    <line x1="200" y1="702" x2="200" y2="50" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    <line x1="198" y1="700" x2="1100" y2="700" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    
+    
+    
+    <text x="1100" y="750" text-anchor="end" fill="black">Total tests written</text>
+    <text x="190" y="100" text-anchor="end" fill="black">Total value</text>
+    <text x="190" y="150" text-anchor="end" fill="black">of tests</text>
+
+    <path d="M200 700 C 200 700, 400 200, 700 200" stroke="black" fill="transparent" stroke-width="4" class="fragment"/>
+    
+    <path d="M700 200 C 800 200, 825 200, 1000 300" stroke="black" fill="transparent" stroke-width="4" class="fragment"/>
+
+    <g class="fragment">
+      <path stroke-dasharray="5,5" d="M500 700 500 150" stroke="black" stroke-width="4" />
+      <rect x="223" y="56" width="254" height="238" style="fill:red;"  /> 
+      <image x="225" y="50" width="250" height="250" xlink:href="assets/img/shitsOnFireYo.jpg"/>
+    </g>
+    
+    <g class="fragment">
+      <text x="625" y="650" text-anchor="middle" fill="black">Comfort zone</text>
+      <path stroke-dasharray="5,5" d="M750 700 750 150" stroke="black" stroke-width="4" />
+    </g>
+    
+    <g class="fragment">
+      <rect x="798" y="348" width="254" height="254" style="fill:black;"  />
+      <image x="800" y="350" width="250" height="250" xlink:href="assets/img/TestAllTheThings.jpg"/>
+      <text x="925" y="650" text-anchor="middle" fill="black">Quality zone</text>
+    </g>
+  </svg>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>What needs to be done</h2>
+  <ul>
+    <li>Start measuring costs</li>
+    <li>Get them to acknowledge the problem</li>
+    <li>Get a budget for tests</li>
+    <li>Set expectations properly</li>
+  </ul>
+
+  <p>
+  This is commonly known as project management…..we are very bad at this.
+  </p>  
+</section>
+
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>How to get to Dublin</h2>  
+</section>
+
+
+<section data-background="white">
+  <svg width="1200" height="800" style="background-color: #fff">
+    <line x1="200" y1="702" x2="200" y2="50" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    <text x="190" y="100" text-anchor="end" fill="black" stroke="black">Features</text> 
+    <text x="190" y="140" text-anchor="end" fill="black" stroke="black">delivered</text>
+    <text x="190" y="180" text-anchor="end" fill="black" stroke="black">per week</text>
+    
+    <line x1="198" y1="700" x2="1100" y2="700" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    <text x="1100" y="750" text-anchor="end" fill="black">Time</text>
+
+    <g class="fragment">
+      <text x="1100" y="400" text-anchor="end" fill="Green">Writing unit tests as you go</text>
+      <line x1="198" y1="450" x2="1100" y2="450" style="stroke:rgb(0,128,0);stroke-width:8" stroke-linecap="butt" />
+    </g>
+    <g class="fragment">
+      <path d="M200 200 C 300 200, 400 525, 600 525" stroke="black" fill="transparent" stroke-width="8"/>
+      <line x1="600" y1="525" x2="1100" y2="525" style="stroke:black;stroke-width:8" stroke-linecap="butt" />
+      <text x="275" y="200" text-anchor="start" fill="black">Fixing bugs as you go</text>
+    </g>
+
+  </svg>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>
+    TDD tests deliver their value when the code is written
+  </h2>
+  
+  <h2>
+    Unit tests deliver their value over time
+  </h2>
+</section>
+    
+
+<!-- *************************** -->
+<section>
+    <h2>Time is not fungible</h2>
+    <ul>
+        <li>If unit tests aren't going to deliver value before a crunch point, then they aren't worth writing (at least not on a value basis).</li>
+      <li>Or if the project isn't going to have much more development done.</li>
+      
+      <li>These are business decisions…tech people can only help the business people make informed decisions, you can't make those decisions for them.</li>
+    </ul>
+
+</section>
+
+
+
+
+<section data-background="white">
+  <svg width="1200" height="800" style="background-color: #fff">
+    <line x1="200" y1="702" x2="200" y2="50" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    <text x="190" y="100" text-anchor="end" fill="black" stroke="black">Features</text> 
+    <text x="190" y="140" text-anchor="end" fill="black" stroke="black">delivered</text>
+    <text x="190" y="180" text-anchor="end" fill="black" stroke="black">per week</text>
+    
+    <line x1="198" y1="700" x2="1100" y2="700" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="butt" />
+    <text x="1100" y="750" text-anchor="end" fill="black">Time</text>
+
+    <text x="1100" y="400" text-anchor="end" fill="Green">Writing unit tests as you go</text>
+    <line x1="198" y1="450" x2="1100" y2="450" style="stroke:rgb(0,128,0);stroke-width:8" stroke-linecap="butt" />
+  
+    <path d="M200 200 C 300 200, 400 525, 600 525" stroke="black" fill="transparent" stroke-width="8"/>
+    <line x1="600" y1="525" x2="1100" y2="525" style="stroke:black;stroke-width:8" stroke-linecap="butt" />
+    <text x="275" y="200" text-anchor="start" fill="black">Fixing bugs as you go</text>
+  </svg>
+</section>
+
+
+<section data-background="white">
+  <svg width="1200" height="800" style="background-color: #fff">
+    <line x1="200" y1="700" x2="200" y2="50" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="square" />
+    <text x="190" y="100" text-anchor="end" fill="black" stroke="black">Features</text> 
+    <text x="190" y="140" text-anchor="end" fill="black" stroke="black">delivered</text>
+    <text x="190" y="180" text-anchor="end" fill="black" stroke="black">per week</text>
+    
+    <line x1="200" y1="700" x2="1100" y2="700" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="square" />
+    <text x="1100" y="750" text-anchor="end" fill="black">Time</text>
+
+    <!-- <text x="1100" y="400" text-anchor="end" fill="Green">Writing unit tests as you go</text> -->
+    <line x1="198" y1="450" x2="1100" y2="450" style="stroke:rgb(0,128,0);stroke-width:8" stroke-linecap="square" />
+
+    <!-- <text x="275" y="200" text-anchor="start" fill="black">Fixing bugs as you go</text> -->
+    
+    <path d="M200 200 C 300 200, 400 525, 600 525" stroke="black" fill="transparent" stroke-width="8"/>
+    <line x1="600" y1="525" x2="650" y2="525" style="stroke:black;stroke-width:8" stroke-linecap="square" />
+    <line x1="650" y1="525" x2="650" y2="700" style="stroke:black;stroke-width:8" stroke-linecap="butt" />
+    <line x1="650" y1="700" x2="1100" y2="450" style="stroke:black;stroke-width:8" stroke-linecap="butt" />
+    
+     
+    <g class="fragment" transform="translate(425 100)">
+      
+      <rect x="-2" y="-2" width="254" height="254" style="fill:black;"  />
+      <image x="0" y="0" width="250" height="250" xlink:href="assets/img/PHP_CEO.jpeg" />
+      
+      <text x="262" y="2" fill="rgb(0, 0, 0)" font-family="Comic Sans, Comic Sans MS, cursive">
+        <tspan x="262" dy="1.2em">I THOUGHT YOU SAID</tspan>
+        <tspan x="262" dy="1.2em">TESTS WERE GOING TO</tspan>
+        <tspan x="262" dy="1.2em">FIX PRODUCTIVITY</tspan>
+        <tspan x="262" dy="1.2em">ISSUES!!!</tspan>
+      </text>
+      
+      <text x="260" y="0" fill="rgb(230, 0, 0)" font-family="Comic Sans, Comic Sans MS, cursive">
+        <tspan x="260" dy="1.2em">I THOUGHT YOU SAID</tspan>
+        <tspan x="260" dy="1.2em">TESTS WERE GOING TO</tspan>
+        <tspan x="260" dy="1.2em">FIX PRODUCTIVITY</tspan>
+        <tspan x="260" dy="1.2em">ISSUES!!!</tspan>
+      </text>
+    </g>
+
+    
+       
+  </svg>
+</section>
+
+
+
+
+
+    
+<!-- *************************** -->
+<section>
+    <h2>The benefits of quality are less visible</h2>
+    <p class="emsmallen">but they are there</p>
+</section>
+    
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+  <p></p>
+  <ul>
+    <li>How quickly can you get working fixes out the door?</li>
+    <li>Does adding new features cause a lot of breakage? This is where you lose customers.</li>
+    <li>Do your customers recommend your product to other people. This is where your business grows. If you need to grow sales, quality is a better place to focus than features.</li>
+  </ul>  
+</section>
+    
+
+
+<!-- *************************** -->
+<section>
+    <h3>Unit tests scale linearly</h3>
+    <h3>Communication and tools don't</h3>
+  
+    <div style="height: 2em"></div>
+  
+    <table>
+      <tr>
+        <td>
+          Lines of code written => mistakes prevented         
+        </td>
+        <td>O(n) 
+        </td>
+      </tr>
+  
+      <tr>
+        <td>
+          Communication between people      
+        </td>
+        <td>
+          O(n^2)
+        </td>
+      </tr>
+ 
+      <tr>
+        <td>
+          Relative cost of tool      
+        </td>
+        <td>
+          O(n^(1/c))
+        </td>
+      </tr>
+  </table>
+  
+  <div style="height: 3em"></div>
+  
+  <p class="emsmallen">
+    n = programmers on a project, c > 1
+  </p>
+
+</section>
+    
+
+<!-- *************************** -->
+<section>  
+  <h1 class="embiggen finale">Fin</h1>
+</section>
+    
+
+<!-- *************************** -->
+<section>  
+  <h1 class="embiggen finale">Fin</h1>
+</section>
+    
+
+
+<section class="emsmallen">         
+  <h2>Making the value case for Unit Tests</h2>
+  <p>
+Do you work at a company where there are not enough unit tests in place and things are constantly breaking? Or maybe you have a client that always wants new features to be delivered as soon as possible, without enough thought about maintaining code.
+  </p>
+  <p>
+How do you persuade people that Unit Tests should be written? And that by writing them you will improve your code quality and make development be easier? And how many unit tests should you be writing anyway?
+  </p>
+  <p>
+This talk will help you:
+</p>
+  <ul>
+    <li>Understand exactly how and when unit tests provide value in the development cycle.</li>
+    <li>Who you should be making the case for unit tests to, and what terms you should use to persuade them.</li>
+    <li>Writing unit tests can't always be justified by the value they provide. Sometimes this means you should skip writing tests. Other times you should still write those tests. Learn the difference between these two scenarios!</li>
+    <li>Understand how to plan to tackle a backlog of untested code without dooming your job.</li>
+  </ul>
+</section>
+              
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: false,
+                history: true,
+                center: true,
+                width: 1280,
+                height: 800,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.08,
+                slideNumber: true,
+                //transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'none', 
+                //transitionSpeed: "slow",
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+            
+            
+            /* This draws the graph on the slide on a slidechanged event */
+            Reveal.addEventListener('slidechanged', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            } );
+            /* This draws the graph if we got here directly without coming from another slide */
+            Reveal.addEventListener('ready', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            });
+        </script>
+    </body>
+</html>
