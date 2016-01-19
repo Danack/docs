@@ -76,7 +76,7 @@ server {
     location  /index.php {
         fastcgi_param  QUERY_STRING \$query_string;
         fastcgi_pass   unix:/var/run/php-fpm/php-fpm-docs-docs.sock;
-        include       /home/github/docs/docs/data/config_template/fastcgi.conf;
+        include       ${'docs_root_directory'}/data/config_template/fastcgi.conf;
     }
 
     location  / {
