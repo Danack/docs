@@ -10,3 +10,6 @@ find . -name "*.sh" -exec chmod 755 {} \;
 su docs -c "./scripts/deployAsUser.sh ${environment}"
 
 sh ./autogen/addConfig.sh
+
+echo "sleeping because of linking shenanigans."
+sleep 2
