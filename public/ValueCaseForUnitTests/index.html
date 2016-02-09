@@ -129,6 +129,14 @@
             filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         }
         
+        .undecoratedList {
+          margin-left: 0px;
+        }
+        
+        .undecoratedList li {
+          list-style-type: none;
+        }
+        
         </style>
 
         <!-- Printing and PDF exports -->
@@ -163,6 +171,28 @@
     </p>
 </section>
 
+<section>
+  
+  <p>Extensions:<br/>
+    Maintainer of Imagick and Gmagick extensions. 
+  </p>
+
+
+  <p>PHP RFCs:<br/>
+    <a href="https://wiki.php.net/rfc/closurefromcallable">Closure from callable</a> for PHP 7.1, 
+    <a href="https://wiki.php.net/rfc/consistent_callables">Consistent Callables</a> for PHP 8.0,
+    <a href="https://wiki.php.net/rfc/internal_constructor_behaviour">Constructor behaviour of internal classes</a> passed PHP 7.0
+  </p>
+  
+  <p>
+    Codez:<br/>
+    Auryn - the best D.I. library <a href="https://github.com/rdlowrey/auryn">https://github.com/rdlowrey/auryn</a> <br/>
+    Tier - D.I. based framework <a href="https://github.com/danack/tier">https://github.com/danack/tier</a><br/>
+    Jig - D.I. based templating <a href="http://phpjig.com">phpjig.com</a> <br/>
+  </p>
+  
+</section>
+
 <!-- *************************** -->
 <section>
     <img src="assets/img/trustworthiness_of_beards_fit.jpg"  />
@@ -173,18 +203,16 @@
     <h1>Quality or Value</h1>
 </section>
 
-                
-
 
 <!-- *************************** -->
 <section>
   <h2>Who to persuade</h2>
   <ul>
-    <li>Programmers</li>
-    <li>Sales weasels</li>
-    <li>Project managers</li>
-    <li>Most senior management</li>
-    <li>Financial director (or client's financial director)</li>
+    <li class="fragment">Programmers</li>
+    <li class="fragment">Sales weasels</li>
+    <li class="fragment">Project managers</li>
+    <li class="fragment">Most senior management</li>
+    <li class="fragment">Financial director (or client's financial director)</li>
   </ul>
 </section>
     
@@ -274,15 +302,10 @@
 
 <!-- *************************** -->
 <section>
-  <h2>Benefit</h2>
-  <p>
-    Probability test prevents bug occurring in production * cost of fixing bug in production
-  </p>
+  <h2>Benefit: Probability test <u>prevents</u> bug occurring in production * cost of fixing bug in production</h2>
   
-  <h2>Cost</h2>
-  <p>
-    Cost of writing test + cost of maintaining test
-  </p>
+  <h2>Cost: Cost of writing test + cost of maintaining test</h2>
+  
 </section>
 
 <section data-background="white">
@@ -332,7 +355,7 @@
   <ul>
     <li>How quickly can you get working fixes out the door?</li>
     <li>Does adding new features cause a lot of breakage? This is where you lose customers.</li>
-    <li>Do your customers recommend your product to other people. This is where your business grows. If you need to grow sales, quality is a better place to focus than features.</li>
+    <li>Do your customers recommend your product to other people. This is where your business grows. If you need to grow, quality is a better place to focus than features.</li>
   </ul>
   <p>Quality provides value - pay for it out of the marketing budget.</p>
 </section>
@@ -442,15 +465,13 @@
     <line x1="200" y1="700" x2="1100" y2="700" style="stroke:rgb(0,0,0);stroke-width:4" stroke-linecap="square" />
     <text x="1100" y="750" text-anchor="end" fill="black">Time</text>
 
-    <!-- <text x="1100" y="400" text-anchor="end" fill="Green">Writing unit tests as you go</text> -->
-    <line x1="198" y1="450" x2="1100" y2="450" style="stroke:rgb(0,128,0);stroke-width:8" stroke-linecap="square" />
 
-    <!-- <text x="275" y="200" text-anchor="start" fill="black">Fixing bugs as you go</text> -->
+    <line x1="198" y1="450" x2="1100" y2="450" style="stroke:rgb(0,128,0);stroke-width:8" stroke-linecap="butt" />
+
     <path d="M200 200 C 300 200, 400 525, 600 525" stroke="black" fill="transparent" stroke-width="8"/>
     <line x1="600" y1="525" x2="650" y2="525" style="stroke:black;stroke-width:8" stroke-linecap="square" />
     
     <line x1="650" y1="525" x2="650" y2="700" style="stroke:black;stroke-width:8" stroke-linecap="butt" class="fragment" />
-    
     <line x1="650" y1="700" x2="1100" y2="450" style="stroke:black;stroke-width:8" stroke-linecap="butt" class="fragment" />
     
      
@@ -489,7 +510,7 @@
     <table>
       <tr>
         <td>
-          Lines of code written => mistakes prevented         
+          Unit tests <span style="font-size: 56px">∝</span> Lines of code written
         </td>
         <td>O(n) 
         </td>
@@ -497,7 +518,7 @@
   
       <tr>
         <td>
-          Communication between people      
+          Communication between people
         </td>
         <td>
           O(n^2)
@@ -506,7 +527,7 @@
  
       <tr>
         <td>
-          Relative cost of tool      
+          Relative cost of automation
         </td>
         <td>
           O(n^(1/c))
@@ -522,6 +543,25 @@
 
 </section>
     
+<section>
+  
+  <h2>And if that doesn't work ?</h2>
+
+<ul>
+  <li class="fragment">
+    Life is short
+  </li>
+
+  <li class="fragment">Not your problem, so stop giving a shit
+  </li>
+
+  <li class="fragment">
+    Our sponsors are hiring
+  </li>
+</ul>
+
+</section>
+
 
 <!-- *************************** -->
 <section>  
@@ -534,7 +574,7 @@
         Slides       
       </td>
       <td>
-        http://docs.basereality.com/ValueCaseForUnitTests
+        http://docs.basereality.com/
       </td>
     </tr>
   
