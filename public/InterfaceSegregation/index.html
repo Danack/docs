@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Interface segregation - It's a good thing</title>
+
+        <meta name="description" content="Danack talking about interface segregation">
+        <meta name="author" content="Dan Ackroyd">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="theme">
+        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststyle">
+
+        <style type="text/css">
+        /* overrides */
+        body {
+            background: #a8fcfc;
+            /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+            background: -webkit-radial-gradient(center, circle cover, #efefef 45%, #b7b7b7 75%);
+            /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+            background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+            /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+            /*background-color: #fdfdfd; */
+        }
+        .reveal section img {
+            border: 0;
+            background: none;
+            box-shadow: 0 0 #000;
+        }
+        .reveal pre {
+            width: 100%;
+            font-size: 0.68em;
+            margin-left: 0px;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        /*.reveal pre code {
+            max-height: 600px;
+        }*/
+
+        .light {
+            color: #efefef !important;
+            background-color: #1f1f1f;
+            padding: 40px !important;
+        }
+
+        .spaceTop {
+            margin-top: 50px !important;
+        }
+        .spaceBottom {
+            margin-bottom: 50px !important;
+        }
+
+        h2, p, section { text-align: left; }
+        .reveal .slides {text-align: left; }
+        
+        
+        h1, h2, h3, h4, h5 {
+            font-family: "Quicksand", sans-serif !important;
+            font-weight: 200 !important;
+            /*text-transform: uppercase; */
+        }
+            
+        .embiggen { 
+            font-size: 1.2em !important;  
+        }
+        .emlargen {
+            font-size: 1.05em !important;
+        }
+        
+        .emnormal {
+          font-size: 0.9em !important;
+        }
+        
+        .emsmallen { 
+            font-size: 0.8em !important;  
+        }
+        .finale {
+            font-size: 192px !important;
+            text-align: center !important;
+            margin-bottom: 148px !important;
+        }
+        
+        .centre {
+            text-align: center !important;
+        }
+        
+        .subtle {
+            color: #7c7c7c;
+        }
+        
+        .smallText {
+            font-size: 24px !important;
+        }
+        
+        blockquote {
+            background-color: #ffffff !important;
+        }
+            
+        pre, .danackCode {
+            font-size: 26px;
+            background: white;
+            /* width: auto !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+             
+            
+            minimum-width: 640px !important;
+            display: inline-block !important;
+            */
+        }
+
+        .rotate {
+            /* Safari */
+            -webkit-transform: rotate(-90deg);
+            
+            /* Firefox */
+            -moz-transform: rotate(-90deg);
+            
+            /* IE */
+            -ms-transform: rotate(-90deg);
+            
+            /* Opera */
+            -o-transform: rotate(-90deg);
+            
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+        
+        </style>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <script type="text/javascript" src="./Speeding up the Web with PHP 7_files/jquery.min.js"></script>
+        <script src="./plugin/jquery/jquery.min.js"></script>
+        <script src="./plugin/highcharts/highcharts.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+<!-- *************************** -->
+<section>
+    <h1>Interface segregation</h1>
+    <h3>The forgotten i in SOLID</h3>
+    <p>
+        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+    </p>
+</section>
+
+<!-- *************************** -->
+<section>
+  <h2 class="spaceBottom">What is interface segregation?</h2>
+  <span style="height: 50%">&nbsp;</span>
+  <blockquote class="spaceBottom">
+      “Clients should not be forced to depend upon interfaces that they do not use.” - Bob Martin
+  </blockquote>
+  
+  
+  
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2 class="spaceBottom">What is <strike>interface segregation</strike> type specialization?</h2>
+  <span style="height: 50%">&nbsp;</span>
+  <blockquote class="spaceBottom">
+      “Parameters should be precise and semantically meaningful types.” - Dan Ackroyd
+  </blockquote>
+</section>
+
+
+<section class="centre embiggen">
+  <ul>
+    <li>Easier to test</li>
+    <li>Makes you more productive…</li>
+    <li class="fragment">…after doing some setup work</li>
+    <li class="fragment">More reasonable code</li>
+  </ul>
+</section>
+
+<!-- *************************** -->
+<section class="embiggen">
+    <table style="width: 100%;" class="embiggen">
+        <thead>
+        <tr>
+            <th>Reasonable</th>
+            <th style="height: 50px"><span>&nbsp;</span></th>
+            <th>Understandable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="fragment">
+            <td>Obvious from reading the code</td>
+            <td></td>
+            <td>Documentation / colleague can explain how it works</td>
+        </tr>
+        <tr class="fragment">
+            <td>Errors happen at start of execution</td>
+            <td></td>
+            <td>Errors can happen during middle of execution</td>
+        </tr>
+        <tr class="fragment">
+            <td>Simpler parts, more of them</td>
+            <td></td>
+            <td>Fewer parts, but more complex code</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+
+  
+<!-- *************************** -->
+<section>
+  <h2>Traditional interface segregation example</h2>
+    <pre class="danackCode spaceTop emlargen" data-trim><code class="php">
+use Psr\Http\Message\ServerRequestInterface as Request;
+      
+class SearchController
+{
+    function search(Request $request, ...)
+    {
+       ...
+    }
+}
+</code>
+</pre>
+</section>
+
+<!-- *************************** -->
+<section>
+<pre class="danackCode">
+<code class="php">
+interface ServerRequestInterface extends RequestInterface
+{
+    public function getServerParams();
+    public function getCookieParams();
+    public function withCookieParams(array $cookies);
+    public function getQueryParams();
+    public function withQueryParams(array $query);
+    public function getUploadedFiles();
+    public function withUploadedFiles(array $uploadedFiles);
+    public function getParsedBody();
+    public function withParsedBody($data);
+    public function getAttributes();
+    public function getAttribute($name, $default = null);
+    public function withAttribute($name, $value);
+    public function withoutAttribute($name);
+}
+
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+<pre class="danackCode emnormal">
+<code class="php">
+interface RequestInterface extends MessageInterface
+{
+    public function getRequestTarget();
+    public function withRequestTarget($requestTarget);
+    public function getMethod();
+    public function withMethod($method);
+    public function getUri();
+    public function withUri(UriInterface $uri, $preserveHost = false);
+}
+</code>
+</pre>
+</section>
+
+<!-- *************************** -->
+<section>
+<pre class="danackCode emnormal">
+<code class="php">
+interface MessageInterface
+{
+    public function getProtocolVersion();
+    public function withProtocolVersion($version);
+    public function getHeaders();
+    public function hasHeader($name);
+    public function getHeader($name);
+    public function getHeaderLine($name);
+    public function withHeader($name, $value);
+    public function withAddedHeader($name, $value);
+    public function withoutHeader($name);
+    public function getBody();
+    public function withBody(StreamInterface $body);
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Creating a mock ...?</h2>
+<pre class="danackCode emlargen">
+<code class="php">
+function testSearchController()
+{
+    $request = \Mockery::mock(Request::class)
+      ->shouldReceive(...)
+      ->andReturn(...)
+      ->getMock();
+ 
+   ???
+   ???
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<!--
+<section>
+  <h2>Back to the code</h2>
+  <p>The code is not easy to reason about...</p>
+  
+  <p>You need to inspect the body of the function to understand how the request is being used.</p>
+
+</section>
+-->
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode emnormal" data-trim><code class="php">
+class SearchController
+{
+    function search(Request $request, DataSource $dataSource)
+    {
+        $queryParams = $request->getQueryParams();
+        if (!array_key_exists('searchTerms', $queryParams)) {
+            throw new ParamsMissingException(...);
+        }
+
+        $searchTerms = $queryParams['searchTerms'];
+        $searchOptions = [];
+        $searchOptions['keywords'] = explode(',', $searchTerms);
+        return $dataSource->searchForItems($searchOptions);
+    }
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Extracting a type</h2>
+  <pre class="danackCode emnormal spaceTop" data-trim><code class="php">
+interface VariableMap
+{
+    /**
+     * @throws ParamMissingException
+     */
+    public function getVariable(string $variableName) : string;
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode" data-trim><code class="php">
+class PSR7VariableMap implements VariableMap
+{
+    private $serverRequest;
+
+    public function __construct(ServerRequestInterface $serverRequest)
+    {
+        $this->serverRequest = $serverRequest;
+    }
+
+    public function getVariable(string $variableName) : string
+    {
+        $queryParams = $this->serverRequest->getQueryParams();
+        if (array_key_exists($variableName, $queryParams)) {
+            $message = "Parameter [$variableName] is not available";
+            throw new ParamMissingException($message);    
+        }
+        
+        return $queryParams[$variableName];
+    }
+}
+</code>
+</pre>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Controller is now simpler</h2>
+  <pre class="danackCode emnormal" data-trim>
+<code class="php">
+class SearchController
+{
+    function search(DataSource $dataSource, VariableMap $variableMap)
+    {
+        $searchTermsString = $variableMap->getVariable('searchTerms');
+        $searchOptions = [];
+        $searchOptions['keywords'] = explode(',', $searchTerms);
+
+        return $dataSource->searchForItems($searchOptions);
+    }
+}
+</code>
+</pre>
+  <aside class="notes">
+    <ul>
+      <li>Controller is way simpler</li>
+      <li>...but we have more the components</li>
+    </ul>  
+  </aside>
+</section>
+
+<section>
+  <h2>I hate mocks</h2>
+  <ul>
+    <li>Mocks should only be used when you have to test behaviour</li>
+    <li>Stubs/fakes are much easier to use.</li>
+    <li>Stubs/fakes suffer from poor marketing...</li>
+  </ul>
+
+</section>
+
+<!-- *************************** -->
+<section>
+  <h2>Test implementations are equally valid</h2>
+  <pre class="danackCode" data-trim>
+<code class="php">
+class ArrayVariableMap implements VariableMap
+{
+    public function __construct(array $variables)
+    {  
+        $this->variables = $variables;
+    }
+
+    public function getVariable(string $variableName) : string
+    {
+        if (array_key_exists($variableName, $this->variables) == true) {
+            $message = "Parameter [$variableName] is not available";
+            throw new ParamMissingException($message);    
+        }
+
+        return $this->variables[$variableName];
+    }
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Testing this controller, success case</h2>
+<p>
+  rdlowrey/auryn makes it easier to write tests.
+</p>
+  
+<pre class="danackCode emnormal">
+<code class="php">
+function testSearchControllerWorks()
+{
+    $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
+    $injector = new Injector();
+    $injector->alias('VariableMap', get_class($varMap));
+    $injector->share($varMap);
+    // Setup DataSource stub/mock
+    $result = $injector->execute('SearchController::search');
+}
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Testing this controller, error case</h2>
+<pre class="danackCode emnormal">
+<code class="php">
+function testSearchControllerWorks()
+{
+    $variableMap = new ArrayVariableMap([]);
+    $injector = new Injector();
+    $injector->alias('VariableMap', get_class($variableMap));
+    $injector->share($request);
+    // Setup DataSource stub/mock
+    $this->setExpectedException('ParamMissingException');
+    $injector->execute('SearchController::search');
+}
+</code>
+</pre>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Benefits review</h2>
+  <ul>
+    <li>Controller re-usable with different HTTP library</li>
+    <li>Actually no longer tied to HTTP request, can be used by CLI scripts</li>
+    <li>Tests easier to write, as can use array implementation</li>
+    <li>Tests run faster</li>
+    <li class="fragment">Tests are easier to reason about</li>
+  </ul>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+  <ul>
+<li>J.B. Rainsberger - Integrated Tests Are A Scam
+http://vimeo.com/80533536</li>
+    
+    <li>Unit tests aren't what you think they are either</li>
+    
+</ul>
+
+</section>
+<!-- *************************** -->
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+<svg width="1200" height="800">
+  
+  <g class="current-visible">
+    <line x1="600" y1="120" x2="600" y2="320" style="stroke:rgb(0,0,0);stroke-width:3" />
+    <line x1="600" y1="420" x2="600" y2="620" style="stroke:rgb(0,0,0);stroke-width:2" />
+  </g>
+  
+  <rect x="180" y="300" width="840" height="140" style="fill:rgb(128,236,128);stroke-width:4;stroke:rgb(0,0,0)"   class="fragment current-visible" />
+  
+  <g class="fragment current-visible">
+    <rect x="200" y="120" width="800" height="200" style="fill:rgba(128,236,128, 1);stroke-width:0;stroke:rgba(0,0,0,0)" />
+
+    <line x1="200" y1="220" x2="1000" y2="220" stroke-dasharray="20,20" stroke-dashoffset="10" style="stroke:rgb(0,0,0);stroke-width:2" />
+  </g>
+  
+    <rect x="200" y="20" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="85" text-anchor="middle" fill="black">Front controller / dispatcher</text>
+    
+    <rect x="200" y="320" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="385" text-anchor="middle" fill="black">SearchController::search</text>
+
+    <rect x="200" y="620" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="685" text-anchor="middle" fill="black">DataSource::searchForItems</text>  
+</svg>
+
+</section>
+
+
+
+
+
+
+<!-- *************************** -->
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+<svg width="1200" height="800">
+
+    <rect x="200" y="105" width="800" height="415" style="fill:rgba(128,236,128, 1);stroke-width:0;stroke:rgba(0,0,0,0)" />
+  
+    <!-- <line x1="600" y1="105" x2="600" y2="620" style="stroke:rgb(0,0,0);stroke-width:2" /> --> 
+  
+    <rect x="200" y="5" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="70" text-anchor="middle" fill="black">Front controller / dispatcher</text>
+  
+    <!-- <line x1="600" y1="70" x2="600" y2="270" style="stroke:rgb(0,0,0);stroke-width:3" /> -->
+    
+    <line x1="0" y1="310" x2="1200" y2="310" stroke-dasharray="10,10" style="stroke:rgb(0,0,0);stroke-width:2" />
+  
+    <g class="fragment current-visible">
+  
+
+      
+    <rect x="50" y="160" width="1100" height="300" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+      
+      
+    <text x="80" y="205" fill="black" font-size="24px">interface Request {</text>  
+    <text x="80" y="425" fill="black" font-size="24px">}</text>
+  
+  
+    <g transform="translate(-130 -110)" >
+<text x="250" y="350" fill="black" font-size="24">
+    getServerParams()
+    getCookieParams()
+    withCookieParams(...)
+    getQueryParams()
+    getUri()
+</text>
+<text x="250" y="380" fill="black" font-size="24">
+    withQueryParams(...)
+    getUploadedFiles()
+    withUploadedFiles(...)
+    getParsedBody()
+    getHeaders()
+</text>
+<text x="250" y="410" fill="black" font-size="24">
+    withParsedBody(...)
+    getAttributes()
+    getAttribute(...)
+    withAttribute(...)
+    withoutAttribute(...)
+</text>
+<text x="250" y="440" fill="black" font-size="24">
+    getRequestTarget()
+    withRequestTarget(...)
+    getMethod()
+    withMethod(...)
+    getBody()
+</text>
+<text x="250" y="470" fill="black" font-size="24">
+    withUri(...)
+    getProtocolVersion()
+    withProtocolVersion(...) 
+    withHeader(...)
+    withoutHeader(...)
+</text>
+<text x="250" y="500" fill="black" font-size="24">
+    withAddedHeader(...)
+    hasHeader(...)
+    getHeader(...)
+    getHeaderLine(...)
+    withBody(...)
+</text>
+  </g>
+  
+  </g>
+    
+  
+    <g class="fragment current-visible">  
+      <rect x="350" y="250" width="500" height="110" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />  
+      <text x="380" y="285" fill="black" font-size="24px">interface VariableMap {</text>  
+      <text x="420" y="320" fill="black" font-size="24">
+        function getVariable($variableName);
+      </text>
+      <text x="380" y="345" fill="black" font-size="24px">}</text>
+    </g>
+  
+    <rect x="200" y="520" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="585" text-anchor="middle" fill="black">SearchController::search</text>
+
+    <line x1="600" y1="620" x2="600" y2="720" style="stroke:rgb(0,0,0);stroke-width:2" />
+
+    <rect x="200" y="670" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="735" text-anchor="middle" fill="black">DataSource::searchForItems</text>  
+</svg>
+
+</section>
+
+
+
+<!-- 
+<section>
+<pre class="danackCode spaceTop embiggen" data-trim>
+<code class="php">
+interface DataSource
+{
+    function search(array $searchOptions);
+}
+</code>
+</pre>
+</section>
+
+-->
+
+
+
+
+<section>
+<h2>Type specialization</h2>
+  
+<p>The array of 'search options' isn't particularly semantically meaningful</p>
+</section>
+
+
+
+
+<section>
+<pre class="danackCode spaceTop emnormal" data-trim>
+<code class="php">
+class SearchController
+{
+    function search(DataSource $dataSource, VariableMap $variableMap)
+    {
+        $searchTerms = $variableMap->getVariable('searchTerms');
+        $searchOptions = [];
+        $searchOptions['keywords'] = explode(',', $searchTerms);
+        $searchOptions['limite'] = 50;
+  
+        return $dataSource->searchForItems($searchOptions);
+    }
+}
+</code>
+</pre>
+</section>
+
+
+<section>
+<pre class="danackCode spaceTop" data-trim>
+<code class="php">
+class SearchOptions
+{
+    public $keywords;
+    public $limit;
+
+    public function __construct(array $keywords, int $limit = 1000)
+    {
+        foreach ($keywords as $keyword) {
+            if (is_string($keyword) === false) {
+                $message = "Type ".gettype($keyword)." not allowed";
+                throw new InvalidArgumentException($message);
+            }
+        }
+  
+        $this->keywords = $keywords;
+        $this->limit = $limit;
+    }
+}
+</code>
+</pre>
+</section>
+
+<!--
+
+interface DataSource
+{
+    function search(SearchOptions $searchOptions);
+}
+
+-->
+
+<!-- *************************** -->
+<section>
+<pre class="danackCode spaceTop emnormal" data-trim>
+<code class="php">
+class SearchController
+{
+    function search(DataSource $dataSource)
+    {
+        $searchTerms = $variableMap->getVariable('searchTerms'); 
+        $searchOptions = new SearchOptions($searchTerms, 50);
+  
+        return $dataSource->search($searchOptions);
+    }
+}  
+</code>
+</pre>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Use semantically meaningful types</h2>
+  <pre class="danackCode spaceTop emnormal" data-trim>
+<code class="php">function writeTempFile(string $tmpPath)
+{
+    ...
+    file_put_contents($tmpPath.'/foo.txt', $data);
+    ...
+}</code>
+<code class="php fragment">
+function writeImageTempFile(string $tmpPath)
+{
+    ...
+    file_put_contents($tmpPath.'/foo.png', $imageData);
+    ...
+}
+</code>
+</pre>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode spaceTop emnormal" data-trim>
+<code class="php">
+class TmpPath
+{
+    private $path;
+
+    public function __construct(string $tmpPath)
+    {
+        $this->path = $tmpPath;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+}
+  </code>
+</pre>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Use semantically meaningful types</h2>
+  <pre class="danackCode spaceTop emnormal" data-trim>
+<code class="php">
+function writeTempFile(TmpPath $tmpPath) {
+    ...
+    file_put_contents($tmpPath->getPath().'/foo.txt', $data);
+    ...
+}
+
+function writeImageTempFile(TmpPath $tmpPath)
+{
+    ...
+    file_put_contents($tmpPath->getPath().'/foo.png', $imageData);
+    ...
+}
+</code>
+</pre>
+</section>
+
+  
+<!-- *************************** -->
+<section>
+  <h2>Delegation in rdlowrey/auryn is lovely</h2>
+  <pre class="danackCode spaceTop emlargen" data-trim>
+<code class="php">
+  // In bootstrap.php
+  
+  $injector->share(new TmpPath(__DIR__.'/var/temp'));
+</code>
+</pre>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h1>Psychological aspects of programming</h1>
+    <h3>The chase for Endorphins</h3>
+    <p>
+        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+    </p>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>How does this code make you feel?</h2>
+  <pre class="danackCode" data-trim>
+<code class="php">
+class ArrayVariableMap implements VariableMap
+{
+    public function __construct(array $variables)
+    {  
+        $this->variables = $variables;
+    }
+
+    public function getVariable(string $variableName) : string
+    {
+        if (array_key_exists($variableName, $this->variables) == true) {
+            $message = "Parameter [$variableName] is not available";
+            throw new ParamMissingException($message);    
+        }
+
+        return $this->variables[$variableName];
+    }
+}
+</code>
+</pre>
+</section>
+
+
+
+<section>
+  <h2>Terminology sculpts cognition</h2>
+  <p>
+    English is a shitty language - a lack of 'cleverness' does not imply a negative thing.
+  </p>
+  <p>
+    Is the ArrayVariableMap class clever? Nope.
+  </p>
+  <p>
+    This code is boring....
+  </p>
+
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h1 class="embiggen finale">Fin</h1>
+  <ul>
+    <li>Use interfaces with only the required methods</li>
+    <li>Use semantically meaningful types</li>
+    <li>Questions?</li>
+  </ul>
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/true_neutral.jpg" />
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+    </blockquote>
+</section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: false,
+                history: true,
+                center: true,
+                width: 1400,
+                height: 800,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.08,
+                slideNumber: true,
+                //transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'none', 
+                //transitionSpeed: "slow",
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+            
+            
+            /* This draws the graph on the slide on a slidechanged event */
+            Reveal.addEventListener('slidechanged', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            } );
+            /* This draws the graph if we got here directly without coming from another slide */
+            Reveal.addEventListener('ready', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            });
+        </script>
+    </body>
+</html>
