@@ -102,7 +102,8 @@ based on dark.css by Ivan Sagalaev
 .hljs-template_comment,
 .hljs-pi,
 .hljs-doctype {
-  color: #7F9F7F;
+  /* color: #7F9F7F; */
+  color: #83D383;
 }
 
 .coffeescript .javascript,
@@ -115,3 +116,9 @@ based on dark.css by Ivan Sagalaev
   opacity: 0.5;
 }
 
+.reveal pre {
+  background-color: #3F3F3F;
+}
+pre, .danackCode {
+  background-color: #3F3F3F;
+}

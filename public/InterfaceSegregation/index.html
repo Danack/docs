@@ -14,16 +14,19 @@
 
         <link rel="stylesheet" href="css/reveal.css">
         <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
-        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="theme">
-        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststyle">
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="themecss">
+        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss">
 
+      
         <style type="text/css">
         /* overrides */
+        
+
         body {
             background: #a8fcfc;
             /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
             background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
-            background: -webkit-radial-gradient(center, circle cover, #efefef 45%, #b7b7b7 75%);
+            background: -webkit-radial-gradient(center, circle cover, #f2f3ff 45%, rgba(36, 133, 245, 0.21) 75%);
             /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
             background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
             /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
@@ -43,17 +46,13 @@
             padding-right: 20px;
             padding-top: 20px;
             padding-bottom: 20px;
+          
+            box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7);
         }
-        /*.reveal pre code {
-            max-height: 600px;
-        }*/
-
-        .light {
-            color: #efefef !important;
-            background-color: #1f1f1f;
-            padding: 40px !important;
-        }
-
+        
+  
+        
+        
         .spaceTop {
             margin-top: 50px !important;
         }
@@ -104,20 +103,11 @@
         }
         
         blockquote {
-            background-color: #ffffff !important;
+            background-color: #f5f5f5;
         }
             
         pre, .danackCode {
             font-size: 26px;
-            background: white;
-            /* width: auto !important;
-            margin-left: 0px !important;
-            margin-right: 0px !important;
-             
-            
-            minimum-width: 640px !important;
-            display: inline-block !important;
-            */
         }
 
         .rotate {
@@ -147,41 +137,33 @@
             link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
             document.getElementsByTagName( 'head' )[0].appendChild( link );
         </script>
-
-        <script type="text/javascript" src="./Speeding up the Web with PHP 7_files/jquery.min.js"></script>
         <script src="./plugin/jquery/jquery.min.js"></script>
-        <script src="./plugin/highcharts/highcharts.js"></script>
-
-        <!--[if lt IE 9]>
-        <script src="lib/js/html5shiv.js"></script>
-        <![endif]-->
     </head>
 
     <body>
-
-        <div class="reveal">
-
-            <div class="slides">
+      <div class="reveal">
+        <div class="slides">
 
 <!-- *************************** -->
 <section>
     <h1>Interface segregation</h1>
     <h3>The forgotten i in SOLID</h3>
     <p>
-        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+        <a href="http://twitter.com/MrDanack">@MrDanack</a>
     </p>
+    <p class="subtle">
+        <small>Press 'c' to toggle code style</small>
+    </p>
+  
 </section>
 
 <!-- *************************** -->
 <section>
   <h2 class="spaceBottom">What is interface segregation?</h2>
   <span style="height: 50%">&nbsp;</span>
-  <blockquote class="spaceBottom">
+  <blockquote class="spaceBottom embiggen">
       “Clients should not be forced to depend upon interfaces that they do not use.” - Bob Martin
   </blockquote>
-  
-  
-  
 </section>
 
 
@@ -189,7 +171,7 @@
 <section>
   <h2 class="spaceBottom">What is <strike>interface segregation</strike> type specialization?</h2>
   <span style="height: 50%">&nbsp;</span>
-  <blockquote class="spaceBottom">
+  <blockquote class="spaceBottom embiggen">
       “Parameters should be precise and semantically meaningful types.” - Dan Ackroyd
   </blockquote>
 </section>
@@ -322,8 +304,8 @@ interface MessageInterface
 <!-- *************************** -->
 <section>
     <h2>Creating a mock ...?</h2>
-<pre class="danackCode emlargen">
-<code class="php">
+<pre class="danackCode emlargen" data-trim>
+<code class="php" data-trim>
 function testSearchController()
 {
     $request = \Mockery::mock(Request::class)
@@ -333,9 +315,7 @@ function testSearchController()
  
    ???
    ???
-}
-</code>
-</pre>
+}</code></pre>
 </section>
 
 
@@ -352,7 +332,8 @@ function testSearchController()
 
 <!-- *************************** -->
 <section>
-  <pre class="danackCode emnormal" data-trim><code class="php">
+  <pre class="danackCode emnormal" data-trim>
+<code class="php" data-trim>
 class SearchController
 {
     function search(Request $request, DataSource $dataSource)
@@ -368,8 +349,7 @@ class SearchController
         return $dataSource->searchForItems($searchOptions);
     }
 }
-</code>
-</pre>
+</code></pre>
 </section>
 
 
@@ -391,7 +371,8 @@ interface VariableMap
 
 <!-- *************************** -->
 <section>
-  <pre class="danackCode" data-trim><code class="php">
+  <pre class="danackCode" data-trim>
+    <code class="php" data-trim>
 class PSR7VariableMap implements VariableMap
 {
     private $serverRequest;
@@ -445,7 +426,7 @@ class SearchController
 </section>
 
 <section>
-  <h2>I hate mocks</h2>
+  <h2>I <strike>hate</strike> strongly dislike mocks</h2>
   <ul>
     <li>Mocks should only be used when you have to test behaviour</li>
     <li>Stubs/fakes are much easier to use.</li>
@@ -564,7 +545,7 @@ http://vimeo.com/80533536</li>
   <g class="fragment current-visible">
     <rect x="200" y="120" width="800" height="200" style="fill:rgba(128,236,128, 1);stroke-width:0;stroke:rgba(0,0,0,0)" />
 
-    <line x1="200" y1="220" x2="1000" y2="220" stroke-dasharray="20,20" stroke-dashoffset="10" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <!-- <line x1="200" y1="220" x2="1000" y2="220" stroke-dasharray="20,20" stroke-dashoffset="10" style="stroke:rgb(0,0,0);stroke-width:2" /> -->
   </g>
   
     <rect x="200" y="20" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
@@ -597,7 +578,7 @@ http://vimeo.com/80533536</li>
   
     <!-- <line x1="600" y1="70" x2="600" y2="270" style="stroke:rgb(0,0,0);stroke-width:3" /> -->
     
-    <line x1="0" y1="310" x2="1200" y2="310" stroke-dasharray="10,10" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <!-- <line x1="0" y1="310" x2="1200" y2="310" stroke-dasharray="10,10" style="stroke:rgb(0,0,0);stroke-width:2" /> -->
   
     <g class="fragment current-visible">
   
@@ -676,6 +657,10 @@ http://vimeo.com/80533536</li>
     <text x="600" y="735" text-anchor="middle" fill="black">DataSource::searchForItems</text>  
 </svg>
 
+  
+  <p>
+    Key is minimizing coupling surface
+  </p>
 </section>
 
 
@@ -806,7 +791,7 @@ function writeImageTempFile(string $tmpPath)
 <!-- *************************** -->
 <section>
   <pre class="danackCode spaceTop emnormal" data-trim>
-<code class="php">
+<code class="php" data-trim>
 class TmpPath
 {
     private $path;
@@ -821,8 +806,7 @@ class TmpPath
         return $this->path;
     }
 }
-  </code>
-</pre>
+</code></pre>
 </section>
 
 
@@ -833,8 +817,9 @@ class TmpPath
 <section>
   <h2>Use semantically meaningful types</h2>
   <pre class="danackCode spaceTop emnormal" data-trim>
-<code class="php">
-function writeTempFile(TmpPath $tmpPath) {
+<code class="php" data-trim>
+function writeTempFile(TmpPath $tmpPath)
+{
     ...
     file_put_contents($tmpPath->getPath().'/foo.txt', $data);
     ...
@@ -846,8 +831,7 @@ function writeImageTempFile(TmpPath $tmpPath)
     file_put_contents($tmpPath->getPath().'/foo.png', $imageData);
     ...
 }
-</code>
-</pre>
+</code></pre>
 </section>
 
   
@@ -879,9 +863,8 @@ function writeImageTempFile(TmpPath $tmpPath)
 
 <!-- *************************** -->
 <section>
-  <h2>How does this code make you feel?</h2>
-  <pre class="danackCode" data-trim>
-<code class="php">
+  <h2>How does this code make you feel?</h2>  
+  <pre class="danackCode" data-trim><code class="php" data-trim>
 class ArrayVariableMap implements VariableMap
 {
     public function __construct(array $variables)
@@ -899,8 +882,7 @@ class ArrayVariableMap implements VariableMap
         return $this->variables[$variableName];
     }
 }
-</code>
-</pre>
+</code></pre>
 </section>
 
 
@@ -908,13 +890,13 @@ class ArrayVariableMap implements VariableMap
 <section>
   <h2>Terminology sculpts cognition</h2>
   <p>
-    English is a shitty language - a lack of 'cleverness' does not imply a negative thing.
+    English is a crappy language - a lack of 'cleverness' does not imply a negative thing.
   </p>
   <p>
     Is the ArrayVariableMap class clever? Nope.
   </p>
   <p>
-    This code is boring....
+    This code is boring....but "not clever" does not imply bad.
   </p>
 
 </section>
@@ -924,7 +906,7 @@ class ArrayVariableMap implements VariableMap
 <section>
   <h1 class="embiggen finale">Fin</h1>
   <ul>
-    <li>Use interfaces with only the required methods</li>
+    <li>Use interfaces/classes with only the required methods</li>
     <li>Use semantically meaningful types</li>
     <li>Questions?</li>
   </ul>
@@ -992,6 +974,114 @@ class ArrayVariableMap implements VariableMap
                     window[callback]();
                 }
             });
+
+var createFunc = function() {
+  var counter = 0;
+    return function(e) {
+      counter = (counter + 1);// % 1;
+      
+      var themeCSSList = [
+        "css/theme/whiteDanack.css",
+        "css/theme/beige.css",
+        "css/theme/black.css",
+        "css/theme/blood.css",
+        "css/theme/league.css",
+        "css/theme/moon.css",
+        "css/theme/night.css",
+        "css/theme/serif.css",
+        "css/theme/simple.css",
+        "css/theme/sky.css",
+        "css/theme/solarized.css",
+      ];
+      
+      var codeCSSList = [
+        "lib/css/agate.css",
+"lib/css/androidstudio.css",
+"lib/css/arta.css",
+"lib/css/ascetic.css",
+"lib/css/atelier-cave.dark.css",
+"lib/css/atelier-cave.light.css",
+"lib/css/atelier-dune.dark.css",
+"lib/css/atelier-dune.light.css",
+"lib/css/atelier-estuary.dark.css",
+"lib/css/atelier-estuary.light.css",
+"lib/css/atelier-forest.dark.css",
+"lib/css/atelier-forest.light.css",
+"lib/css/atelier-heath.dark.css",
+"lib/css/atelier-heath.light.css",
+"lib/css/atelier-lakeside.dark.css",
+"lib/css/atelier-lakeside.light.css",
+"lib/css/atelier-plateau.dark.css",
+"lib/css/atelier-plateau.light.css",
+"lib/css/atelier-savanna.dark.css",
+"lib/css/atelier-savanna.light.css",
+"lib/css/atelier-seaside.dark.css",
+"lib/css/atelier-seaside.light.css",
+"lib/css/atelier-sulphurpool.dark.css",
+"lib/css/atelier-sulphurpool.light.css",
+"lib/css/brown_paper.css",
+"lib/css/codepen-embed.css",
+"lib/css/color-brewer.css",
+"lib/css/dark.css",
+"lib/css/darkula.css",
+"lib/css/default.css",
+"lib/css/docco.css",
+"lib/css/far.css",
+"lib/css/foundation.css",
+"lib/css/github.css",
+"lib/css/github-gist.css",
+"lib/css/googlecode.css",
+"lib/css/hybrid.css",
+"lib/css/idea.css",
+"lib/css/ir_black.css",
+"lib/css/kimbie.dark.css",
+"lib/css/kimbie.light.css",
+"lib/css/magula.css",
+"lib/css/mono-blue.css",
+"lib/css/monokai.css",
+"lib/css/monokai_sublime.css",
+"lib/css/obsidian.css",
+"lib/css/paraiso.dark.css",
+"lib/css/paraiso.light.css",
+"lib/css/pojoaque.css",
+"lib/css/railscasts.css",
+"lib/css/rainbow.css",
+"lib/css/school_book.css",
+"lib/css/solarized_dark.css",
+"lib/css/solarized_light.css",
+"lib/css/sunburst.css",
+"lib/css/tomorrow.css",
+"lib/css/tomorrow-night-blue.css",
+"lib/css/tomorrow-night-bright.css",
+"lib/css/tomorrow-night.css",
+"lib/css/tomorrow-night-eighties.css",
+"lib/css/vs.css",
+"lib/css/xcode.css",
+"lib/css/zenburn_backup.css",
+"lib/css/zenburn.css"
+      ];
+      
+      var codeCSSList = [
+         "lib/css/vsdanack.css",
+         //"lib/css/docco.css",
+         //"lib/css/hybrid.css",
+         //"lib/css/railscasts.css",
+         "lib/css/zenburn_backup.css",
+         //"lib/css/zenburn_ocramius.css",
+      ];
+
+      if(e.which == 67 || e.which == 99) { //'c'
+//        var theme = themeCSSList[counter % themeCSSList.length];
+//        $("#themecss").attr('href', theme);
+
+        var codestyle = codeCSSList[counter % codeCSSList.length];
+        $("#codeststylecss").attr('href', codestyle);
+        $("#debug").text(codestyle);
+      }
+    };
+};
+
+          $(window).keypress(createFunc());
         </script>
     </body>
 </html>
