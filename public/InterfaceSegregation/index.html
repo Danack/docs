@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="css/reveal.css">
         <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
         <link rel="stylesheet" href="css/theme/whiteDanack.css" id="themecss">
-        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss">
-
+        <!-- <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss"> -->
+        <link rel="stylesheet" href="lib/css/zenburn_backup.css" id="codeststylecss">
       
         <style type="text/css">
         /* overrides */
@@ -151,7 +151,7 @@
     <p>
         <a href="http://twitter.com/MrDanack">@MrDanack</a>
     </p>
-    <p class="subtle">
+    <p class="subtle" style="padding-top: 100px">
         <small>Press 'c' to toggle code style</small>
     </p>
   
@@ -505,15 +505,14 @@ function testSearchControllerWorks()
 </section>
 
 
-
 <!-- *************************** -->
 <section>
   <h2>Benefits review</h2>
   <ul>
-    <li>Controller re-usable with different HTTP library</li>
-    <li>Actually no longer tied to HTTP request, can be used by CLI scripts</li>
-    <li>Tests easier to write, as can use array implementation</li>
-    <li>Tests run faster</li>
+    <li class="fragment">Controller re-usable with different HTTP library</li>
+    <li class="fragment">Actually no longer tied to HTTP request, can be used by CLI scripts</li>
+    <li class="fragment">Tests easier to write, as can use array implementation</li>
+    <li class="fragment">Tests run faster</li>
     <li class="fragment">Tests are easier to reason about</li>
   </ul>
 </section>
@@ -521,15 +520,10 @@ function testSearchControllerWorks()
 
 <!-- *************************** -->
 <section>
-
   <ul>
-<li>J.B. Rainsberger - Integrated Tests Are A Scam
-http://vimeo.com/80533536</li>
-    
+    <li>J.B. Rainsberger - Integrated Tests Are A Scam http://vimeo.com/80533536</li>
     <li>Unit tests aren't what you think they are either</li>
-    
-</ul>
-
+  </ul>
 </section>
 <!-- *************************** -->
 <section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
@@ -889,16 +883,21 @@ class ArrayVariableMap implements VariableMap
 
 <section>
   <h2>Terminology sculpts cognition</h2>
-  <p>
-    English is a crappy language - a lack of 'cleverness' does not imply a negative thing.
-  </p>
-  <p>
-    Is the ArrayVariableMap class clever? Nope.
-  </p>
-  <p>
-    This code is boring....but "not clever" does not imply bad.
-  </p>
-
+  <ul>
+    <li>
+      English is a crappy language - a lack of 'cleverness' does not imply a negative thing.
+    </li>
+    <li>
+      Is the ArrayVariableMap class clever? Nope.
+    </li>
+    <li>
+      This code is boring....but "not clever" does not imply bad.
+    </li>
+    <li>
+      This is a real problem.
+    </li>
+  </ul>
+    
 </section>
 
 
@@ -995,79 +994,8 @@ var createFunc = function() {
       ];
       
       var codeCSSList = [
-        "lib/css/agate.css",
-"lib/css/androidstudio.css",
-"lib/css/arta.css",
-"lib/css/ascetic.css",
-"lib/css/atelier-cave.dark.css",
-"lib/css/atelier-cave.light.css",
-"lib/css/atelier-dune.dark.css",
-"lib/css/atelier-dune.light.css",
-"lib/css/atelier-estuary.dark.css",
-"lib/css/atelier-estuary.light.css",
-"lib/css/atelier-forest.dark.css",
-"lib/css/atelier-forest.light.css",
-"lib/css/atelier-heath.dark.css",
-"lib/css/atelier-heath.light.css",
-"lib/css/atelier-lakeside.dark.css",
-"lib/css/atelier-lakeside.light.css",
-"lib/css/atelier-plateau.dark.css",
-"lib/css/atelier-plateau.light.css",
-"lib/css/atelier-savanna.dark.css",
-"lib/css/atelier-savanna.light.css",
-"lib/css/atelier-seaside.dark.css",
-"lib/css/atelier-seaside.light.css",
-"lib/css/atelier-sulphurpool.dark.css",
-"lib/css/atelier-sulphurpool.light.css",
-"lib/css/brown_paper.css",
-"lib/css/codepen-embed.css",
-"lib/css/color-brewer.css",
-"lib/css/dark.css",
-"lib/css/darkula.css",
-"lib/css/default.css",
-"lib/css/docco.css",
-"lib/css/far.css",
-"lib/css/foundation.css",
-"lib/css/github.css",
-"lib/css/github-gist.css",
-"lib/css/googlecode.css",
-"lib/css/hybrid.css",
-"lib/css/idea.css",
-"lib/css/ir_black.css",
-"lib/css/kimbie.dark.css",
-"lib/css/kimbie.light.css",
-"lib/css/magula.css",
-"lib/css/mono-blue.css",
-"lib/css/monokai.css",
-"lib/css/monokai_sublime.css",
-"lib/css/obsidian.css",
-"lib/css/paraiso.dark.css",
-"lib/css/paraiso.light.css",
-"lib/css/pojoaque.css",
-"lib/css/railscasts.css",
-"lib/css/rainbow.css",
-"lib/css/school_book.css",
-"lib/css/solarized_dark.css",
-"lib/css/solarized_light.css",
-"lib/css/sunburst.css",
-"lib/css/tomorrow.css",
-"lib/css/tomorrow-night-blue.css",
-"lib/css/tomorrow-night-bright.css",
-"lib/css/tomorrow-night.css",
-"lib/css/tomorrow-night-eighties.css",
-"lib/css/vs.css",
-"lib/css/xcode.css",
-"lib/css/zenburn_backup.css",
-"lib/css/zenburn.css"
-      ];
-      
-      var codeCSSList = [
-         "lib/css/vsdanack.css",
-         //"lib/css/docco.css",
-         //"lib/css/hybrid.css",
-         //"lib/css/railscasts.css",
-         "lib/css/zenburn_backup.css",
-         //"lib/css/zenburn_ocramius.css",
+        "lib/css/zenburn_backup.css",
+        "lib/css/vsdanack.css",
       ];
 
       if(e.which == 67 || e.which == 99) { //'c'

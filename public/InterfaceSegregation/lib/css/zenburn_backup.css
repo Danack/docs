@@ -7,7 +7,7 @@ based on dark.css by Ivan Sagalaev
 
 .hljs {
   display: block; padding: 0.5em;
-  background: #3F3F3F;
+  background: #292929;
   color: #DCDCDC;
 }
 
@@ -117,8 +117,8 @@ based on dark.css by Ivan Sagalaev
 }
 
 .reveal pre {
-  background-color: #3F3F3F;
+  background: #292929;
 }
 pre, .danackCode {
-  background-color: #3F3F3F;
+  background: #292929;
 }
