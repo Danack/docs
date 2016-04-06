@@ -20,7 +20,7 @@
         "oyejorge/less.php": "v1.7.0.1",
         "danack/tier": "^0.5.0",
         "room11/caching": "^0.0.4",
-        "room11/http": "^0.1.2"
+        "room11/http": "^0.2.1"
     },
     "autoload": {
         "psr-0": {
