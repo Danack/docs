@@ -86,6 +86,13 @@
             text-align: center !important;
             /* margin-bottom: 148px !important; */
         }
+        .speaker-controls-notes > ul, 
+        .speaker-controls-notes ul, 
+        .notes > ul,
+        .notes  ul{
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
         
         .centre {
             text-align: center !important;
@@ -154,12 +161,14 @@
         <a href="http://twitter.com/MrDanack">@MrDanack</a>
     </p>
     <p class="subtle" style="padding-top: 100px">
-        <small>Press 'c' to toggle code style</small>
+      <small>Press 'c' to toggle code style</small><br/>
+      <small>Press 's' for speaker notes</small>
     </p>
   
 </section>
 
 <!-- *************************** -->
+<!-- 
 <section>
   <h2 class="spaceBottom">Question Policy</h2>
   <p>
@@ -167,14 +176,20 @@
   </p>
 </section>
 
+-->
+
 
 <!-- *************************** -->
 <section>
   <h2 class="spaceBottom">What is interface segregation?</h2>
   <span style="height: 50%">&nbsp;</span>
   <blockquote class="spaceBottom embiggen">
-      “Clients should not be forced to depend upon interfaces that they do not use.” - Bob Martin
+      “many client-specific interfaces are better than one general-purpose interface.”
   </blockquote>
+  
+  <aside class="notes">
+   The idea is simple instead of passing around big objects, we create small interface that has a more specific meaning.
+  </aside>
 </section>
 
 
@@ -186,6 +201,8 @@
     <li class="fragment">…after doing some setup work</li>
     <li class="fragment">More reasonable code</li>
   </ul>
+  
+  
 </section>
 
 <!-- *************************** -->
@@ -216,6 +233,15 @@
         </tr>
         </tbody>
     </table>
+  
+  <aside class="notes">
+  <p>
+    Sorry to everyone who's seen this slide before - the concept is important
+  </p>
+  <p>
+    These two things are not the same - they don't compete with each other, but I think making code be easy to reason about, is more important than making code be just understandable. 
+  </p>
+  </aside>
 </section>
 
 
@@ -235,6 +261,15 @@ class SearchController
 }
 </code>
 </pre>
+  
+    <aside class="notes">
+  <p>
+    We have a SearchController - one of the parameters it needs to run is a PSR7 Request object.
+  </p>
+  <p>Without being able to see the code inside the function, can you tell how the Request object is being used?</p>
+      <p>Does it help if I show you the methods that are defined for Request objects?</p>
+  </aside>
+  
 </section>
 
 <!-- *************************** -->
@@ -260,6 +295,16 @@ interface ServerRequestInterface extends RequestInterface
 
 </code>
 </pre>
+  
+  <aside class="notes">
+    <p>
+      Lets have a look at it.
+    </p>
+    <p>
+      Hmm, it has a lot of methods - oh it also extends another interface
+    </p>
+  </aside>
+  
 </section>
 
 
@@ -278,6 +323,11 @@ interface RequestInterface extends MessageInterface
 }
 </code>
 </pre>
+    <aside class="notes">
+    <p>
+      Hmm, that also has a few methods on it, and extends another interface...
+    </p>
+  </aside>
 </section>
 
 <!-- *************************** -->
@@ -300,6 +350,19 @@ interface MessageInterface
 }
 </code>
 </pre>
+  
+      <aside class="notes">
+    <p>
+      Hmm, that also has a few methods on it, and extends another interface...
+    </p>
+  </aside>
+  
+  <aside class="notes">
+    <p>
+      Which also has quite a few method on it...
+    </p>
+  </aside>
+  
 </section>
 
 
@@ -318,6 +381,19 @@ function testSearchController()
    ???
    ???
 }</code></pre>
+  
+  <aside class="notes">
+
+    <p>
+      Ok - but now you've seen all the methods that are available for requests objects, you should be able to know how to create a mock for the object for a unit test... 
+    </p>
+    <p>
+      Or not....even knowing all of the methods on the object, it doesn't help you reason about the code.
+    </p>
+    <p>
+      Instead you must read the actual code to know how it's being used.
+    </p>
+  </aside>
 </section>
 
 
@@ -352,6 +428,18 @@ class SearchController
     }
 }
 </code></pre>
+  
+  <aside class="notes">
+    <p>
+      So this is how the request object is being used.
+    </p>
+    <p>Just getting th query params and pulling a value out, or throwing an exception if it's not set</p>
+    <p>
+      Lets extract an interface!
+    </p>
+  </aside>
+  
+  
 </section>
 
 
@@ -368,6 +456,11 @@ interface VariableMap
 }
 </code>
 </pre>
+    <aside class="notes">
+    <p>
+      The extracted interface is very small, which is nice as it's very reasonable.
+    </p>
+  </aside>
 </section>
 
 
@@ -398,8 +491,30 @@ class PSR7VariableMap implements VariableMap
 }
 </code>
 </pre>
+  <aside class="notes">
+    <p>
+      Create an implementation for PSR7, which very simply implements the interface.
+    </p>
+  </aside>
 </section>
 
+<section>
+  <h2>Setup in dependency container</h2>
+  <p>
+    Use rdlowrey/auryn...it's awesome. Or use the Symfony one if you have a Symfony app
+  </p>
+  <pre class="danackCode emlargen" data-trim>
+<code class="php">
+    // In bootstrap.php
+    $injector->alias('VariableMap', 'PSR7VariableMap');
+</code>
+  </pre>
+  <aside class="notes">
+    <p>
+      Tell your app to use it. This is simple when using Auryn.
+    </p>
+  </aside>
+</section>
 
 
 <!-- *************************** -->
@@ -432,7 +547,7 @@ class SearchController
   <h2>I <strike>hate</strike> strongly dislike mocks</h2>
   <ul>
     <li>Mocks should only be used when you have to test behaviour</li>
-    <li>Stubs/fakes are much easier to use.</li>
+    <li>Stubs/fakes are much easier to use</li>
     <li>Stubs/fakes suffer from poor marketing...</li>
   </ul>
 
@@ -440,7 +555,7 @@ class SearchController
 
 <!-- *************************** -->
 <section>
-  <h2>Test implementations are equally valid</h2>
+  <h2>Other implementations are equally valid</h2>
   <pre class="danackCode" data-trim>
 <code class="php">
 class ArrayVariableMap implements VariableMap
@@ -462,34 +577,85 @@ class ArrayVariableMap implements VariableMap
 }
 </code>
 </pre>
+   <aside class="notes">
+    <p>
+      Implementation based on array is equally valid and allows us to test easily.
+    </p>
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+
+  <section>
+    <h2>Testing this controller, success case</h2>
+  <pre class="danackCode emnormal">
+  <code class="php">
+  function testSearchControllerWorks()
+  {
+      $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
+      // EchoDataSource just returns the keywords searched
+      $dataSource = new EchoDataSource(); 
+
+      $controller = new SearchController();
+      $result = $controller->search($varMap, $dataSource);
+      $this->assertEquals(['foo', 'bar'], $result);
+  }
+  </code>
+  </pre>
+    
+    <aside class="notes">
+      Because the Array implementation is simple to create, it's a lot easier to use that than trying to mock the Request object. 
+    </aside>
+    
+  </section>
+
+  <section>
+      <h2>Testing this controller, success case</h2>
+  <p>
+    rdlowrey/auryn makes it easier to write tests.
+  </p>
+    
+  <pre class="danackCode emnormal">
+  <code class="php">
+  function testSearchControllerWorks()
+  {
+      $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
+      $injector = createTestInjector(
+          [VariableMap::class => $varMap],
+          [DataSource::class => EchoDataSource::class]
+      );
+      $result = $injector->execute([SearchController::class, 'search']);
+      $this->assertEquals(['foo', 'bar'], $result);
+  }
+  </code>
+  </pre>
+  </section>
+
 </section>
 
 
 <!-- *************************** -->
 <section>
-    <h2>Testing this controller, success case</h2>
-<p>
-  rdlowrey/auryn makes it easier to write tests.
-</p>
+  <section>
+    <h2>Testing this controller, error case</h2>
+  <pre class="danackCode emnormal">
+  <code class="php">
+  function testSearchControllerException()
+  {
+      $varMap = new ArrayVariableMap([]);
+      $dataSource = new EchoDataSource();
+
+      $controller = new SearchController();
+      $this->setExpectedException('ParamMissingException');
+      $controller->search($varMap, $dataSource);
+  }
+  </code>
+  </pre>
+  </section>
   
-<pre class="danackCode emnormal">
-<code class="php">
-function testSearchControllerWorks()
-{
-    $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
-    $injector = createTestInjector(
-        [VariableMap::class => $varMap],
-        [DataSource::class => EchoDataSource::class]
-    );
-    $result = $injector->execute([SearchController::class, 'search']);
-    $this->assertEquals(['foo', 'bar'], $result);
-}
-</code>
-</pre>
-</section>
-
-
-<!-- *************************** -->
 <section>
   <h2>Testing this controller, error case</h2>
 <pre class="danackCode emnormal">
@@ -507,6 +673,7 @@ function testSearchControllerException()
 </code>
 </pre>
 </section>
+</section>
 
 
 <!-- *************************** -->
@@ -519,12 +686,21 @@ function testSearchControllerException()
     <li class="fragment">Tests run faster</li>
     <li class="fragment">Tests are easier to reason about</li>
   </ul>
+  
+  <aside class="notes">
+   <ul>
+     
+     
+     <li>Faster tests aren't worth much individually, but when you have 1000</li>
+   </ul>  
+  </aside>
+  
 </section>
 
 
 <!-- *************************** -->
 <section>
-  <h2>Benefits review</h2>
+  <h2>Testing code</h2>
   <ul>
     <li>J.B. Rainsberger - Integrated Tests Are A Scam http://vimeo.com/80533536</li>
     <li>Unit tests aren't what you think they are either</li>
@@ -557,8 +733,18 @@ function testSearchControllerException()
     <text x="600" y="685" text-anchor="middle" fill="black">DataSource::searchForItems</text>  
 </svg>
 
-</section>
+  
+  <aside class="notes">
+   <ul>
+     <li>We like to think of unit tests as testing code in isolation.</li>
+     <li>So when we're testing the SearchController, this green box is what we're testing</li>
+     <li>This isn't exactly true...instead we mostly write 'contract' tests where we're testing what happens when the code is passed an object that has the query params, or what happens when it's passed one that doesn't have the query params</li>
+     <li>So what we're actually testing is this contract between the caller and callee</li>
+   </ul>  
+  </aside>
 
+  
+</section>
 
 
 
@@ -657,9 +843,20 @@ function testSearchControllerException()
 </svg>
 
   
-  <p>
-    Key is minimizing coupling surface
-  </p>
+    <aside class="notes">
+   <ul>
+     <li>Need to change the diagram a bit to make space.</li>
+
+      <li>The request interface is huge. Although we can 'understand' that not all of it is needed for the test, it is still a large 'coupling surface' between the caller and the SearchController</li>
+
+     <li>The variableMap is much smaller. The amount of 'stuff' the is involved when writing this test, is just much smaller.</li>
+
+     <li>Key is minimizing coupling surface</li>
+     
+     <li><B>PAUSE</B> - that is basic interface segregation. But I think the concept is much more useful when you think about it in a more general sense, particularly in PHP where we have arrays...and so</li>
+     
+   </ul>  
+  </aside>
 </section>
 
 
@@ -670,10 +867,16 @@ function testSearchControllerException()
   <h2 class="spaceBottom">What is <strike>interface segregation</strike> type specialization?</h2>
   <span style="height: 50%">&nbsp;</span>
   <blockquote class="spaceBottom embiggen">
-      “Parameters should be precise and semantically meaningful types.” - Dan Ackroyd
+      “many client-specific <strike>interfaces</strike> types are better than one general-purpose <strike>interface</strike> type.”
   </blockquote>
 
-  <p>For this example the array of 'search options' isn't particularly semantically meaningful</p>
+
+    <aside class="notes">
+   <ul>
+     <li>Arrays in PHP are great - but hard to 'reason' about, as they can hold anything, and you can't tell what you can or should put in them.</li>
+     <li>For this example the array of 'search options' isn't particularly semantically meaningful</li>
+   </ul>  
+  </aside>  
 </section>
 
 
@@ -695,6 +898,15 @@ class SearchController
 }
 </code>
 </pre>
+  
+  <aside class="notes">
+   <ul>
+     <li>We ask one of our colleagues to add a limit to the searching, and they do this.</li>
+     <li>Is 'limite' a typo? Depends if the programer is French?</li>
+     <li>Where would we look to see if it's a typo? DataSource is an interface....so no help. Would need to ask colleagues, look in all implementations.</li>
+     <li>Lets extract a type</li>
+   </ul>  
+  </aside> 
 </section>
 
 
@@ -721,6 +933,13 @@ class SearchOptions
     }
 }</code>
 </pre>
+  
+  <aside class="notes">
+   <ul>
+     <li>Really simple type. But way more semantically meaningful</li>
+   </ul>
+  </aside>
+  
 </section>
 
 
@@ -742,6 +961,14 @@ class SearchController
 }
 </code>
 </pre>
+  
+  <aside class="notes">
+   <ul>
+     <li>Refactor code to use this type</li>
+     <li>What options an be passed into the DataSource::searchForItems method is now trivial to reason about.</li>
+   </ul>
+  </aside>
+  
 </section>
 
 
@@ -765,6 +992,15 @@ function writeImageTempFile(string $tmpPath)
 }
 </code>
 </pre>
+  
+  <aside class="notes">
+   <ul>
+     <li>This type specialization applies to trivial types as well.</li>
+     <li>Common pattern to need to have pass around temp paths for writing </li>
+   </ul>
+  </aside>
+  
+  
 </section>
 
 
@@ -788,6 +1024,12 @@ class TmpPath
     }
 }
 </code></pre>
+  
+  <aside class="notes">
+   <ul>
+     <li>This really isn't the most complicated object ever.</li>
+   </ul>
+  </aside>  
 </section>
 
 
@@ -806,13 +1048,21 @@ function writeTempFile(TmpPath $tmpPath)
     ...
 }
 
-function writeImageTempFile(TmpPath $tmpPath)
+function writeImageTempFile(ImageTmpPath $tmpPath)
 {
     ...
     file_put_contents($tmpPath->getPath().'/foo.png', $imageData);
     ...
 }
 </code></pre>
+  
+  
+  <aside class="notes">
+   <ul>
+     <li>Allows you to see at a glance a semantically meaningful name for the parameter.</li>
+     <li>Hey, it turns out that we wanted to have different paths. Now it is impossible for the wrong tmpPath to be used.</li>
+   </ul>
+  </aside>  
 </section>
 
   
@@ -824,22 +1074,33 @@ function writeImageTempFile(TmpPath $tmpPath)
   // In bootstrap.php
   
   $injector->share(new TmpPath(__DIR__.'/var/temp'));
+  $injector->share(new ImageTmpPath(__DIR__.'/var/temp_images'));
 </code>
 </pre>
-
-  <p>
-    Seems trivial - but removes semantically meaningless types from your application.
-  </p>
+  
+  <aside class="notes">
+    <ul>
+     <li>Seems trivial - but moves semantically meaningless types to the edge of your application.</li>
+      <li>Everything inside your application becomes clearer.</li>
+    </ul>
+  </aside>
+  
 </section>
 
 
 <!-- *************************** -->
 <section>
-    <h1>Psychological aspects of programming</h1>
-    <h3>The chase for Endorphins</h3>
-    <p>
-        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
-    </p>
+  <h1>Psychological aspects of programming</h1>
+  <h3>The chase for Endorphins</h3>
+  <p>
+    <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+  </p>
+  
+  <aside class="notes">
+    <ul>
+     <li>Yet, again lets end on a high note.</li>
+    </ul>
+  </aside>
 </section>
 
 
@@ -866,41 +1127,63 @@ class ArrayVariableMap implements VariableMap
     }
 }
 </code></pre>
+  
+    <aside class="notes">
+    <ul>
+      <li>
+        When I write some clever code, that does something interesting, I feel good about myself.
+      </li>
+      <li>
+        How would you feel after writing this code? Clever? Smart? Bored? Yep.
+      </li>
+      <li>
+        Who would use something like this as an example piece of code, to show a potential employer?
+      </li>
+  </ul>
+  </aside>
+  
+ 
 </section>
 
 
 
 <section>
   <h2>Terminology sculpts cognition</h2>
-  <ul>
-    <li>
-      Is the ArrayVariableMap class clever? Nope.
-    </li>
-    <li>
-      This code is boring, because it is trivial....but "not clever" does not imply bad.
-    </li>
-    <li>
-      English is a crappy language - and the words you use to describe code affect how you feel about it.
-    </li>
-    <li>
-      This is a real problem, as boring code is way more maintainable, but not exciting to write.
+ 
+  <blockquote class="emnormal">
+      “The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise. The intellectual effort needed  to ... understand a program need not grow more than proportional to program length.” - Edsger W. Dijkstra
+  </blockquote>
+
+  <aside class="notes">
+    <ul>
+      <li>
+        Is the ArrayVariableMap class clever? Nope.
+      </li>
+      <li>
+        English is a crappy language - and the words you use to describe code affect how you feel about it.
+      </li>
+      <li>
+        This code is boring, because it is trivial....but "not clever" does not imply bad.
+      </li>
+      <li>
+        This is a real problem, as boring code is way more maintainable, but not exciting to write.
+      </li>
+      <li>
+      Code needs to be trivial to reason about, so that when you're looking at it from a 10,000 foot view, or a higher abstraction level
     </li>
   </ul>
+  </aside>
 </section>
 
 
 <!-- *************************** -->
 <section>
   <h1 class="finale">Fin</h1>
-
-  <blockquote class="emnormal">
-      “The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise. The intellectual effort needed  to ... understand a program need not grow more than proportional to program length.” - Edsger W. Dijkstra
-  </blockquote>
-
+  <div style="min-height: 100px">&nbsp;</div>
   <ul>
     <li>Use interfaces/classes with only the required methods</li>
     <li>Use semantically meaningful types</li>
-    <li>https://github.com/Danack/Docs/tree/master/test/Article/InterfaceSegregation </li>
+    <li>If your code is boring, you're doing good</li>
     <li>Questions?</li>
   </ul>
   
@@ -929,8 +1212,6 @@ class ArrayVariableMap implements VariableMap
       Me babbling on about emotions, and how good code is boring. Which is good! 
     </li>
   </ul>
-
-  </p>
 </section>
 
 
@@ -951,7 +1232,7 @@ class ArrayVariableMap implements VariableMap
             // Full list of configuration options available at:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
-                controls: false,
+                controls: true,
                 progress: false,
                 history: true,
                 center: true,
