@@ -47,8 +47,20 @@
             padding-top: 20px;
             padding-bottom: 20px;
           
-            box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7);
+            /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7); */
         }
+        
+        /* 
+        .reveal pre {
+          box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        */
+        
+        .preformatted {
+          font-family: monospace;
+          white-space: pre;
+      }
 
         .spaceTop {
             margin-top: 50px !important;
@@ -81,13 +93,56 @@
         .emsmallen { 
             font-size: 0.8em !important;  
         }
+        .em_075 {
+          font-size: 0.75em !important;
+        }
+        .em_08 {
+          font-size: 0.8em !important;
+        }
+        .em_085 {
+          font-size: 0.9em !important;
+        }
+        .em_09 {
+          font-size: 0.9em !important;
+        }
+        .em_095 {
+          font-size: 0.95em !important;
+        }
+        .em1 {
+          font-size: 1.0em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        
+        .em1_05 {
+          font-size: 1.05em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        .em1_5 {
+          font-size: 1.5em !important;  
+        }
+        .em1_2 {
+          font-size: 1.2em !important;  
+        }
+        .em1_3 {
+          font-size: 1.3em !important;  
+        }
+        .em1_4 {
+          font-size: 1.4em !important;  
+        }
         
         .em2 {
           font-size: 2em !important;  
         }
+        th {
+          font-size: 1.5em !important;
+        }
         
         .finale {
-            font-size: 96px !important;
+            font-size: 148px !important; 
             text-align: center !important;
             /* margin-bottom: 148px !important; */
         }
@@ -159,7 +214,7 @@
         <div class="slides">
 
 <!-- *************************** -->
-<section>
+<section class="em1_4">
     <h1>Interface segregation</h1>
     <h3>The forgotten i in SOLID</h3>
     <p>
@@ -183,12 +238,39 @@
 
 -->
 
+<section class="em1_4">
+  
+  <p>Maintainer of Imagick and Gmagick extensions. 
+  </p>
+
+
+  <p>PHP RFCs:<br/>
+    <a href="https://wiki.php.net/rfc/closurefromcallable">Closure from callable</a> for PHP 7.1<br/> 
+    <a href="https://wiki.php.net/rfc/consistent_callables">Consistent Callables</a> for PHP 8.0<br/>
+    <a href="https://wiki.php.net/rfc/internal_constructor_behaviour">Constructor behaviour of internal classes</a> passed PHP 7.0<br/>
+  </p>
+  
+  <p>
+    Codez:<br/>
+    Auryn - the best D.I. library <a href="https://github.com/rdlowrey/auryn">https://github.com/rdlowrey/auryn</a> <br/>
+    Tier - D.I. based framework <a href="https://github.com/danack/tier">https://github.com/danack/tier</a><br/>
+    Jig - D.I. based templating <a href="http://phpjig.com">phpjig.com</a> <br/>
+  </p>
+  
+</section>
+
+<!-- *************************** -->
+
+<section>
+    <img src="/images/trustworthiness_of_beards_fit.jpg"  />
+</section>
+
 
 <!-- *************************** -->
 <section>
   <h1 class="spaceBottom">What is interface segregation?</h1>
   <span style="height: 50%">&nbsp;</span>
-  <blockquote class="spaceBottom emlargen">
+  <blockquote class="spaceBottom em2">
       “many client-specific interfaces are better than one general-purpose interface.”
   </blockquote>
   
@@ -226,17 +308,6 @@
             <td></td>
             <td>Documentation / colleague can explain how it works</td>
         </tr>
-        <tr class="fragment">
-            <td>Errors happen at start of execution</td>
-            <td></td>
-            <td>Errors can happen during middle of execution</td>
-        </tr>
-        <tr class="fragment">
-            <td>Simpler parts, more of them</td>
-            <td></td>
-            <td>Fewer parts, but more complex code</td>
-        </tr>
-        </tbody>
     </table>
   
   <aside class="notes">
@@ -250,12 +321,113 @@
 </section>
 
 
-  
 <!-- *************************** -->
 <section>
-  <h2>Traditional interface segregation example</h2>
-    <pre class="danackCode spaceTop emlargen" data-trim><code class="php">
-use Psr\Http\Message\ServerRequestInterface as Request;
+
+<pre class="danackCode em1_2" data-trim>
+<code class="php" data-trim>
+class MySQLi {
+  function __construct($host, $username, $password,
+        $dbname, $port) {...}
+}  
+</code>
+</pre>
+  
+<pre class="danackCode em1_2 fragment" data-trim>
+<code class="php" data-trim>
+class S3Client { 
+    public function factory(array $config) {}
+}
+</code>
+</pre>
+  
+  
+  <aside class="notes">
+  </aside>
+  
+</section>
+
+
+<!-- *************************** -->
+<section class="embiggen">
+    <table style="width: 100%;" class="embiggen">
+        <thead>
+        <tr>
+            <th>Reasonable</th>
+            <th style="height: 50px"><span>&nbsp;</span></th>
+            <th>Understandable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Errors happen at boundaries of execution</td>
+            <td></td>
+            <td>Errors can happen during middle of execution</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+<pre class="danackCode em1_4" data-trim>
+<code class="php" >
+  //oops - forget to set password and dbname
+  $db = new MySQLi('localhost', 'db_user');
+</code>
+</pre>
+  
+<pre class="danackCode em1_4 fragment" data-trim>
+<code class="php">
+  $config['passwrod'] = '12345';
+  S3Client::factory($config)
+</code>
+</pre>
+  
+  
+  <aside class="notes">
+  </aside>
+  
+</section>
+
+
+
+
+<!-- *************************** -->
+<section class="embiggen">
+    <table style="width: 100%;" class="embiggen">
+        <thead>
+        <tr>
+            <th>Reasonable</th>
+            <th style="height: 50px"><span>&nbsp;</span></th>
+            <th>Understandable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Simpler parts, more of them</td>
+            <td></td>
+            <td>Fewer parts, but more complex code</td>
+        </tr>
+        </tbody>
+    </table>
+  
+  <aside class="notes">
+  <p>
+    The rest of the talk is going to demonstrate this. The last part of the talk is how to make having many more component be bearable.
+  </p>
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <pre class="danackCode spaceTop em1_4" data-trim><code class="php" data-trim>
+use Psr\Http\Message\ServerRequestInterface 
+      as Request;
       
 class SearchController
 {
@@ -268,6 +440,7 @@ class SearchController
 </pre>
   
     <aside class="notes">
+  <h2>Traditional interface segregation example</h2>
   <p>
     We have a SearchController - one of the parameters it needs to run is a PSR7 Request object.
   </p>
@@ -279,8 +452,8 @@ class SearchController
 
 <!-- *************************** -->
 <section>
-<pre class="danackCode">
-<code class="php">
+<pre class="danackCode em1_05" data-trim>
+<code class="php" data-trim>
 interface ServerRequestInterface extends RequestInterface
 {
     public function getServerParams();
@@ -297,7 +470,6 @@ interface ServerRequestInterface extends RequestInterface
     public function withAttribute($name, $value);
     public function withoutAttribute($name);
 }
-
 </code>
 </pre>
   
@@ -315,8 +487,8 @@ interface ServerRequestInterface extends RequestInterface
 
 <!-- *************************** -->
 <section>
-<pre class="danackCode emnormal">
-<code class="php">
+<pre class="danackCode em1_2" data-trim>
+<code class="php" data-trim>
 interface RequestInterface extends MessageInterface
 {
     public function getRequestTarget();
@@ -324,7 +496,8 @@ interface RequestInterface extends MessageInterface
     public function getMethod();
     public function withMethod($method);
     public function getUri();
-    public function withUri(UriInterface $uri, $preserveHost = false);
+    public function withUri(UriInterface $uri, 
+        $preserveHost = false);
 }
 </code>
 </pre>
@@ -337,8 +510,8 @@ interface RequestInterface extends MessageInterface
 
 <!-- *************************** -->
 <section>
-<pre class="danackCode emnormal">
-<code class="php">
+<pre class="danackCode em1_2" data-trim>
+<code class="php" data-trim>
 interface MessageInterface
 {
     public function getProtocolVersion();
@@ -374,7 +547,7 @@ interface MessageInterface
 <!-- *************************** -->
 <section>
     <h2>Creating a mock ...?</h2>
-<pre class="danackCode emlargen" data-trim>
+<pre class="danackCode em1_4" data-trim>
 <code class="php" data-trim>
 function testSearchController()
 {
@@ -402,35 +575,26 @@ function testSearchController()
 </section>
 
 
-<!-- *************************** -->
-<!--
-<section>
-  <h2>Back to the code</h2>
-  <p>The code is not easy to reason about...</p>
-  
-  <p>You need to inspect the body of the function to understand how the request is being used.</p>
 
-</section>
--->
 
 <!-- *************************** -->
 <section>
-  <pre class="danackCode emnormal" data-trim>
+  <pre class="danackCode em1_05" data-trim>
 <code class="php" data-trim>
 class SearchController
 {
-    function search(Request $request, DataSource $dataSource)
-    {
-        $queryParams = $request->getQueryParams();
-        if (!array_key_exists('searchTerms', $queryParams)) {
-            throw new ParamsMissingException("...");
-        }
-        $searchTerms = $queryParams['searchTerms'];
+   function search(Request $request, DataSource $dataSource) 
+   {
+      $queryParams = $request->getQueryParams();
+      if (!array_key_exists('searchTerms', $queryParams)) {
+         throw new ParamsMissingException("...");
+      }
+      $searchTerms = $queryParams['searchTerms'];
 
-        $searchOptions = [];
-        $searchOptions['keywords'] = explode(',', $searchTerms);
-        return $dataSource->searchForItems($searchOptions);
-    }
+      $searchOptions = [];
+      $searchOptions['keywords'] = explode(',', $searchTerms);
+      return $dataSource->searchForItems($searchOptions);
+   }
 }
 </code></pre>
   
@@ -438,20 +602,44 @@ class SearchController
     <p>
       So this is how the request object is being used.
     </p>
-    <p>Just getting th query params and pulling a value out, or throwing an exception if it's not set</p>
+    <p>Just getting the query params and pulling a value out, or throwing an exception if it's not set</p>
     <p>
       Lets extract an interface!
     </p>
-  </aside>
+  </aside>  
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode em1_2" data-trim>
+<code class="php">
+  $queryParams = $request->getQueryParams();
+  if (!array_key_exists('searchTerms', $queryParams)) {
+     throw new ParamsMissingException("...");
+  }
+  $searchTerms = $queryParams['searchTerms'];
+
+</code></pre>
   
-  
+  <aside class="notes">
+    <p>
+      Lets start segregating!
+    </p>
+    <p>
+      Actually lets start "type-extracting". More precise name, and doesn't sound bad.
+    </p>
+  </aside>  
 </section>
 
 
 <!-- *************************** -->
 <section>
   <h2>Extracting a type</h2>
-  <pre class="danackCode emnormal spaceTop" data-trim><code class="php">
+  <pre class="danackCode em1 spaceTop" data-trim><code class="php">
 interface VariableMap
 {
     /**
@@ -471,20 +659,16 @@ interface VariableMap
 
 <!-- *************************** -->
 <section>
-  <pre class="danackCode" data-trim>
-    <code class="php" data-trim>
-class PSR7VariableMap implements VariableMap
-{
+  <pre class="danackCode em_09" data-trim>
+    <code class="php" data-trim>class PSR7VariableMap implements VariableMap {
     /** @var ServerRequestInterface */
     private $serverRequest;
 
-    public function __construct(ServerRequestInterface $serverRequest)
-    {
+    public function __construct(ServerRequestInterface $serverRequest) {
         $this->serverRequest = $serverRequest;
     }
 
-    public function getVariable(string $variableName) : string
-    {
+    public function getVariable(string $variableName) : string {
         $queryParams = $this->serverRequest->getQueryParams();
         if (array_key_exists($variableName, $queryParams) === false) {
             $message = "Parameter [$variableName] is not available";
@@ -503,40 +687,23 @@ class PSR7VariableMap implements VariableMap
   </aside>
 </section>
 
-<section>
-  <h2>Setup in dependency container</h2>
-  <p>
-    Use rdlowrey/auryn...it's awesome. Or use the Symfony one if you have a Symfony app
-  </p>
-  <pre class="danackCode emlargen" data-trim>
-<code class="php">
-    // In bootstrap.php
-    $injector->alias('VariableMap', 'PSR7VariableMap');
-</code>
-  </pre>
-  <aside class="notes">
-    <p>
-      Tell your app to use it. This is simple when using Auryn.
-    </p>
-  </aside>
-</section>
 
 
 <!-- *************************** -->
 <section>
   <h2>Controller is now simpler, and more reasonable</h2>
-  <pre class="danackCode emnormal" data-trim>
+  <pre class="danackCode em1" data-trim>
 <code class="php">
 class SearchController
 {
-    function search(VariableMap $variableMap, DataSource $dataSource)
-    {
-        $searchTerms = $variableMap->getVariable('searchTerms');
-        $searchOptions = [];
-        $searchOptions['keywords'] = explode(',', $searchTerms);
+   function search(VariableMap $variableMap, DataSource $dataSource)
+   {
+       $searchTerms = $variableMap->getVariable('searchTerms');
+       $searchOptions = [];
+       $searchOptions['keywords'] = explode(',', $searchTerms);
 
-        return $dataSource->searchForItems($searchOptions);
-    }
+       return $dataSource->searchForItems($searchOptions);
+   }
 }
 </code>
 </pre>
@@ -549,8 +716,8 @@ class SearchController
 </section>
 
 <section>
-  <h2>I <strike>hate</strike> strongly dislike mocks</h2>
-  <ul>
+  <h1>I <strike>hate</strike> strongly dislike mocks</h1>
+  <ul class="em1_5" style="padding-top: 50px">
     <li>Mocks should only be used when you have to test behaviour</li>
     <li>Stubs/fakes are much easier to use</li>
     <li>Stubs/fakes suffer from poor marketing...</li>
@@ -561,27 +728,21 @@ class SearchController
 <!-- *************************** -->
 <section>
   <h2>Other implementations are equally valid</h2>
-  <pre class="danackCode" data-trim>
-<code class="php">
-class ArrayVariableMap implements VariableMap
-{
-    public function __construct(array $variables)
-    {
-        $this->variables = $variables;
+  <pre class="danackCode em1" data-trim>
+<code class="php">class ArrayVariableMap implements VariableMap {
+  public function __construct(array $variables) {
+    $this->variables = $variables;
+  }
+
+  public function getVariable(string $variableName) : string {
+    if (!array_key_exists($variableName, $this->variables)) {
+        $message = "Parameter [$variableName] is not available";
+        throw new ParamMissingException($message);
     }
 
-    public function getVariable(string $variableName) : string
-    {
-        if (array_key_exists($variableName, $this->variables) === false) {
-            $message = "Parameter [$variableName] is not available";
-            throw new ParamMissingException($message);
-        }
-
-        return $this->variables[$variableName];
-    }
-}
-</code>
-</pre>
+    return $this->variables[$variableName];
+  }
+}</code></pre>
    <aside class="notes">
     <p>
       Implementation based on array is equally valid and allows us to test easily.
@@ -593,100 +754,55 @@ class ArrayVariableMap implements VariableMap
 
 <!-- *************************** -->
 <section>
+  <h2>Testing this controller, success case</h2>
+  <pre class="danackCode em1_1" data-trim>
+  <code class="php" data-trim>function testSearchControllerWorks()
+{
+    $varMap = new ArrayVariableMap(
+        ['searchTerms' => 'foo,bar']
+    );
+    // EchoDataSource just returns the keywords searched
+    $dataSource = new EchoDataSource(); 
 
-  <section>
-    <h2>Testing this controller, success case</h2>
-  <pre class="danackCode emnormal">
-  <code class="php">
-  function testSearchControllerWorks()
-  {
-      $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
-      // EchoDataSource just returns the keywords searched
-      $dataSource = new EchoDataSource(); 
-
-      $controller = new SearchController();
-      $result = $controller->search($varMap, $dataSource);
-      $this->assertEquals(['foo', 'bar'], $result);
-  }
-  </code>
-  </pre>
+    $controller = new SearchController();
+    $result = $controller->search($varMap, $dataSource);
+    $this->assertEquals(['foo', 'bar'], $result);
+} </code></pre>
     
     <aside class="notes">
       Because the Array implementation is simple to create, it's a lot easier to use that than trying to mock the Request object. 
     </aside>
-    
-  </section>
-
-  <section>
-      <h2>Testing this controller, success case</h2>
-  <p>
-    rdlowrey/auryn makes it easier to write tests.
-  </p>
-    
-  <pre class="danackCode emnormal">
-  <code class="php">
-  function testSearchControllerWorks()
-  {
-      $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
-      $injector = createTestInjector(
-          [VariableMap::class => $varMap],
-          [DataSource::class => EchoDataSource::class]
-      );
-      $result = $injector->execute([SearchController::class, 'search']);
-      $this->assertEquals(['foo', 'bar'], $result);
-  }
-  </code>
-  </pre>
-  </section>
-
 </section>
 
 
-<!-- *************************** -->
-<section>
-  <section>
-    <h2>Testing this controller, error case</h2>
-  <pre class="danackCode emnormal">
-  <code class="php">
-  function testSearchControllerException()
-  {
-      $varMap = new ArrayVariableMap([]);
-      $dataSource = new EchoDataSource();
 
-      $controller = new SearchController();
-      $this->setExpectedException('ParamMissingException');
-      $controller->search($varMap, $dataSource);
-  }
-  </code>
-  </pre>
-  </section>
-  
+<!-- *************************** -->
+
 <section>
-  <h2>Testing this controller, error case</h2>
-<pre class="danackCode emnormal">
-<code class="php">
+    <h2>Testing this controller, error case</h2>
+  <pre class="danackCode em1_1" data-trim>
+  <code class="php" data-trim>
 function testSearchControllerException()
 {
     $varMap = new ArrayVariableMap([]);
-    $injector = createTestInjector(
-        [VariableMap::class => $varMap],
-        [DataSource::class => EchoDataSource::class]
-    );
-    $this->setExpectedException(ParamMissingException::class);
-    $injector->execute([SearchController::class, 'search']);
+    $dataSource = new EchoDataSource();
+
+    $controller = new SearchController();
+    $this->setExpectedException('ParamMissingException');
+    $controller->search($varMap, $dataSource);
 }
-</code>
-</pre>
+  </code>
+  </pre>
 </section>
-</section>
+
 
 
 <!-- *************************** -->
-<section>
-  <h2>Benefits review</h2>
+<section class="em1_5">
+  <h1>Benefits review</h1>
   <ul>
     <li class="fragment">Controller re-usable with different HTTP library</li>
-    <li class="fragment">Actually no longer tied to HTTP request, can be used by CLI scripts</li>
+    <li class="fragment">Actually no longer tied to HTTP request. <br/>Can be used by CLI scripts</li>
     <li class="fragment">Tests easier to write, as can use array implementation</li>
     <li class="fragment">Tests run faster</li>
     <li class="fragment">Tests are easier to reason about</li>
@@ -694,8 +810,6 @@ function testSearchControllerException()
   
   <aside class="notes">
    <ul>
-     
-     
      <li>Faster tests aren't worth much individually, but when you have 1000</li>
    </ul>  
   </aside>
@@ -704,10 +818,10 @@ function testSearchControllerException()
 
 
 <!-- *************************** -->
-<section>
-  <h2>Testing code</h2>
-  <ul>
-    <li>J.B. Rainsberger - Integrated Tests Are A Scam ww</li>
+<section class="em1_5">
+  <h1>Testing code</h1>
+  <ul style="padding-top: 100px">
+    <li>J.B. Rainsberger - Integrated Tests Are A Scam <br/> https://vimeo.com/80533536</li>
     <li>Unit tests aren't what you think they are either</li>
   </ul>
 </section>
@@ -868,13 +982,12 @@ function testSearchControllerException()
 
 
 <!-- *************************** -->
-<section>
+<section class="em1_5">
   <h2 class="spaceBottom">What is <strike>interface segregation</strike> type specialization?</h2>
   <span style="height: 50%">&nbsp;</span>
   <blockquote class="spaceBottom embiggen">
       “many client-specific <strike>interfaces</strike> types are better than one general-purpose <strike>interface</strike> type.”
   </blockquote>
-
 
     <aside class="notes">
    <ul>
@@ -887,19 +1000,19 @@ function testSearchControllerException()
 
 
 <section>
-<pre class="danackCode spaceTop emnormal" data-trim>
+<pre class="danackCode spaceTop em1" data-trim>
 <code class="php">
 class SearchController
 {
-    function search(DataSource $dataSource, VariableMap $variableMap)
-    {
-        $searchTerms = $variableMap->getVariable('searchTerms');
-        $searchOptions = [];
-        $searchOptions['keywords'] = explode(',', $searchTerms);
-        $searchOptions['limite'] = 50;
+  function search(DataSource $dataSource, VariableMap $variableMap)
+  {
+    $searchTerms = $variableMap->getVariable('searchTerms');
+    $searchOptions = [];
+    $searchOptions['keywords'] = explode(',', $searchTerms);
+    $searchOptions['limite'] = 50; // LIMIT added
   
-        return $dataSource->searchForItems($searchOptions);
-    }
+    return $dataSource->searchForItems($searchOptions);
+  }
 }
 </code>
 </pre>
@@ -907,8 +1020,9 @@ class SearchController
   <aside class="notes">
    <ul>
      <li>We ask one of our colleagues to add a limit to the searching, and they do this.</li>
-     <li>Is 'limite' a typo? Depends if the programer is French?</li>
+     <li>Is 'limite' a typo? Depends if the programmer is French?</li>
      <li>Where would we look to see if it's a typo? DataSource is an interface....so no help. Would need to ask colleagues, look in all implementations.</li>
+     <li>An array is one of the most general types possible - it can store anything.</li>
      <li>Lets extract a type</li>
    </ul>  
   </aside> 
@@ -917,7 +1031,7 @@ class SearchController
 
 <section>
     <h2>Extracting a type</h2>
-<pre class="danackCode spaceTop" data-trim>
+<pre class="danackCode spaceTop em_095" data-trim>
   <code class="php" data-trim>
 class SearchOptions
 {
@@ -926,13 +1040,7 @@ class SearchOptions
 
     public function __construct(array $keywords, int $limit = 1000)
     {
-        foreach ($keywords as $keyword) {
-            if (is_string($keyword) === false) {
-                $message = "Type ".gettype($keyword)." not allowed";
-                throw new \InvalidArgumentException($message);
-            }
-        }
-  
+        //@TODO - check $keywords are all strings
         $this->keywords = $keywords;
         $this->limit = $limit;
     }
@@ -951,7 +1059,7 @@ class SearchOptions
 
 <!-- *************************** -->
 <section>
-<pre class="danackCode spaceTop emnormal" data-trim>
+<pre class="danackCode spaceTop em_095" data-trim>
 <code class="php">
 class SearchController
 {
@@ -981,16 +1089,13 @@ class SearchController
 <!-- *************************** -->
 <section>
   <h2>Use semantically meaningful types</h2>
-  <pre class="danackCode spaceTop emnormal" data-trim>
-<code class="php">function writeTempFile(string $tmpPath)
-{
+  <pre class="danackCode spaceTop em1_1" data-trim>
+<code class="php">function writeTempFile(string $tmpPath) {
     ...
     file_put_contents($tmpPath.'/foo.txt', $data);
     ...
 }</code>
-<code class="php fragment">
-function writeImageTempFile(string $tmpPath)
-{
+<code class="php fragment em1_1">function writeImageTempFile(string $tmpPath) {
     ...
     file_put_contents($tmpPath.'/foo.png', $imageData);
     ...
@@ -1012,7 +1117,7 @@ function writeImageTempFile(string $tmpPath)
 
 <!-- *************************** -->
 <section>
-  <pre class="danackCode spaceTop emnormal" data-trim>
+  <pre class="danackCode spaceTop em1_1" data-trim>
 <code class="php" data-trim>
 class TmpPath
 {
@@ -1038,13 +1143,10 @@ class TmpPath
 </section>
 
 
-
-
-
 <!-- *************************** -->
 <section>
   <h2>Use semantically meaningful types</h2>
-  <pre class="danackCode spaceTop emnormal" data-trim>
+  <pre class="danackCode spaceTop em1" data-trim>
 <code class="php" data-trim>
 function writeTempFile(TmpPath $tmpPath)
 {
@@ -1071,27 +1173,6 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
 </section>
 
   
-<!-- *************************** -->
-<section>
-  <h2>Types are easy for DIC's to know about</h2>
-  <pre class="danackCode spaceTop emlargen" data-trim>
-<code class="php">
-  // In bootstrap.php
-  
-  $injector->share(new TmpPath(__DIR__.'/var/temp'));
-  $injector->share(new ImageTmpPath(__DIR__.'/var/temp_images'));
-</code>
-</pre>
-  
-  <aside class="notes">
-    <ul>
-     <li>Seems trivial - but moves semantically meaningless types to the edge of your application.</li>
-      <li>Everything inside your application becomes clearer.</li>
-    </ul>
-  </aside>
-  
-</section>
-
 
 <!-- *************************** -->
 <section>
@@ -1103,7 +1184,8 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
   
   <aside class="notes">
     <ul>
-     <li>Yet, again lets end on a high note.</li>
+     <li>We don't talk about our emotions enough.</li>
+     <li>Pretending that we're completely logical is to ignore humanity.</li>
     </ul>
   </aside>
 </section>
@@ -1113,7 +1195,7 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
 <!-- *************************** -->
 <section>
   <h2>How does this code make you feel?</h2>  
-  <pre class="danackCode" data-trim><code class="php" data-trim>
+  <pre class="danackCode em_09" data-trim><code class="php" data-trim>
 class ArrayVariableMap implements VariableMap
 {
     public function __construct(array $variables)
@@ -1152,12 +1234,16 @@ class ArrayVariableMap implements VariableMap
 
 
 
-<section>
+<section class="em1_2">
   <h2>Terminology sculpts cognition</h2>
  
   <blockquote class="emnormal">
       “The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise. The intellectual effort needed  to ... understand a program need not grow more than proportional to program length.” - Edsger W. Dijkstra
   </blockquote>
+  
+  <p>
+    A.k.a. think of your code being simpler not more boring.
+  </p>
 
   <aside class="notes">
     <ul>
@@ -1168,8 +1254,9 @@ class ArrayVariableMap implements VariableMap
         English is a crappy language - and the words you use to describe code affect how you feel about it.
       </li>
       <li>
-        This code is boring, because it is trivial....but "not clever" does not imply bad.
+        This code is boring, because it is trivial....but "not clever" does not imply bad. 'Boring' does not imply bad.
       </li>
+      <li>Boring is good - it implies simple.</li>
       <li>
         This is a real problem, as boring code is way more maintainable, but not exciting to write.
       </li>
@@ -1182,22 +1269,273 @@ class ArrayVariableMap implements VariableMap
 
 
 <!-- *************************** -->
+<section class="em1_5">
+  <h2>Coping with many more components</h2>
+
+  <ul>
+    <li>Dependency injector container to the rescue.</li>
+    <li>Solves explosion of dependencies - each dependency only has to be setup once.</li>
+    <li>You focus on writing code that consumes dependencies.</li>
+    <li>Use rdlowrey/auryn it's great! Or use php-di/php-di it's kind of ok.</li>
+  </ul>
+
+  <aside class="notes">
+   <p>
+    If you write SOLID code you have simpler pieces of code, but way more of them.
+  </p>
+  <p>
+    Wiring them up together is annoying and takes time, which is a cost - which makes writing code 'properly' be unattractive.
+  </p>
+  <p>
+    Need to find a way to minimise the cost of writing good code.
+  </p>
+  <p>
+    I'm just going to call it an injector....rather than abbreviate it.
+  </p>
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
 <section>
+  <h1>Injector runs code for you</h1>
+  <pre class="danackCode em1_4" data-trim>
+<code class="php" >    $foo = new Foo();
+    $foo->bar();
+</code></pre>
+  
+  <pre class="danackCode em1_4 fragment" data-trim>
+<code class="php">    $injector->make('Foo');
+    $foo->bar();
+</code></pre>
+  
+  <pre class="danackCode em1_4 fragment" data-trim>
+<code class="php">    $injector->execute('Foo::bar');
+</code></pre>
+  
+  <aside class="notes">
+  </aside>  
+</section>
+
+
+<!-- 
+<section>
+  <h1>Setup in dependency container</h1>
+  <p>
+    Use rdlowrey/auryn...it's awesome. Or use the Symfony one if you have a Symfony app
+  </p>
+  <pre class="danackCode emlargen" data-trim>
+<code class="php">
+    // In bootstrap.php
+    $injector->alias('VariableMap', 'PSR7VariableMap');
+</code>
+  </pre>
+  <aside class="notes">
+    <p>
+      Tell your app to use it. This is simple when using Auryn.
+    </p>
+  </aside>
+</section>
+
+-->
+
+
+<!-- *************************** -->
+<section>
+  <h2>Types are easy for DIC's to know about</h2>
+  <pre class="danackCode spaceTop emlargen" data-trim>
+<code class="php">
+  class Foo {
+      public function __contruct(TmpPath $tmpPath) {
+        ...
+      }
+      public function bar() {
+      }
+  }
+
+  $injector->share(new TmpPath(__DIR__.'/var/temp'));  
+  $injector->execute('Foo::bar');
+</code>
+</pre>
+  
+  <aside class="notes">
+    <ul>
+     <li>Seems trivial - but moves semantically meaningless types to the edge of your application.</li>
+      <li>Everything inside your application becomes clearer.</li>
+    </ul>
+  </aside>
+</section>
+
+
+<section>
+  
+  <pre class="danackCode spaceTop em1_3" data-trim><code class="php">  
+  function foo(DataSource $dataSource) {
+      return $dataSource->search('bar');
+  }
+
+  $injector->alias('DataSource', 'EchoDataSource');
+  $result = $injector->execute('foo'); 
+</code>
+    </pre>
+  
+    <aside class="notes">
+      I know this is overkill for this example.
+    </aside>  
+
+  
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+    <pre class="danackCode spaceTop em1" data-trim><code class="php">
+function testSearchControllerWorks()
+{
+    $varMap = new ArrayVariableMap(['searchTerms' => 'foo,bar']);
+
+    $injector->alias('VariableMap', 'ArrayVariableMap');
+    $injector->share($varMap);
+
+    $injector->alias('DataSource', 'EchoDataSource');
+    $injector->share(new EchoDataSource);
+
+    $result = $injector->execute('SearchController::search');
+    $this->assertEquals(['foo', 'bar'], $result);
+}  
+</code>
+    </pre>
+  
+    <aside class="notes">
+      I know this is overkill for this example.
+    </aside>  
+
+</section>
+  
+  
+<section>
+  <h2>New way of thinking</h2>
+  <p>
+    probably a bit scary.
+  </p>
+</section>
+
+  <!-- *************************** -->
+  <section>
+    <pre class="danackCode spaceTop em1" data-trim>
+  <code class="php" data-trim>
+
+function createESCredentials() {
+    $username = getenv('elasticsearch_username');
+    $password = getenv('elasticsearch_password');
+
+    return new ElasticSearchCredentials($username, $password);
+}
+
+$injector->delegate('ESCredentials', 'createESCredentials');
+$injector->make('ElasticSearchCredentials');
+</code></pre>
+  
+    <aside class="notes">
+      <ul>
+        <li>This creates a clean boundary between OO code and procedural code.</li>
+        <li>You only have to set this up once - and then ESCredentials is available for any object.</li>
+      </ul>
+      
+  </aside>
+</section>
+
+
+
+
+
+
+  <!-- *************************** -->
+<section>
+  <pre class="danackCode spaceTop em_09" data-trim>
+  <code class="php" data-trim>
+class CachingElasticSearchDataSource implements DataSource {
+  public function __construct(ElasticSearchClient $esClient, Cache $cache) {
+    ...
+  }
+}
+class ElasticSearchClient {
+    public function __construct(ElasticSearchCredentials $credentials) {
+      ...
+    }
+}   
+class ElasticSearchCredentials {
+    public function __construct($username, $password) {
+      ...
+    }
+}
+</code></pre>
+  
+    <aside class="notes">
+
+    </aside>
+  </section>
+
+
+  <!-- *************************** -->
+  <section>
+    <pre class="danackCode spaceTop em1" data-trim>
+  <code class="php">  $injector->alias('Cache', 'InMemoryCache');
+  $injector->alias('DataSource', 'CachingElasticSearchDataSource');
+  $injector->delegate(
+      'ElasticSearchCredentials',
+      'createESCredentials'
+  );
+  $injector->execute('SearchController::search');
+</code></pre>
+  
+    <aside class="notes">
+      FLICK to previous slide.
+    </aside>
+  </section>
+
+
+
+
+
+
+<!-- *************************** -->
+<section class="em1_5">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
   <ul>
     <li>Use interfaces/classes with only the required methods</li>
     <li>Use semantically meaningful types</li>
     <li>If your code is boring, you're doing good</li>
+    <li>Use Auryn to do the boring wiring up</li>
     <li>Questions?</li>
   </ul>
-  
 </section>
 
 <section style="width: 100%; text-align: center !important;">
     <img src="/images/true_neutral.jpg" />
 </section>
 
+
+
+<section class="em1_5">
+  <h2>Using this stuff in production?</h2>
+  <p>
+    Tier - app 'framework' based around DI
+  </p>
+  <p>
+    'Framework' - https://github.com/danack/tier
+  </p>
+  <p>
+    Example app - https://github.com/danack/tierjigskeleton
+  </p>
+
+  <aside class="notes">
+  </aside>
+</section>
 
 
 
@@ -1245,7 +1583,7 @@ class ArrayVariableMap implements VariableMap
                 height: 900,
 
                 // Factor of the display size that should remain empty around the content
-                margin: 0.08,
+                margin: 0.05,
                 slideNumber: true,
                 //transition: 'slide', // none/fade/slide/convex/concave/zoom
                 transition: 'none', 
