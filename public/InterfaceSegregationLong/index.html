@@ -1175,7 +1175,7 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
   
 
 <!-- *************************** -->
-<section>
+<section class="em1_4">
   <h1>Psychological aspects of programming</h1>
   <h3>The chase for Endorphins</h3>
   <p>
@@ -1242,7 +1242,7 @@ class ArrayVariableMap implements VariableMap
   </blockquote>
   
   <p>
-    A.k.a. think of your code being simpler not more boring.
+    a.k.a. think of your code being better because it is simpler rather than being boring.
   </p>
 
   <aside class="notes">
@@ -1319,39 +1319,32 @@ class ArrayVariableMap implements VariableMap
   </aside>  
 </section>
 
-
-<!-- 
 <section>
-  <h1>Setup in dependency container</h1>
-  <p>
-    Use rdlowrey/auryn...it's awesome. Or use the Symfony one if you have a Symfony app
-  </p>
-  <pre class="danackCode emlargen" data-trim>
-<code class="php">
-    // In bootstrap.php
-    $injector->alias('VariableMap', 'PSR7VariableMap');
+  <h2>Aliasing a type to an implementation</h2>
+  <pre class="danackCode spaceTop em1_3" data-trim><code class="php">  
+  function foo(DataSource $dataSource) {
+      return $dataSource->search('bar');
+  }
+
+  $injector->alias('DataSource', 'EchoDataSource');
+  $result = $injector->execute('foo'); 
 </code>
-  </pre>
-  <aside class="notes">
-    <p>
-      Tell your app to use it. This is simple when using Auryn.
-    </p>
-  </aside>
+    </pre>
+    <aside class="notes">
+      I know this is overkill for this example.
+    </aside>
 </section>
 
--->
 
 
 <!-- *************************** -->
 <section>
-  <h2>Types are easy for DIC's to know about</h2>
-  <pre class="danackCode spaceTop emlargen" data-trim>
+  <h2>Sharing aka singleton</h2>
+  <pre class="danackCode spaceTop em1_2" data-trim>
 <code class="php">
   class Foo {
-      public function __contruct(TmpPath $tmpPath) {
-        ...
-      }
-      public function bar() {
+      public function bar(TmpPath $tmpPath) {
+          ...
       }
   }
 
@@ -1369,24 +1362,6 @@ class ArrayVariableMap implements VariableMap
 </section>
 
 
-<section>
-  
-  <pre class="danackCode spaceTop em1_3" data-trim><code class="php">  
-  function foo(DataSource $dataSource) {
-      return $dataSource->search('bar');
-  }
-
-  $injector->alias('DataSource', 'EchoDataSource');
-  $result = $injector->execute('foo'); 
-</code>
-    </pre>
-  
-    <aside class="notes">
-      I know this is overkill for this example.
-    </aside>  
-
-  
-</section>
 
 
 <!-- *************************** -->
@@ -1410,41 +1385,41 @@ function testSearchControllerWorks()
     </pre>
   
     <aside class="notes">
-      I know this is overkill for this example.
+      <p>
+        I know this is overkill for this example.
+      </p>
+      <p>
+        Becomes more useful with chained stuff.
+      </p>
     </aside>  
 
 </section>
   
-  
-<section>
-  <h2>New way of thinking</h2>
-  <p>
-    probably a bit scary.
-  </p>
-</section>
 
   <!-- *************************** -->
-  <section>
-    <pre class="danackCode spaceTop em1" data-trim>
+<section>
+  <h2>Delegation is key</h2>
+    <pre class="danackCode spaceTop em1_05" data-trim>
   <code class="php" data-trim>
 
 function createESCredentials() {
     $username = getenv('elasticsearch_username');
     $password = getenv('elasticsearch_password');
 
-    return new ElasticSearchCredentials($username, $password);
+    return new ESCredentials($username, $password);
 }
 
 $injector->delegate('ESCredentials', 'createESCredentials');
-$injector->make('ElasticSearchCredentials');
+$injector->make('ESCredentials');
 </code></pre>
   
     <aside class="notes">
       <ul>
         <li>This creates a clean boundary between OO code and procedural code.</li>
+        <li>That is super awesome! Being able to say we will test this code because it is OO, but we will not test thi other code because it is procedural is an awesome bounday.</li>
         <li>You only have to set this up once - and then ESCredentials is available for any object.</li>
       </ul>
-      
+
   </aside>
 </section>
 
@@ -1456,9 +1431,12 @@ $injector->make('ElasticSearchCredentials');
   <!-- *************************** -->
 <section>
   <pre class="danackCode spaceTop em_09" data-trim>
-  <code class="php" data-trim>
-class CachingElasticSearchDataSource implements DataSource {
-  public function __construct(ElasticSearchClient $esClient, Cache $cache) {
+  <code class="php" data-trim>class ElasticSearchDataSource implements DataSource {
+  public function __construct(ElasticSearchClient $esClient) {
+    ...
+  }
+
+  public function searchForItems(SearchOptions $searchOptions) {
     ...
   }
 }
@@ -1496,11 +1474,6 @@ class ElasticSearchCredentials {
       FLICK to previous slide.
     </aside>
   </section>
-
-
-
-
-
 
 <!-- *************************** -->
 <section class="em1_5">
