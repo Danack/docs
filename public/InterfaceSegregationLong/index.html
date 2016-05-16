@@ -1436,9 +1436,7 @@ $injector->make('ESCredentials');
     ...
   }
 
-  public function searchForItems(SearchOptions $searchOptions) {
-    ...
-  }
+  ...
 }
 class ElasticSearchClient {
     public function __construct(ElasticSearchCredentials $credentials) {
@@ -1461,8 +1459,8 @@ class ElasticSearchCredentials {
   <!-- *************************** -->
   <section>
     <pre class="danackCode spaceTop em1" data-trim>
-  <code class="php">  $injector->alias('Cache', 'InMemoryCache');
-  $injector->alias('DataSource', 'CachingElasticSearchDataSource');
+  <code class="php">  
+  $injector->alias('DataSource', 'ElasticSearchDataSource');
   $injector->delegate(
       'ElasticSearchCredentials',
       'createESCredentials'
