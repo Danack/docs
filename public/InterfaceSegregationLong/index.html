@@ -1331,7 +1331,7 @@ class ArrayVariableMap implements VariableMap
 </code>
     </pre>
     <aside class="notes">
-      I know this is overkill for this example.
+      Injector knows to create specific implementation when something asks for a 'DataSource' ob
     </aside>
 </section>
 
@@ -1465,6 +1465,7 @@ class ElasticSearchCredentials {
       'ElasticSearchCredentials',
       'createESCredentials'
   );
+  // This needs a data-source
   $injector->execute('SearchController::search');
 </code></pre>
   
@@ -1483,6 +1484,7 @@ class ElasticSearchCredentials {
     <li>If your code is boring, you're doing good</li>
     <li>Use Auryn to do the boring wiring up</li>
     <li>Questions?</li>
+    <li>https://joind.in/talk/325e5</li>
   </ul>
 </section>
 
