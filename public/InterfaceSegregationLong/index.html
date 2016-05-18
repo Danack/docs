@@ -1316,22 +1316,64 @@ class ArrayVariableMap implements VariableMap
 </code></pre>
   
   <aside class="notes">
+    <ul>
+    <li>Can be any callable, i.e. function name, class static or instance method, closure.</li>
+    <li>If it's an instance method, the object will get constructed and then instance method executed.</li>
+    </ul>
   </aside>  
 </section>
+
+
+
+<section>
+  <h2>Dependencies built recursively</h2>
+  <pre class="danackCode em1_2" data-trim>
+<code class="php">class Zot {
+    function __construct(Fot $fot) { ... }
+    function bar() {...}
+}
+class Fot {
+    function __construct(Pik $pik) { ... }
+}
+
+class Pik {
+    function __construct() { ... }
+}
+</code></pre>
+  
+  
+<pre class="danackCode em1_2 fragment" data-trim>
+<code class="php">$injector->execute('Zot::bar');
+</code></pre>
+  
+  <aside class="notes">
+    <ul>
+      <li>We have 3 classes here, Zot which depends on Fot, which depends on Pik.</li>
+      <li>When we tell the injector to execute Zot::Bar it recursively makes the dependencies.</li>
+    </ul>
+    
+  </aside>  
+</section>
+
+
+
+
 
 <section>
   <h2>Aliasing a type to an implementation</h2>
   <pre class="danackCode spaceTop em1_3" data-trim><code class="php">  
-  function foo(DataSource $dataSource) {
-      return $dataSource->search('bar');
-  }
+function foo(DataSource $dataSource) {
+    return $dataSource->search('bar');
+}
 
-  $injector->alias('DataSource', 'EchoDataSource');
-  $result = $injector->execute('foo'); 
+$injector->alias('DataSource', 'EchoDataSource');
+$result = $injector->execute('foo'); 
 </code>
     </pre>
     <aside class="notes">
-      Injector knows to create specific implementation when something asks for a 'DataSource' ob
+      <ul>
+        <li>Alias tells the Injector "when something asks for this type, actually build one of these".</li>
+        <li>In this case, when something asks for a 'DataSource' actually build an "EchoDataSourc" for it.</li>
     </aside>
 </section>
 
@@ -1355,8 +1397,7 @@ class ArrayVariableMap implements VariableMap
   
   <aside class="notes">
     <ul>
-     <li>Seems trivial - but moves semantically meaningless types to the edge of your application.</li>
-      <li>Everything inside your application becomes clearer.</li>
+      <li>When you only want one copy of an object created, tell the injector to share it.</li>
     </ul>
   </aside>
 </section>
@@ -1385,12 +1426,14 @@ function testSearchControllerWorks()
     </pre>
   
     <aside class="notes">
-      <p>
-        I know this is overkill for this example.
-      </p>
-      <p>
-        Becomes more useful with chained stuff.
-      </p>
+      <ul>
+        <li>
+          This is the unit testing code when using an injector.
+        </li>
+      <li>
+        I know this is overkill for this example. The usefulness of the injector only becomes obvious when doing complicated stuff, which doesn't fit on slides.
+        </li>
+        </ul>
     </aside>  
 
 </section>
@@ -1415,7 +1458,8 @@ $injector->make('ESCredentials');
   
     <aside class="notes">
       <ul>
-        <li>This creates a clean boundary between OO code and procedural code.</li>
+        <li>Able to use procedural code to generate OO objects in a clean way.</li>
+        <li>This creates a distinct boundary between OO code and procedural code.</li>
         <li>That is super awesome! Being able to say we will test this code because it is OO, but we will not test thi other code because it is procedural is an awesome bounday.</li>
         <li>You only have to set this up once - and then ESCredentials is available for any object.</li>
       </ul>
@@ -1439,11 +1483,11 @@ $injector->make('ESCredentials');
   ...
 }
 class ElasticSearchClient {
-    public function __construct(ElasticSearchCredentials $credentials) {
+    public function __construct(ESCredentials $credentials) {
       ...
     }
 }   
-class ElasticSearchCredentials {
+class ESCredentials {
     public function __construct($username, $password) {
       ...
     }
@@ -1451,16 +1495,21 @@ class ElasticSearchCredentials {
 </code></pre>
   
     <aside class="notes">
-
+      <ul>
+        <li>Recursive example with a delegate function at the end.</li>
+        <li>If I haven't lost you yet, this is the last challnge.</li>
+        <li>So we have ElasticSearchDataSource, that depends on ElasticSearchClient that depends on ESCredential.</li>
+        <li>When we try to use the ElasticSearchDataSource the injector will go to create an ElasticSearchClient, and see it needs some an ESCredentials object.</li>
+         <li>It then goes to create the ESCredentials object, realises that it has a delegate function setup for it, and so invokes that delegate function.</li>
+        <li>It can then get on with creating the objects.</li>
+      </ul>
     </aside>
   </section>
 
 
   <!-- *************************** -->
   <section>
-    <pre class="danackCode spaceTop em1" data-trim>
-  <code class="php">  
-  $injector->alias('DataSource', 'ElasticSearchDataSource');
+    <pre class="danackCode spaceTop em1_1" data-trim><code class="php">  $injector->alias('DataSource', 'ElasticSearchDataSource');
   $injector->delegate(
       'ElasticSearchCredentials',
       'createESCredentials'
@@ -1470,9 +1519,28 @@ class ElasticSearchCredentials {
 </code></pre>
   
     <aside class="notes">
-      FLICK to previous slide.
+      FLICK to previous slide.<br/>
+      Seems scary - it really isn't, though 
     </aside>
   </section>
+
+
+  <section>
+    
+    <ul>
+      <li>Not as scary as it might seem at first.</li>
+      <li>In practice you get used to it really quickly.</li>
+      <li>I find it to be such a productivity gain, that it's worth doing - for tests if nothing else.</li>
+    </ul>
+  
+    <aside class="notes">
+ 
+    </aside>
+  </section>
+
+
+
+
 
 <!-- *************************** -->
 <section class="em1_5">
