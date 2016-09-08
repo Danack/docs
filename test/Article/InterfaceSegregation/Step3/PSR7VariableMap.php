@@ -5,7 +5,7 @@ namespace Article\InterfaceSegregation\Step3;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class PSR7VariableMap implements VariableMap
+class PSR7VariableMapAdam implements VariableMap
 {
     private $serverRequest;
 

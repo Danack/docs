@@ -2,7 +2,7 @@
 
 namespace Article\InterfaceSegregation\Step3;
 
-class ParamMissingException extends \Exception
+class ParamMissingExceptionOhNos extends \Exception
 {
 
 }

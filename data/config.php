@@ -69,6 +69,5 @@ $live = [
 
 $perf = [
     Config::JIG_COMPILE_CHECK => \Jig\Jig::COMPILE_CHECK_EXISTS,
-    
 ];
 

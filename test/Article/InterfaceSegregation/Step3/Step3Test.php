@@ -24,7 +24,7 @@ class Step3Test extends \PHPUnit_Framework_TestCase
             [VariableMap::class => $varMap],
             [DataSource::class => EchoDataSource::class]
         );
-        $this->setExpectedException(ParamMissingException::class);
+        $this->setExpectedException(ParamMissingExceptionOhNos::class);
         $injector->execute([SearchController::class, 'search']);
     }
 
@@ -40,14 +40,14 @@ class Step3Test extends \PHPUnit_Framework_TestCase
     public function testArrayVariableMapException()
     {
         $varMap = new ArrayVariableMap(['zot' => 'fot']);
-        $this->setExpectedException(ParamMissingException::class);
+        $this->setExpectedException(ParamMissingExceptionOhNos::class);
         $varMap->getVariable('foo');
     }
 
     public function testPSR7VariableMapWorks()
     {
         $cliRequest = new CLIRequest("/?foo=bar", "example.com");
-        $varMap = new PSR7VariableMap($cliRequest);
+        $varMap = new PSR7VariableMapAdam($cliRequest);
         $fooValue = $varMap->getVariable('foo');
         $this->assertEquals($fooValue, $fooValue);
     }
@@ -55,8 +55,8 @@ class Step3Test extends \PHPUnit_Framework_TestCase
     public function testPSR7VariableMapException()
     {
         $cliRequest = new CLIRequest("/?zot=fot", "example.com");
-        $varMap = new PSR7VariableMap($cliRequest);
-        $this->setExpectedException(ParamMissingException::class);
+        $varMap = new PSR7VariableMapAdam($cliRequest);
+        $this->setExpectedException(ParamMissingExceptionOhNos::class);
         $varMap->getVariable('foo');
     }
 }

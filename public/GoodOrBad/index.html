@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Good or bad - knowing the difference is hard</title>
+
+        <meta name="description" content="Danack talking about interface segregation">
+        <meta name="author" content="Dan Ackroyd">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="themecss">
+        <!-- <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss"> -->
+        <link rel="stylesheet" href="lib/css/zenburn_backup.css" id="codeststylecss">
+      
+        <style type="text/css">
+        /* overrides */
+        
+
+        body {
+            background: #a8fcfc;
+            /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+            background: -webkit-radial-gradient(center, circle cover, #f2f3ff 45%, rgba(36, 133, 245, 0.21) 75%);
+            /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+            background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+            /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+            /*background-color: #fdfdfd; */
+        }
+        .reveal section img {
+            border: 0;
+            background: none;
+            box-shadow: 0 0 #000;
+        }
+        .reveal pre {
+            width: 90%;
+            font-size: 0.68em;
+            margin-left: 0px;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+          
+            /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7); */
+        }
+        
+        /* 
+        .reveal pre {
+          box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        */
+        
+        .preformatted {
+          font-family: monospace;
+          white-space: pre;
+      }
+
+        .spaceTop {
+            margin-top: 50px !important;
+        }
+        .spaceBottom {
+            margin-bottom: 50px !important;
+        }
+
+        h2, p, section { text-align: left; }
+        .reveal .slides {text-align: left; }
+        
+        
+        h1, h2, h3, h4, h5 {
+            font-family: "Quicksand", sans-serif !important;
+            font-weight: 200 !important;
+            /*text-transform: uppercase; */
+        }
+            
+        .embiggen { 
+            font-size: 1.2em !important;  
+        }
+        .emlargen {
+            font-size: 1.05em !important;
+        }
+        
+        .emnormal {
+          font-size: 0.9em !important;
+        }
+        
+        .emsmallen { 
+            font-size: 0.8em !important;  
+        }
+        .em_075 {
+          font-size: 0.75em !important;
+        }
+        .em_08 {
+          font-size: 0.8em !important;
+        }
+        .em_085 {
+          font-size: 0.9em !important;
+        }
+        .em_09 {
+          font-size: 0.9em !important;
+        }
+        .em_095 {
+          font-size: 0.95em !important;
+        }
+        .em1 {
+          font-size: 1.0em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        
+        .em1_05 {
+          font-size: 1.05em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        .em1_5 {
+          font-size: 1.5em !important;  
+        }
+        .em1_2 {
+          font-size: 1.2em !important;  
+        }
+        .em1_3 {
+          font-size: 1.3em !important;  
+        }
+        .em1_4 {
+          font-size: 1.4em !important;  
+        }
+        
+         .em1_8 {
+           font-size: 1.8em !important;
+         }
+        
+        .em2 {
+          font-size: 2em !important;  
+        }
+        th {
+          font-size: 1.5em !important;
+        }
+        
+        .finale {
+            font-size: 148px !important; 
+            text-align: center !important;
+            /* margin-bottom: 148px !important; */
+        }
+        .speaker-controls-notes > ul, 
+        .speaker-controls-notes ul, 
+        .notes > ul,
+        .notes  ul{
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+        
+        .centre {
+            text-align: center !important;
+        }
+        
+        .subtle {
+            color: #7c7c7c;
+        }
+        
+        .smallText {
+            font-size: 24px !important;
+        }
+        
+        blockquote {
+            background-color: #f5f5f5;
+        }
+        
+        blockquote {
+            width: 90% !important;
+            /* font-size: 36px !important; */
+        }
+            
+        pre, .danackCode {
+            font-size: 26px;
+        }
+
+        .rotate {
+            /* Safari */
+            -webkit-transform: rotate(-90deg);
+            
+            /* Firefox */
+            -moz-transform: rotate(-90deg);
+            
+            /* IE */
+            -ms-transform: rotate(-90deg);
+            
+            /* Opera */
+            -o-transform: rotate(-90deg);
+            
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+        
+        </style>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <script src="./plugin/jquery/jquery.min.js"></script>
+    </head>
+
+    <body>
+      <div class="reveal">
+        <div class="slides">
+
+<!-- *************************** -->
+<section class="em1_4">
+    <h1>Good or bad </h1>
+    <h3>Telling the difference is hard.</h3>
+    <p>
+        <a href="http://twitter.com/MrDanack">@MrDanack</a>
+    </p>
+    <p class="subtle" style="padding-top: 100px">
+      <small>Press 'c' to toggle code style</small><br/>
+      <small>Press 's' for speaker notes</small>
+    </p>
+  <p>
+    https://en.wikipedia.org/wiki/Rule_of_least_power
+    
+    In programming, the rule of least power is a design principle that "suggests choosing the least powerful [computer] language suitable for a given purpose".[1] Stated alternatively, given a choice among computer languages, classes of which range from descriptive (or declarative) to procedural, the less procedural, more descriptive the language one chooses, the more one can do with the data stored in that language.
+  </p>
+  
+</section>
+
+          
+<!-- *************************** -->
+<section>
+  <p>
+  Being a programmer is mostly:
+  </p>
+  <ul>
+
+    <li>Drinking coffee</li>
+    <li>Googling answers on stackoverflow</li>
+    <li>Making choices</li>
+  </ul>
+  <aside class="notes">
+  </aside>
+</section>
+          
+          
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/DoneItAgain.jpg" width="60%" />
+</section>
+
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/originalIpod.jpg" width="80%" />
+</section>
+
+<section style="text-align: center !important;" class="em2">
+
+  <blockquote>
+  "No wireless. Less space than a Nomad. Lame."
+  </blockquote>
+
+  <p>
+  Rob Malda (founder of slashdot), on the iPod at its release in 2001.
+  </p>
+  
+</section>
+          
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/original-iPhone.jpg" width="80%" />
+</section>
+
+
+<section style="width: 100%; " class="em1_8">
+  <h2>PHP</h2>
+  <p>haystack, needle or needle, haystack</p>
+  <p>self::$foo vs $this->foo</p>
+
+  <h2>English</h2>
+  <p>"i before e except after c when the sound is e?"</p>
+  <p>And pronunciation: cholmondeley => chummed-ly</p>
+</section>
+
+
+          
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/PHPStandardLibrary.jpg" width="75%" />
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/LolitOkei.jpg" width="75%" />
+</section>
+
+<section style="width: 100%; " class="em1_8">
+  <p>Yes, English can be weird.</p> 
+  <p>It can be understood through tough thorough thought, though.</p>
+</section>
+
+<section>
+  <h2>Tu and vous in french is a complete pain in the derriere</h2>
+  <ul>
+    <li>
+      You can give offense if you 'tu' someone who thinks you're disrespecting them.
+    </li>
+    <li>
+      My dad's girlfriend gets annoyed when I say "s'il vous plait" - as she thinks I should be using 'tu'.
+    </li>
+    <li>
+      People have to ask each other "is it okay if we start tu'ing each other?".
+    </li>
+  </ul>
+  <p>
+    Not having this feature in English makes communication simpler.
+  </p>  
+</section>
+
+
+<section>
+  <h1>
+    Ruby has a feature: Monkey-patching
+  </h1>
+
+  <pre class="danackCode em1_2" data-trim>
+  <code class="php">
+  r = 4/3  # => 1
+  r.class  # => Fixnum
+
+  require 'mathn'
+  
+  r = 4/3  # => (4/3)
+  r.class  # => Rational</code>
+  </pre>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+  <h2>
+    Object
+  </h2>
+    <img src="/images/ObjectInheritance2.jpg" width="60%"  />
+  <aside class="notes">
+  </aside>
+</section>
+
+<section style="text-align: center !important;">
+  <h2>
+    Object inheritance
+  </h2>
+    <img src="/images/ObjectInheritance.jpg" width="60%" />
+  <aside class="notes">
+  </aside>
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/HowToDrawAnOwl.jpg" width="65%" />
+  <aside class="notes">
+  </aside>
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/JavaVM.gif" width="60%" />
+  <aside class="notes">
+  </aside>
+</section>
+
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/HumanYUDoThis.jpg" width="50%" />
+  <aside class="notes">
+  </aside>
+</section>
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/No_idea_what_i_m_doing.jpg" width="50%" />
+  <aside class="notes">
+  </aside>
+</section>
+          
+          
+<!-- *************************** -->
+<section>
+    <h1 class="embiggen finale">Fin</h1>
+<ul>
+  <li>Telling the difference between good and bad is hard.</li>
+  <li>It is a skill that you can improve by focusing on it.</li>
+  <li>Even with a lot of practice, people still find it hard.</li>
+  <li>Questions?</li>
+</ul>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+    <blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+    </blockquote>
+</section>
+
+      </div>
+  </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: false,
+                history: true,
+                center: true,
+                width: 1600,
+                height: 900,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.1,
+                slideNumber: true,
+                //transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'none', 
+                //transitionSpeed: "slow",
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+            
+            
+            /* This draws the graph on the slide on a slidechanged event */
+            Reveal.addEventListener('slidechanged', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            } );
+            /* This draws the graph if we got here directly without coming from another slide */
+            Reveal.addEventListener('ready', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            });
+
+var createFunc = function() {
+  var counter = 0;
+    return function(e) {
+      counter = (counter + 1);// % 1;
+      
+      var themeCSSList = [
+        "css/theme/whiteDanack.css",
+        "css/theme/beige.css",
+        "css/theme/black.css",
+        "css/theme/blood.css",
+        "css/theme/league.css",
+        "css/theme/moon.css",
+        "css/theme/night.css",
+        "css/theme/serif.css",
+        "css/theme/simple.css",
+        "css/theme/sky.css",
+        "css/theme/solarized.css",
+      ];
+      
+      var codeCSSList = [
+        "lib/css/zenburn_backup.css",
+        "lib/css/vsdanack.css",
+      ];
+
+      if(e.which == 67 || e.which == 99) { //'c'
+//        var theme = themeCSSList[counter % themeCSSList.length];
+//        $("#themecss").attr('href', theme);
+
+        var codestyle = codeCSSList[counter % codeCSSList.length];
+        $("#codeststylecss").attr('href', codestyle);
+        $("#debug").text(codestyle);
+      }
+    };
+};
+
+          $(window).keypress(createFunc());
+        </script>
+    </body>
+</html>
