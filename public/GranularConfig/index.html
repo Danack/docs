@@ -81,7 +81,10 @@
         .emhugen { 
             font-size: 1.6em !important;  
         }
-            
+          
+        .embiggeren { 
+            font-size: 1.4em !important;  
+        }
         .embiggen { 
             font-size: 1.2em !important;  
         }
@@ -235,7 +238,16 @@
       <small>Press 's' for speaker notes</small>
     </p>
 
-  
+    <aside class="notes">
+      <ul>
+        <li>
+          I'm going to tell you a story. It's a story that most people should recognise at least parts of.
+        </li>
+        <li>
+          
+        </li>
+      </ul>
+    </aside>
 </section>
 
           
@@ -248,18 +260,19 @@
   
   <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
 $dev = [
-    
+    'user.authentication_service' => 'spoof',
+    'logging.targets' => ['on_screen', 'local_file'],
+    'cdn.service' => false,
+    'payment.gateway' => 'spoof'
+    // 30 more lines here, but they
+    // don't fit on the screen.
 ];
-
 </code>
 </pre>
   
   
   <aside class="notes">
     <ul>
-      <li>
-        I'm going to tell you a story. It's a story that most people should recognise.
-      </li>
       <li>
         In the beginning, there was just dev and we only needed one config.
       </li>
@@ -275,12 +288,15 @@ $dev = [
 <!-- *************************** -->
 <section>
   <h1>
-   Oh, you want this code deployed somewhere - dev + live
+   Oh, you want this code deployed somewhere
   </h1>
 
   <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
 $live = [
-    
+    'user.authentication_service' => 'standard',
+    'logging.targets' => ['sas_loggly'],
+    'cdn.service' => 'fastly',
+    'payment.gateway' => 'sagepay'
 ];
 
 </code>
@@ -319,16 +335,19 @@ $live = [
 <!-- *************************** -->
 <section>
   <h1>
-    Stop breaking live pls <br/> dev + staging + live
+    Stop breaking live pls
   </h1>
-  
-    <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
-$staging = [
-    
-];
 
+  <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
+$staging = [
+    'user.authentication_service' => 'standard',
+    'logging.targets' => ['local_file'],
+    'cdn.service' => false, // changed
+    'payment.gateway' => 'standard'
+];
 </code>
 </pre>
+  
   
   <aside class="notes">
     <ul>
@@ -362,14 +381,18 @@ $staging = [
 <!-- *************************** -->
 <section>
   <h1>
-    Unit tests are a thing - dev + test + staging + live
+    Unit tests are a thing
   </h1>
 
     <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
 $ci = [
-    
+    'user.authentication_service' => 'spoof',
+    'logging.targets' => ['null'], // changed
+    'cdn.service' => false,
+    'payment.gateway' => 'standard',
+    'user_data.service' => 'spoof'
+    'repository_type' => 'in_memory', // changed
 ];
-
 </code>
 </pre>
 
@@ -391,11 +414,19 @@ $ci = [
 
 <!-- *************************** -->
 <section style="width: 100%; text-align: center !important;">
+  
+  <h1>
+    Users....
+  </h1>
+  
   <img src="/images/UserDrinkingWater.gif" width="70%" />
   <aside class="notes">
     <ul>
       <li>
         We found out that maybe our users found it difficult to use our site.
+      </li>
+      <li>
+        Honestly, not our fault - but apparently it's not acceptable to blame the stupid users.
       </li>
     </ul>
   </aside>
@@ -408,11 +439,21 @@ $ci = [
   <h1>
     UX people wanted to be able to change stuff
   </h1>
-  <p>
-    dev + UX + test + staging + live
-  </p>
+
+    <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
+$ux_research = [
+    'user.authentication_service' => 'spoof',
+    'logging.targets' => ['on_screen', 'local_file'],
+    'cdn.service' => false,
+    'payment.gateway' => 'spoof',
+    'feature.signup.ui' => 'ui_2016_09',  // changed
+    'user_data.service' => 'standard'
+];
+</code>
+</pre>
 
   <aside class="notes">
+    <ul>
     <li>
   Then those asshole designers wanted to be able to try out new designs and get feedback from the gottamn users, without having a dev hard-code the changes in the code.</li>
     <li>So we duplicated the dev config block, and changed a few bits.
@@ -420,18 +461,47 @@ $ci = [
     <li>
         And all was good for a while.
       </li>
+    </ul>
   </aside>
 </section>
+
+
+<!-- *************************** -->
+<section style="width: 100%; text-align: center !important;">
+  <h1>
+    South west trains 
+  </h1>
+  <img src="/images/crowded_train.jpg" width="70%" />
+  <aside class="notes">
+    <ul>
+      <li>
+        South west trains, is a thing.
+      </li>
+    </ul>
+  </aside>
+</section>
+
+
 
 <!-- *************************** -->
 <section>
   <h1>
     Remote workers can't access internal services
   </h1>
-  <p>
-    dev + remote + UX + test + staging + live
-  </p>
 
+      <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
+$remote_dev = [
+    'user.authentication_service' => 'spoof',
+    'logging.targets' => ['on_screen', 'local_file'],
+    'cdn.service' => false,
+    'payment.gateway' => 'spoof',
+    'feature.signup.ui' => 'standard',
+    'user_data.service' => 'spoof' // changed
+];
+</code>
+</pre>
+  
+  
   <aside class="notes">
     <ul>
       <li>
@@ -450,16 +520,37 @@ $ci = [
 </section>
           
           
-
+<!-- *************************** -->
+<section style="width: 100%; text-align: center !important;">
+  <h2>
+    Server outage after cleaner unplugged 'the rack'
+  </h2>
+  <img src="/images/Server_rack.png" width="65%" />
+  <aside class="notes">
+    <ul>
+      <li>
+      </li>
+    </ul>
+  </aside>
+</section>
 
 <!-- *************************** -->
 <section>
   <h1>
     Deploying to different host
   </h1>
-  <p>
-    dev + remote + UX + test + staging + live_cupboard + live_aws
-  </p>
+
+  
+        <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
+$live_aws = [
+    ...
+    'logging.targets' => ['s3_logging'],
+    'cdn.service' => 'cloudfront',
+    'file_storage.service' => 's3',
+    ...
+];
+</code>
+</pre>
 
   
   <aside class="notes">
@@ -486,10 +577,15 @@ $ci = [
   <h1>
     Seven different configs. All unique.
   </h1> 
+  
+  <p>
+    dev + remote + ux_research + test + staging + live_cupboard + live_aws
+  </p>
 
   <p class="centre" style="font-size: 192px; width: 100%; margin-top: 40px">
      \o/
   </p>
+  
 
   <aside class="notes">
     <ul>
@@ -590,12 +686,14 @@ $ci = [
   
 <pre class="danackCode spaceTop emlargen" data-trim><code class="php">
 $default = [
-    
+    'user.authentication_service' => 'standard_auth_service',
+    'cdn.service' => 'fastly',
 ];
 </code>
 </pre>
 
   <aside class="notes">
+    * always 
     * Shitty example in PHP - I use code for config....the syntax should be obvious,
     * Default settings get used......by default
   </aside>
@@ -612,16 +710,15 @@ $default = [
   <pre class="danackCode spaceTop emlargen" data-trim><code class="php">
 
 $remote = [
-    'user.authentication_service' = 'spoof',
+    'user.authentication_service' => 'spoof',
 ];
-
-    
+      
 $dev = [
-    'assets.caching' = false,
+    'cdn.service' => false,
 ];
 
-$uxtesting = [
-    'assets.caching' = true,
+$ux_research = [
+    'feature.signup.ui' => 'ui_2016_09',
 ];
     
 </code>
@@ -650,28 +747,27 @@ $uxtesting = [
      Instead of just choosing "dev"
     </li>
     <li>
-      The configurator allows people to say they want the "dev,remote,uxtesting" environment.
+      The configurator allows people to say they want the "dev,remote,ux_research" environment.
     </li>
     <li>
-      Which means apply the "dev", "remote", "uxtesting" settings in that order.
+      Which means apply the "dev", "remote", "ux_research" settings in that order.
     </li>
   </ul>
 
   <aside class="notes">
     * Solution granular controls. Instead of just having separate environments that are monolithic blocks, instead build the application config out of granular settings.
-    * Have "dev", "remote", "uxtesting" settings, which means apply the "dev", "remote", "uxtesting" settings in that order.
+    * Have "dev", "remote", "ux_research" settings, which means apply the "dev", "remote", "ux_research" settings in that order.
 
   </aside>
 </section>
           
-
 
 <section>
   <h1>
     "dev,remote,uxtesting"
   </h1>
 
-  <pre class="danackCode spaceTop emlargen" data-trim><code class="php">
+  <pre class="danackCode spaceTop embiggen" data-trim><code class="php">
 
   $settings = array_merge([], $dev);
   $settings = array_merge($settings, $remote);
@@ -689,12 +785,12 @@ $uxtesting = [
 
 
 <!-- *************************** -->
-<section class="embiggen">
+  <section class="embiggen">
   <h1>
   Benefits
   </h1>
 
-  <ul>
+  <ul class="embiggen">
     <li class="fragment">Most of the time, only need to edit a setting in one place, so less chance to forget.</li>
     <!-- <li class="fragment">All entries are deliberate - no need to set/override things you don't care about.</li> -->
     <li class="fragment">Reading what is special for a particular environment becomes trivial.</li>
@@ -777,15 +873,15 @@ $siteName = 'awesomeapp.com';
 
 //And string concantenation...ah yissss
 $dev = [
-  Config::LIBRATO_STATS_NAME => 'dev.'.$siteName
+    Config::LIBRATO_STATS_NAME => 'dev.'.$siteName
 ];
 
 $staging = [
-  Config::LIBRATO_STATS_NAME => 'staging.'.$siteName
+    Config::LIBRATO_STATS_NAME => 'staging.'.$siteName
 ];
 
 $live = [
-  Config::LIBRATO_STATS_NAME => 'live.'.$siteName
+    Config::LIBRATO_STATS_NAME => 'live.'.$siteName
 ];
 </code>
 </pre>
