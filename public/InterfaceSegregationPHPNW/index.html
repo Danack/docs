@@ -246,7 +246,6 @@
 
 
 <!-- *************************** -->
-<!-- 
 
 <section class="em1_4">
   <h1>SOLID principles</h1>
@@ -302,7 +301,7 @@
   
   
   <p class="fragment" data-fragment-index="1" style="padding-top: 50px">
-    If you don't recognise this.....then reading up on this can be your homework.
+    If you don't recognise these.....then reading up on the others can be your homework.
   </p>
 
   <aside class="notes">
@@ -312,7 +311,7 @@
   </aside>
 </section>
 
--->
+
 
 <!-- *************************** -->
 <!-- 
@@ -370,7 +369,7 @@
   </blockquote>
   
   <aside class="notes">
-   The idea is simple instead of passing around big classes, we create small interface that has a more specific meaning.
+   "The idea is simple, instead of passing around big classes, we create small interfaces that have a more specific meaning."
   </aside>
 </section>
 
@@ -404,9 +403,6 @@
     </table>
   
   <aside class="notes">
-  <p>
-    Sorry to everyone who's seen this slide before - the concept is important
-  </p>
   <p>
     These two things are not the same - I think making code be easy to reason about, is more important than making code be just understandable. 
   </p>
@@ -605,7 +601,8 @@ class SearchController
 </pre>
   
     <aside class="notes">
-  <p>Traditional interface segregation example</p>
+      <p>Traditional interface segregation example</p>
+      <p>We have an endpoint of an API that allows users to search for stuff by keywords.</p>
   <p>
     We have a SearchController - one of the parameters it needs to run is a PSR7 Request object.
   </p>
@@ -977,9 +974,9 @@ class SearchController
 <section>
   <h1>I <strike>hate</strike> strongly dislike mocks</h1>
   <ul class="em1_5" style="padding-top: 50px">
-    <li>Mocks should only be used when you have to test behaviour</li>
-    <li>Stubs/fakes are much easier to use</li>
-    <li>Stubs/fakes suffer from poor marketing...</li>
+    <li class="fragment">Mocks should only be used when you have to test behaviour</li>
+    <li class="fragment">Stubs/fakes are much easier to use</li>
+    <li class="fragment">Stubs/fakes suffer from poor marketing...</li>
   </ul>
 
   <aside class="notes">
@@ -987,6 +984,8 @@ class SearchController
     <p>
       I find them hard to read. And my IDE doesn't understand them - which makes refactoring code be a pain.
     </p>
+    <p>Mocks should only be used when you have to test behaviour</p>
+    <p>A stub or fake implementation is an class that implements an interface in a very simple way. Fakes 'usually' contain canned data. A stub usually contains a real, but simple implementation.</p>
   </aside>
     
     
@@ -995,7 +994,7 @@ class SearchController
 
 <!-- *************************** -->
 <section>
-  <h2>Other implementations are equally valid</h2>
+  <h2>Stub implementation of VariableMap</h2>
   <pre class="danackCode em1_1" data-trim>
 <code class="php">class ArrayVariableMap implements VariableMap {
   public function __construct(array $variables) {
@@ -1625,7 +1624,7 @@ $injector->execute('solidCode');
       <li>Who here knows how to draw an owl?</li>
       <li>There's really only 2 steps, you draw some circles, and then you draw the rest of the owl.</li>
       <li>It's the same for designing good interfaces. You kind of start trying to design them.....and then through some unclear process you're meant to emerge with a good interface....somehow.</li>
-      <li>I can't tell you exactly how to design good interfaces, but I can show you some general types of interfaces that should serve you well.</li>
+      <li>Or to put it simply, I can't tell you exactly how to design good interfaces, but I can show you some general types of interfaces that should serve you well.</li>
     </ul>
   </aside>
 </section>
@@ -1846,25 +1845,45 @@ class ArrayVariableMap implements VariableMap
   
     <aside class="notes">
     <ul>
+
+      <li>
+        When people write some clever code, that does something interesting, they feel good about themselves.
+      </li>
+      <li>
+        How would you feel after writing this code? Clever? Smart? Bored? Yep.
+      </li>
       <li>
         Let me ask you a different question. You're applying for a job. A potential employer asks you to submit them some code to show how solid a programmer you are. WHO WOULD SUBMIT THIS CODE?
       </li>
       <li>
         "Hey there employer, I can write you a class that takes an array, and then allows you to pull out a variable from that array?". NO ONE WOULD DO THIS!
       </li>
-      <li>
-        When I write some clever code, that does something interesting, I feel good about myself.
-      </li>
-      <li>
-        How would you feel after writing this code? Clever? Smart? Bored? Yep.
-      </li>
-      <li>
-        Who would use something like this as an example piece of code, to show a potential employer?
-      </li>
   </ul>
   </aside>
 </section>
 
+
+
+
+
+<!-- *************************** -->
+<section class="em1_5">
+  <h1 class="finale">Simplicity Is Hard</h1>
+    <aside class="notes">
+    <ul>
+      <li>
+        Is the ArrayVariableMap class clever? Nope.
+      </li>
+      <li>
+        English is a crappy language - and the words you use to describe code affect how you feel about it.
+      </li>
+      <li>
+        This code is boring, because it is trivial....but "not clever" does not imply bad. 'Boring' does not imply bad.
+      </li>
+      <li>Boring is good - it implies simple.</li>
+    </ul>
+  </aside>
+</section>
 
 
 
@@ -1914,7 +1933,7 @@ class ArrayVariableMap implements VariableMap
   <ul>
     <li>Use interfaces/classes with only the required methods</li>
     <li>Use semantically meaningful types</li>
-    <li>If your code is boring, you're doing good</li>
+    <li>If your code is <strike>boring</strike> simple, you're doing good</li>
     <li>Use DIC/Auryn to do the boring wiring up</li>
     <li>Questions?</li>
     <li>https://joind.in/talk/04aa0</li>
