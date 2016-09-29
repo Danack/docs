@@ -239,11 +239,15 @@
       <small>Press 'c' to toggle code style</small><br/>
       <small>Press 's' for speaker notes</small>
     </p>
+    <p>
+      <a href="https://joind.in/talk/04aa0">https://joind.in/talk/04aa0</a>
+    </p>
 </section>
 
 
-
 <!-- *************************** -->
+<!-- 
+
 <section class="em1_4">
   <h1>SOLID principles</h1>
 
@@ -308,7 +312,7 @@
   </aside>
 </section>
 
-
+-->
 
 <!-- *************************** -->
 <!-- 
@@ -338,7 +342,11 @@
   </p>
   
   <aside class="notes">
-   Open invitation - if you want help writing an RFC, either 
+    <ul>
+      <li>I've been told it's important to tell people who am I, to make myself seem more authorative.</li>
+      <li>Open invitation - if anyone wants help writing an RFC, either just drafting the RFC on the wiki, or how to frame an idea to have it be well received by internals, give me a shout.</li>
+      <li>I've done this for a couple of people and while it doesn't </li>
+    </ul>
   </aside>
   
 
@@ -362,7 +370,7 @@
   </blockquote>
   
   <aside class="notes">
-   The idea is simple instead of passing around big objects, we create small interface that has a more specific meaning.
+   The idea is simple instead of passing around big classes, we create small interface that has a more specific meaning.
   </aside>
 </section>
 
@@ -375,8 +383,6 @@
     <li class="fragment">…after doing some setup work</li>
     <li class="fragment">More reasonable code</li>
   </ul>
-  
-  
 </section>
 
 <!-- *************************** -->
@@ -402,7 +408,7 @@
     Sorry to everyone who's seen this slide before - the concept is important
   </p>
   <p>
-    These two things are not the same - they don't compete with each other, but I think making code be easy to reason about, is more important than making code be just understandable. 
+    These two things are not the same - I think making code be easy to reason about, is more important than making code be just understandable. 
   </p>
   </aside>
 </section>
@@ -423,7 +429,7 @@ class MySQLi {
 <pre class="danackCode em1_2 fragment" data-trim>
 <code class="php" data-trim>
 class S3Client { 
-    function factory(array $config) { ... }
+    static function factory(array $config) { ... }
 }
 </code>
 </pre>
@@ -465,7 +471,7 @@ class MySQLi {
         $dbname, $port) {...}
 }  
   
-//oops - forget to set password and dbname
+//oops - forget to set password, dbname and port
 $db = new MySQLi('localhost', 'db_user');
   </code>
   </pre>
@@ -479,7 +485,7 @@ $db = new MySQLi('localhost', 'db_user');
 <pre class="danackCode em1_4" data-trim>
 <code class="php">
 class S3Client { 
-    function factory(array $config) { ... }
+    static function factory(array $config) { ... }
 }
   
 // Spelling is hard
@@ -539,7 +545,7 @@ S3Client::factory($config)
 
   <aside class="notes">
   
-    But just before we do that - I'd like to remind everything what 'mock objects' are, as I'm going to ask a question in a couple of minutes that depends on you knowing what they are.   
+    But just before we do that - I'd like to make it clear what I mean when I use the phrase 'mock objects', as I'm going to ask a question in a couple of minutes that depends on you knowing what they are.   
  
   </aside>
 </section>
@@ -553,9 +559,9 @@ S3Client::factory($config)
 <code class="php" data-trim>
 function testFoo()
 {
-   $mock = Mockery::mock('Request');
+   $mock = Mockery::mock(Request::class);
       ->shouldReceive('getUri')
-      ->andReturn('/search?searchTerms=foo,bar')
+      ->andReturn('/search')
       ->getMock();
   
     foo($mockObject);
@@ -572,9 +578,12 @@ function testFoo()
   They're used in tests to make sure that one bit of code calls another bit of code correctly.
 </p>
 <p>
-  In this example, we're creating a mock object that expects to have its 'getMethod' called, and will return the string '/search?searchTerms=foo,bar'  
+  In this example, we're creating a mock object that expects to have its 'getUri' method called, and will return the string '/search'  
 </p>
-
+<p>
+  If foo doesn't call '$mock->getUri()' the test will fail
+</p>
+    
   </aside>
 </section>
 
@@ -718,10 +727,10 @@ function testSearchController()
   
   <aside class="notes">
     <p>
-      Ok - but now you've seen all the methods that are available for requests objects, you should be able to know how to create a mock for the object for a unit test... 
+      Ok - but now you've seen all the methods that are available for requests objects, are you able to know how to create a mock for the object for a unit test...? 
     </p>
     <p>
-      Or not....even knowing all of the methods on the object, it doesn't help you reason about the code.
+      No....even knowing all of the methods on the object, it doesn't help you reason about the code. Any of those 30 methods could be needed in a test.
     </p>
     <p>
       Instead you must read the actual code to know how it's being used.
@@ -804,7 +813,7 @@ class SearchController
     </p>
     <p>Just getting the query params and pulling a value out, or throwing an exception if it's not set</p>
     <p>
-      Lets extract an interface!
+      Just to highlight the code we're going to extract:
     </p>
   </aside>  
 </section>
@@ -839,7 +848,10 @@ class SearchController
       Lets start segregating!
     </p>
     <p>
-      Actually lets start "type-extracting". More precise name, and doesn't sound bad.
+      You know, when I say it outloud like that - it doesn't sound so good. 
+    </p>
+    <p>
+      So instead, actually lets start "type-extracting". More precise name, and doesn't sound bad.
     </p>
   </aside>  
 </section>
@@ -887,6 +899,9 @@ interface VariableMap
 </code>
 </pre>
     <aside class="notes">
+      <p>
+        What the code is doing is fetching a variable by name, so VariableMap seems a sensible name for the interface.
+      </p>
     <p>
       The extracted interface is very small, which is nice as it's very reasonable.
     </p>
@@ -952,6 +967,7 @@ class SearchController
 </pre>
   <aside class="notes">
     <ul>
+      <li>We then refactor the controller to use the interface. The commented out code is what we had before.</li>
       <li>Controller is way simpler</li>
       <li>...but we have more the components</li>
     </ul>  
@@ -966,6 +982,15 @@ class SearchController
     <li>Stubs/fakes suffer from poor marketing...</li>
   </ul>
 
+  <aside class="notes">
+    <p>I have to be honest - I just don't like mocks that much. Although sometimes they are needed they have massive downsides.</p>
+    <p>
+      I find them hard to read. And my IDE doesn't understand them - which makes refactoring code be a pain.
+    </p>
+  </aside>
+    
+    
+  
 </section>
 
 <!-- *************************** -->
@@ -987,9 +1012,15 @@ class SearchController
   }
 }</code></pre>
    <aside class="notes">
+     <p>
+       The controller is dependent on the VariableMap interface.
+     </p>
     <p>
-      Implementation based on array is equally valid and allows us to test easily.
+      An implementation of that interface based on array is equally valid and allows us to test easily.
     </p>
+     <p>
+       So here is an ArrayVariableMap, all it does
+     </p>
   </aside>
 </section>
 
@@ -1045,7 +1076,7 @@ function testSearchControllerException()
   <h1>Benefits review</h1>
   <ul>
     <li class="fragment">Controller re-usable with different HTTP library</li>
-    <li class="fragment">Actually no longer tied to HTTP request. <br/>Can be used by CLI scripts</li>
+    <li class="fragment">Actually no longer tied to HTTP request. <br/>Can be used by CLI application</li>
     <li class="fragment">Tests easier to write, as can use array implementation</li>
     <li class="fragment">Tests run faster</li>
     <li class="fragment">Tests are easier to reason about</li>
@@ -1053,18 +1084,20 @@ function testSearchControllerException()
   
   <aside class="notes">
    <ul>
+     <li>That's a simple example of interface segregation - I'm hoping it wasn't too scary.</li>
+     <li>All we really did was move code around a little, and add an interface.</li>
+     <li>For that small amount of work the benefits are:</li>
      <li>Faster tests aren't worth much individually, but when you have 1000</li>
    </ul>  
   </aside>
-  
 </section>
 
-
+ 
 <!-- *************************** -->
 <section class="em1_5">
   <h1>Testing code</h1>
   <ul style="padding-top: 100px">
-    <li>J.B. Rainsberger - Integrated Tests Are A Scam <br/> https://vimeo.com/80533536</li>
+    <li>J.B. Rainsberger - Integrated Tests Are A Scam <br/> <a href="https://vimeo.com/80533536">https://vimeo.com/80533536</a></li>
     <li>Unit tests aren't what you think they are either</li>
   </ul>
 </section>
@@ -1271,8 +1304,8 @@ class SearchController
      <li>We ask one of our colleagues to add a limit to the searching, and they do this.</li>
      <li>Is 'limite' a typo? Depends if the programmer is French?</li>
      <li>Where would we look to see if it's a typo? DataSource is an interface....so no help. Would need to ask colleagues, look in all implementations.</li>
-     <li>An array is one of the most general types possible - it can store anything.</li>
-     <li>Lets extract a type</li>
+     <li>As arrays are such a generic type it's hard to reason about them.</li>
+     <li>Lets extract and create a more specialized type.</li>
    </ul>  
   </aside> 
 </section>
@@ -1356,7 +1389,8 @@ class SearchController
   <aside class="notes">
    <ul>
      <li>This type specialization applies to trivial types as well.</li>
-     <li>Common pattern to need to have pass around temp paths for writing </li>
+     <li>Common pattern to need to have pass around temp paths for writing</li>
+     <li>Very easy to pass wrong parameter to methods like this, as it will accept any string </li>
    </ul>
   </aside>
   
@@ -1417,7 +1451,8 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
   <aside class="notes">
    <ul>
      <li>Allows you to see at a glance a semantically meaningful name for the parameter.</li>
-     <li>Hey, it turns out that we wanted to have different paths. Now it is impossible for the wrong tmpPath to be used.</li>
+     <li>Hey, it turns out that we wanted to have different paths.</li>
+     <li>Now it is impossible for the wrong tmpPath to be used.</li>
    </ul>
   </aside>  
 </section>
@@ -1429,26 +1464,38 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
 <section class="em1_5"> 
   <h1>Everything is a trade-off</h1>
 
+  <aside class="notes em1" >
+    <p>
+     I hate it when you go to a conference and the speaker present a technology or idea as great with no downsides.
+    </p>
+     <p>What I find is I go away, spend some time trying to use that idea, and it just feels 'icky' and I feel bad because I must be doing something wrong? But you talk to people who actually use the technology already and find out that...yeah... it's got some downsides, and it's not your fault for finding it difficult to use. 
+     </p>
+    <p>
+      As forewarned is fore-armed, I'd like to talk about the two downsides which are:
+     </p>
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section class="em1_5"> 
+  <h1>Writing SOLID code leads to more typing</h1>
+
   <ul>
-     <li class="fragment">Writing SOLID code leads to more typing</li>
-     <li class="fragment">Designing interfaces is hard</li>
+     <li class="fragment">You get used to this. </li>
+     <li class="fragment">Readability > quickness to type</li>
+     <li class="fragment">Use a Dependency Injection Container to run your code github.com/rdlowrey/auryn</li>
   </ul>
 
   <aside class="notes">
     <ul>
-     <li>I hate it when you go to a conference and the speaker present a technology or idea as great with no downsides.</li>
-     <li>What I find is I go away, spend some time trying to use that idea, and it just feels 'icky' and I feel bad because I must be doing something wrong? But you talk to people who actually use the technology already and find out that...yeah... it's got some downsides, and it's not your fault for finding it difficult to use. 
-     </li>
-     <li>
-      As forewarned is fore-armed, I'd like to talk about the two downsides which are:
-     </li>
-     <li>
-        Writing good solid code requires a lot more tapping of the keyboard.
-     </li>
-      <li>But also, just designing good interfaces is hard.</li>
+      <li>The amount of time you actually spend writing code is tiny compared to the amount of time spent reading code.</li>
     </ul>
   </aside>
 </section>
+
 
 
 <!-- *************************** -->
@@ -1508,8 +1555,6 @@ solidCode($logger, $userRepo); // This is harder to call
     </ul>
   </aside>
 </section>
-
-
 
 
 <!-- *************************** -->
@@ -1821,6 +1866,8 @@ class ArrayVariableMap implements VariableMap
 </section>
 
 
+
+
 <section class="em1_2">
   <h2>Terminology sculpts cognition</h2>
  
@@ -1848,26 +1895,13 @@ class ArrayVariableMap implements VariableMap
         This is a real problem, as boring code is way more maintainable, but not exciting to write.
       </li>
       <li>
-      Code needs to be trivial to reason about, so that when you're looking at it from a 10,000 foot view, or a higher abstraction level
+      Code needs to be trivial to reason about, so that when you're looking at how all of the pieces of your application fit together, you can reason about how those pieces work together without having to understand the intricate details of each part.
     </li>
   </ul>
   </aside>
 </section>
 
 
-<!-- *************************** -->
-<section class="em1_5">
-  <h2>Reasoning about your application from a birds eye view</h2>
-  <p>
-    
-    
-  </p>
-
-
-  <aside class="notes">
-
-  </aside>
-</section>
 
 
 
@@ -1883,7 +1917,7 @@ class ArrayVariableMap implements VariableMap
     <li>If your code is boring, you're doing good</li>
     <li>Use DIC/Auryn to do the boring wiring up</li>
     <li>Questions?</li>
-    <li>https://joind.in/talk/325e5</li>
+    <li>https://joind.in/talk/04aa0</li>
   </ul>
 </section>
 
