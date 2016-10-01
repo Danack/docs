@@ -1553,7 +1553,9 @@ function solidCode(Session $session, UserRepo $userRepo)
 
   <aside class="notes">
     <ul>
-     <li></li>
+     <li>I think it's important to understand exactly why SOLID code is harder to use.</li>
+      <li>Here is some bade code...</li>
+      <li>And here is some good code...</li>
     </ul>
   </aside>
 </section>
@@ -1579,7 +1581,9 @@ solidCode($logger, $userRepo); // This is harder to call
 
   <aside class="notes">
     <ul>
-     <li></li>
+     <li>The bad code is easy to call</li>
+      <li>The SOLID code is much more difficult to call as you have to create and pass in the dependencies</li>
+      <li>As i said - you can either just grow used to this, or you a dependency injection container.</li>
     </ul>
   </aside>
 </section>
@@ -1616,26 +1620,10 @@ $injector->execute('solidCode');
 
   <aside class="notes">
    <p>
-    If you write SOLID code you have simpler pieces of code, but way more of them.
+    SKIP
   </p>
-  <p>
-    Wiring them up together is annoying and takes time, which is a cost - which makes writing code 'properly' be unattractive.
-  </p>
-  <p>
-    Need to find a way to minimise the cost of writing good code.
-  </p>
-  <p>
-    I'm just going to call it an injector....rather than abbreviate it.
-  </p>
-    
-  <ul>
-    <li>Dependency injector container to the rescue.</li>
-    <li>Solves explosion of dependencies - each dependency only has to be setup once.</li>
-    <li>You focus on writing code that consumes dependencies.</li>
-    <li>Use rdlowrey/auryn it's great! Or use php-di/php-di it's kind of ok.</li>
-    <li>Can be any callable, i.e. function name, class static or instance method, closure.</li>
-    <li>If it's an instance method, the object will get constructed and then instance method executed.</li>
-  </ul>
+ 
+
   
   </aside>
 </section>
@@ -1648,10 +1636,10 @@ $injector->execute('solidCode');
   <img src="/images/HowToDrawAnOwl_Fine.png" style="width: 75%" class="fragment"/>
 
   <aside class="notes">
-    <ul>
+    <ul class="em1">
       <li>Designing interfaces is just hard. In many ways it's a skill similar to drawing an owl.</li>
       <li>Who here knows how to draw an owl?</li>
-      <li>There's really only 2 steps, you draw some circles, and then you draw the rest of the owl.</li>
+      <li>you draw some circles, draw the rest of the owl.</li>
       <li>It's the same for designing good interfaces. You kind of start trying to design them.....and then through some unclear process you're meant to emerge with a good interface....somehow.</li>
       <li>Or to put it simply, I can't tell you exactly how to design good interfaces, but I can show you some general types of interfaces that should serve you well.</li>
     </ul>
@@ -1688,7 +1676,7 @@ $injector->execute('solidCode');
   </ul>
 
   <aside class="notes">
-  <ul>
+  <ul class="em0_9">
     <li>These emerge from your apps 'business' needs.</li>
     <li>If you do Test Driven development these will be designed before app is written.</li>
     <li>If, like most developers, you don't do TDD, these patterns emerge when you go to write your tests after you write your application code.</li>
