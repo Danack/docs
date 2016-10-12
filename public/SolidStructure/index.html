@@ -462,9 +462,10 @@
     </tr>
 </table>
   
+ 
     <aside class="notes">
       <p>
-      By unit testsd, I really mean tested in isolation.
+      By unit tested, I really mean tested in isolation.
       </p>
       <p>
         This talk is mostly about the difference between unit-testable code and code that can't be tested, but the difference between typed code and 'untyped' code is also important.        
@@ -916,23 +917,25 @@ $injector->share($object); // This line is new
   <h1>Aliasing interfaces to classes</h1>
 
 <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
-class StubFileWriter implements Writer {
+class StubWriter implements Writer {
     function write(string $string) {  ... } 
 }
   
-function logUserAccess(User $user, FileWriter $fw)
+function foo(Writer $fw)
 {
-    $fw->write( "User " . $user->getName() . " did something");
+    $fw->write("foo did something");
 }
-$user = new User("MrDanack");
-$injector->share($user);
-$injector->alias('FileWriter', 'StubFileWriter');
+
+$injector->alias('Writer', 'StubWriter');
 $injector->execute('foo');
 </code>
 </pre>
   
   <aside class="notes">
-    <p></p>
+    <p>Aliasing an interface to a class allows you to say which specific implementation gets created.</p>
+    <p>
+      In this example, I'm aliasing the interface 'writer' to an implementation, 'StubWriter' - so that when Auryn sees that the function has a dependency on a 'writer' it actually creates a 'StubWriter' instead.
+    </p>
   </aside>
   
 </section>
@@ -950,7 +953,7 @@ $injector->execute('foo');
       Most DICs can do that sort of thing.
     </p>
   <p>
-    The key thing that makes Auryn be incredibly powerful is how it allows you to set delegate functions for creating objects.
+    The key thing that makes Auryn be incredibly powerful is how it allows you to set delegate functions for creating objects, and all of the object instantiation is done recursively.
   </p>
 
   <aside class="notes">
@@ -977,14 +980,12 @@ function createTwitterApiConfig()
 }
 
 $injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
-
-
 </code>
 </pre>
 
   <aside class="notes">
     <p>
-      
+      Auryn allows you to setup delegate functions. These are 
     </p>
   </aside>
 </section>
@@ -992,7 +993,41 @@ $injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
 
 
     
-    
+<!-- *************************** -->
+<section>
+    <h1>Recursion is awesome</h1>
+  
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+
+class TwitterApi {
+    function __construct(TwitterApiConfig $tac)
+    {
+       ...
+    }
+}
+
+function sendMessage(TwitterApi $twitterApi)
+{
+    ...
+}
+      
+$injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
+$injector->execute('sendMessage');
+</code>
+</pre>
+
+  <aside class="notes">
+    <p>
+      Auryn resolves dependencies recursively. In this example, it goes to execute 'sendMessage', sees that it has a dependency on TwitterApi, so goes off to make that.
+    </p>
+    <p>
+      Auryn then sees that TwitterApi has a dependency on TwitterApiConfig, so goes off to create that, before being able to create the TwitterApi object.
+    </p>
+    <p>
+      The recursion is cool as it means that you don't need to composite anything together yourself. You just tell Auryn how to create each fundamental object once, and it then does the hard work of putting stuff together for you.
+    </p>
+  </aside>
+</section>
     
     
 
@@ -1002,10 +1037,10 @@ $injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
 
   <ul>
     <li>
-       Testable + typed code, can be written cleanly.
+       Testable + typed that makes up most of your app, can be written cleanly.
     </li>
     <li>
-      Non-testable + untyped code, completely separated away.
+     Non-testable + untyped bootstrap code, completely separated away.
     </li>
     <li>
        Injector provides the binding between these two different regions.
@@ -1018,8 +1053,7 @@ $injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
       Although I hope I've explained what it does, it's only when you actually start coding like this, you really get to see how powerful it is.
     </p>
     <p>
-      Bootstrapping your application becomes really easy. Writing application code in a way that 
-      
+      Bootstrapping your application becomes really easy. Writing application code in a way that easily testable becomes much easier.
     </p>
   </aside>
   
@@ -1046,10 +1080,70 @@ $injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
   </ul>
   
   <aside class="notes">
-    <p>I have been using this pattern for a couple of years....I thought it was going to be really easy to explain how awesome it is.</p>
+    <p></p>
   </aside>
   
 </section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>More than one of a type</h1>
+    <pre class="danackCode spaceTop em1_2" data-trim><code class="php" data-trim>
+// Move data that is more than 24 months old to archive
+function archiveData(PDO $live, PDO $archive) 
+{
+    // ...
+}
+
+  </code>
+</pre>
+
+  
+  <aside class="notes">
+    <p>
+      So we've got some code, that moves data from the live DB to an archive database.
+    </p>
+    <p>
+      Injector can't tell the two parameters apart.
+    </p>
+  </aside>
+
+</section>
+
+<!-- *************************** -->
+<section>
+  
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+// Don't execute this directly
+function archiveData(PDO $live, PDO $archive) 
+{
+    // ...
+}
+
+// Instead excute a wrapped version.
+function archiveDataWrapped(PDOFactory $pdoFactory) 
+{
+    $live = $pdoFactory->create('live');
+    $archive = $pdoFactory->create('archive');
+    
+    archiveData($live, $archive);
+}
+  </code>
+</pre>
+
+  
+  <aside class="notes">
+    <p>
+      Simplest way to work around this, is to wrap the code.
+    </p>
+
+  </aside>
+
+</section>
+
 
 
 
@@ -1072,44 +1166,14 @@ class ArchiveContext {
   </p>
   
   <aside class="notes">
+    
+    <p>A more powerful solution is to use context objects. These allow for 'contexts' to be re-used across your application, instead of having to have hacks everywhere.</p>
+    
     <p>"The ability to bind the lifecycle and interactions of stateful components to well-defined but extensible lifecycle contexts."</p>
   
   </aside>
   
 </section>
-
-
-
-<!-- *************************** -->
-<section>
-  <h1>More than one of a type</h1>
-    <pre class="danackCode spaceTop em1_4" data-trim><code class="php" data-trim>
-// Move data that is more than 24 months old to archive
-function ArchiveData(PDO $liveDB, PDO $archiveDB) 
-{
-    
-}
-
-  </code>
-</pre>
-
-  <p>
-    Injector can't tell the two parameters apart.
-    
-  </p>
-
-  
-  <aside class="notes">
-    <p>"The ability to bind the lifecycle and interactions of stateful components to well-defined but extensible lifecycle contexts."</p>
-  
-  </aside>
-  
-</section>
-
-
-          
-
-
 
 <!-- *************************** -->
 <section>
@@ -1135,6 +1199,10 @@ function archiveData(ArchiveContext $archiveContext)
 </pre>
 
   <aside class="notes">
+    <p>
+      
+      
+    </p>
   </aside>
   
 </section>
@@ -1179,14 +1247,13 @@ function sendMessage(UserPrefs $userPrefs, ...)
 
 <!-- *************************** -->
 <section>
-  <h1>Sometimes can't know dependencies</h1>
-    <pre class="danackCode spaceTop em1_4" data-trim><code class="php" data-trim>
+    <pre class="danackCode spaceTop em0_9" data-trim><code class="php" data-trim>
 
 function sendTwitterMessage(TwitterApi $twitterApi) {
    ...
 }
       
-function sendPagerDutyMessage(PageDuty $pagerDuty) {
+function sendPagerDutyMessage(PagerDuty $pagerDuty) {
       
 }
       
@@ -1207,12 +1274,18 @@ function sendMessage(UserPrefs $userPrefs)
   <aside class="notes">
     <p></p>
   <p>
-     This seems to be a problem that Symfony, Zend frameworks just don't want to recognise.
+     This seems to be a problem that Symfony, Zend frameworks just don't want to recognise. I'm not entirely sure why, but I suspect it's just that they don't want people to know that there are limitations to those frameworks.
   </p>
   <p>
-    I'm not entirely sure why, but I suspect it's just that they don't want people to know that there are limitations to those frameworks.
+    
   </p> 
-  
+  <p>
+    Basically the only solution that doesn't involve nasty hacks is to allow multiple levels of execution. I use this in my own 'framework'.
+  </p>
+  <p>
+    Here, the 'sendMessage' routine doesn't actually send the message, it just looks up which callable to run next, and then tells the framework - Hey please run this next.
+      
+  </p>
 
   
   </aside>
@@ -1244,7 +1317,7 @@ function createFoo(Injector $injector, Config $config)
   
   <aside class="notes">
     <p>
-      Sometimes doing dependency injection properly is just too much effort, and you think to yourself, what can one little service locator hurt.
+      And finally, sometimes doing dependency injection properly is just too much effort, and you think to yourself, what can one little service locator hurt.
     </p>
 
   </aside>
@@ -1253,7 +1326,7 @@ function createFoo(Injector $injector, Config $config)
 
 
 <!-- *************************** -->
-<section class="em1_5">
+<section class="em1_2">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
   <ul>
