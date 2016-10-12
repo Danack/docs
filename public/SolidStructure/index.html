@@ -267,6 +267,10 @@
     </ul>
 
     <aside class="notes">
+      
+      <p>
+        I normally try to make talks start off easy, before reaching the difficult stuff.
+      </p>
       <p>
         If I completely lose you right from the start, apologies that is my fault. When I was doing a run through yesterday I realised that there's a good chance that the beginning might be a bit confusing, which would make the rest of the talk really hard to follow.
       </p>
@@ -306,11 +310,14 @@
         <a href="http://twitter.com/MrDanack">@MrDanack</a>
     </p>
   
-      <aside class="notes">
-    <p>
-      Who here has studied any quantum physics?
-    </p>
-  </aside>
+    <aside class="notes">
+      <p>
+          I think people sometimes misunderstand the most fundamental parts of programming. 
+      </p>
+      <p>
+         Who here has studied any quantum physics?
+      </p>
+    </aside>
 </section>
 
 
@@ -327,66 +334,86 @@
     </ul>
 
   
-      <aside class="notes">
+  <aside class="notes">
     <p>
-      Who here has studied any quantum physics?
+      At school you learnt about solids liquids and gases.
     </p>
-        
-     <p>
-       While I was sitting in the lecture hall at 9am at the start of a 2 hour lecture about quantum physics, I realised two things:
-     </p>
-
-     <p>One - whoever scheduled a 2 hour quantum physics lecture for Monday morning is an asshole.</p>
-     <p>Two - most of the time, thinking about stuff at a really low level isn't actually that useful. Instead thinking at higher levels of abstraction </p>
-     <p>
-       This shit is a bit hard - perhaps I'll go off and make video games for a living.
-     </p>
+    <p>
+      Then at secondary school you learn about molecules and atoms
+    </p>
+    <p>
+      Then at university you start learning about fundamental particles, 
+    </p>
+    <p>
+      And then later years at university you learn about fundamental forces, and how particles don't really exist, And that everything is really just vibrations in a quantum lattice.
+    </p>    
+   
         
   </aside>
   
 </section>
 
 
+
+
+<!-- *************************** -->
+<section class="em1_4">
+    <h2>So my education background is physics/chemistry</h2>
+    
+    <ul>
+      <li>Solids, liquids, gases</li>
+      <li>Molecules and atoms</li>
+      <li>Fundamental particles, quarks and leptons</li>
+      <li>Fundamental forces, gravitational, electromagnetic, strong nuclear, and weak nuclear</li>
+    </ul>
+  
+  <aside class="notes">
+
+     <p>
+       So it's almost 20 years ago to the day, that I was sitting in the lecture hall on a Monday morning at 9am, at the start of a 2 hour lecture about quantum physics, I realised a couple of things:
+     </p>
+
+     <p>One - whoever scheduled a 2 hour quantum physics lecture for Monday morning is not a nice person.</p>
+      <p>
+       Two - quantum physics is a bit hard - perhaps I'll go off and make video games for a living.
+     </p>
+        
+     <p>Three - and most importantly - most of the time, thinking about stuff at a really low level isn't actually that useful. Instead thinking at higher levels of abstraction is a much more productive thing to do.
+     </p>
+
+  </aside>
+  
+</section>
+
+
+
+<!-- *************************** -->
 <section class="em1_4">
     <h2>Normal ways of thinking about code</h2>
-  <table width="100%">
-    <tr>
-      <td align="right">
-        Procedural
-      </td>
-      <td align="center">
-        vs
-      </td>
-      <td>
-        Object oriented
-      </td>
-    </tr>
+  
+  
+  <ul>
+    <li>
+      What language to use
+    </li>
+    <li>
+      Frameworks vs Individual libraries
+    </li>
+    <li>
+        Procedural vs Object oriented
+    </li>
+    <li>
+      Functional vs Stateful
+    </li>
+  </ul>
 
-    <tr>
-      <td align="right">
-        Declarative
-      </td>
-      <td align="center">
-        vs
-      </td>
-      <td>
-        Imperative
-      </td>
-    </tr>
 
-    <tr>
-      <td align="right">
-        Functional
-      </td>
-      <td align="center">
-        vs
-      </td>
-      <td>
-        Stateful
-      </td>
-    </tr>
-</table>
-
+  
+  <aside class="notes">
+    <p>
+    </p>
+  </aside>
+  
 </section>
 
 
@@ -394,6 +421,14 @@
 <!-- *************************** -->
 <section class="em1_5">
   <h1 class="finale">Those aren't the fundamental aspects of programming</h1>
+  
+  <p>
+    Those aren't the fundamental things.    
+  </p>
+  <p>
+    They're nice, and most of the time they are what you should be thinking about.
+    
+  </p>
 </section>
 
 
@@ -434,6 +469,11 @@
       <p>
         This talk is mostly about the difference between unit-testable code and code that can't be tested, but the difference between typed code and 'untyped' code is also important.        
       </p>
+      
+      <p>
+        So left me give you some examples of what the heck I mean.
+        
+      </p>
   </aside>
 
 </section>
@@ -447,11 +487,11 @@
   <aside class="notes">
     
     <p>
-      So this is a representation of an application that does some stuff like send notifications to Twitter.
+      So this is a representation of an application that does something like send notifications to Twitter.
     </p>
       
     <p>
-      You have a bootstrap layer, that calls some controller code, that calls some services, which then calls either a database, or some API on another
+      You have a bootstrap layer, that calls some controller code, that calls some services, which then calls either a database, or some external API that's on the internet.
     </p>
     <p>On the left we have the bootstrap and then index.php</p>
     <p>In the middle we have the actual application code, </p>
@@ -474,7 +514,7 @@ function getTwitterApiKey()
 </code>
 </pre>
 
-<pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+<pre class="danackCode spaceTop em1 fragment" data-trim><code class="php" data-trim>
 // Hard-coded to specific class.
 // and so not testable
 $app = new App(); 
@@ -482,43 +522,51 @@ $app = new App();
 </pre>
   
   <aside class="notes">
+    <p>
+      In the bootstrap layer you have things like this, that read the api key from the environment variable.
+    </p>
+    <p>
+      This is not testable. It relies on the environment variables being set up in particular way. So it is fundamentally not testable in isolation.
+    </p>
+    <p>
+      This true of all config loading no matter how you do it. Wherever the config is stored - even if it's stored as code, it's still just a chunk of data that needs to exit
+    </p>
+    <p>
+      
+    </p>
   </aside>
 </section>
 
 
 
-<!-- *************************** -->
-<section>
-    <h1>Your lovely app code</h1>
-  
-
-<p>
-  
-</p>
-  
-  <aside class="notes">
-  </aside>
-</section>
 
 <!-- *************************** -->
 <section>
-    <h1>Right - can't be unit tested</h1>
-  
-  <p>
-    Anything that talks to a:
-  </p>
+    <h1>Right - external services</h1>
+
 <ul>
   <li>DB</li>
   <li>External api</li>
   <li>File system</li>
-  
-  Can't be unit-tested
-  
 </ul>
-  
+
+
   <aside class="notes">
+    
+    <p>
+      Anything that talks to a DB, an external API, or a file system can't be unit-tested.
+     </p>
+    <p>
+      You can test these things - just not with unit-tests. Either regression tests, or integration tests can (and should be) done.
+    </p>
+    <p>
+      But you can't test code that interacts with those things in isolation.
+      
+    </p>
   </aside>
 </section>
+
+
 
 
 <!-- *************************** -->
@@ -531,8 +579,8 @@ function sendMessageToUser(
     Message $message,
     User $user
 ) {
-    $message = "@".$user->getName()." ".$message->getText()
-    $twitterApi->sendMessage($message);
+    $text = "@".$user->getName()." ".$message->getText()
+    $twitterApi->sendMessage($text);
 }
   
 class TwitterAPI
@@ -545,6 +593,10 @@ class TwitterAPI
 </pre>
   
   <aside class="notes">
+    <p>
+      As I mentioned - Typed vs un-typed is the other fundamental 'force' in programming.....but it's not really the subject of this talk
+      
+    </p>
     <p>
       You really want to use strong, semantically meaningful types across as much of your application as possible.
     </p>
@@ -559,6 +611,43 @@ class TwitterAPI
 
 <!-- *************************** -->
 <section>
+    <h1>Middle - your lovely app code</h1>
+  
+
+<pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+class SendMessageController
+{
+    function __construct(TwitterApi $twitter, VariableMap $varMap)
+    {
+        $message = $varMap->getMessage();
+        $twitter->send($message);
+    }
+}
+</code>
+</pre>
+
+
+  
+  <aside class="notes">
+    <p>
+      This can be tested completely. 
+    </p>
+    
+    <p>
+      If you push all of the untestable code to the edges, you can write all of your application code in a way that allows it to be completely covered by unit-tests.
+    </p>
+    <p>
+      This is not easy.....if you don't have the right tools
+      
+    </p>
+    
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
   <img src="/images/SolidStructure_2.png" width="1200px" />
 
   <aside class="notes">
@@ -566,10 +655,10 @@ class TwitterAPI
       On the left, the bootstrap layer is completely untestable.
     </p>
     <p>
-      In the middle you have your lovely appliation code, which you can write unit tests for until you reach 100% coverage.
+      In the middle you have your lovely application code, which you can write unit tests for until you reach 100% coverage.
     </p>
     <p>
-      On the right you have
+      On the right you have external services that can't be unit tested.
       
     </p>
   </aside>
@@ -587,11 +676,12 @@ class TwitterAPI
     <li>
       Unstructured - testable + un-testable code gets mixed up, leading to a messy application
     </li>
+    
+    <li>Encapsulating external services with interfaces can be a bit of pain</li>
   </ul>
   
   <aside class="notes">
-    <p>At the edge of our application we have a Message </p>
-
+    <p></p>
   </aside>
 
 </section>
@@ -605,17 +695,37 @@ class TwitterAPI
 <section>
   <h1>Dependency injection to the rescue</h1>
 
-  <p>
-    Auryn is an auto-wiring recursive dependency injector.
-  </p>
 
   <p>
     https://github.com/rdlowrey/auryn
   </p>
-  
+
+  <p>
+    Auryn is an auto-wiring recursive dependency injector.
+  </p>
+
+  <p class="fragment">
+    aka it does DI really well.
+  </p>
   
   <aside class="notes">
-    <p>Scary term - 
+    <p>
+      Dependency injection is awesome.
+    </p>
+    <p>
+      Ever since I started programming, I've always tried to get better each year. However for me a lot of techniques that people say you should follow, are just too painful to use in practice. It turns out, that for a large part it was just because I wasn't using powerful enough tools.
+    </p>
+    
+    <p>
+      I think a decent analogy is that trying to write SOLID code without using a Dependency Injection Container, is like trying to do some DIY, but instead of a screwdriver, you use a knife from the kitchen drawer.
+    </p>
+    <p>
+      Theoretically - it could just about work.
+      In Practice - it will be just such a pain that you're going to abandon the project half-way through.
+    </p>
+    <p>
+      So......'auto-wiring recursive dependency injector' sounds like a scary phrase. It's not really - I'll break down what Auryn does.
+      
     </p>
   </aside>
 
@@ -625,20 +735,62 @@ class TwitterAPI
 
 <!-- *************************** -->
 <section>
-    <h1>It runs code for you</h1>
+    <h1>Auryn runs code for you</h1>
   
     <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
 function foo()
 {
   echo 'Hello world';
 }
-      
+
 $injector->execute('foo');
 // Output is 'Hello world'
 
 </code>
 </pre>
+  <p>
+    Can pass it any callable. 
+  </p>
+  
+  <aside class="notes">
+    <p>
+      Basically you give it any callable it will run it for you.
+    </p>
+    <p>
+      This is a simple example, that doesn't have any parameters aka dependencies....
+    </p>
+  </aside>
 </section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Defining raw params</h2>
+    <pre class="danackCode spaceTop em_09" data-trim><code class="php" data-trim>
+      
+class FileWriter implements Writer {
+    function __construct($path ) { ... }
+    function write($string) { ... }
+}
+
+$fileWriterParams = array(
+    ':path'    => '/var/coolapp',
+);
+
+$injector->define('FileWriter', $fileWriterParams);
+// Auryn can also just make objects
+$fileWriter = $injector->make(FileWriter::class);
+
+</code>
+</pre>
+
+  <aside class="notes">
+    <p>
+      This defines the parameters by name.
+    </p>
+  </aside>
+</section>
+
 
 
 
@@ -646,16 +798,17 @@ $injector->execute('foo');
 <section>
     <h2>Auto-wiring means it looks at param types</h2>
     <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
-function foo(User $user)
+function writeHelloWorld(FileWriter $fileWriter)
 {
-  echo 'Hello ' . $user->getName();
+     $fileWriter->write("Hello world");
 }
 
-$user = new User("MrDanack");
-      
-$injector->share($user);
-$injector->execute('foo');
-// Output is 'Hello world'
+$fileWriterParams = array(
+    ':path'    => '/var/coolapp',
+);
+
+$injector->define('FileWriter', $fileWriterParams);
+$injector->execute('writeHelloWorld');
 </code>
 </pre>
   <p>
@@ -663,22 +816,96 @@ $injector->execute('foo');
   </p>
   
   <aside class="notes">
-  
     <p>
-      The biggest problem with other DI libraries is that they use service name rather than types.
+      So when there is a parameter that needs to be injected, Auryn goes away makes that parameter, and then passes it to the thing that is being executed.
+    </p>
+    <p></p>
+    <p>
+      The biggest problem with a lot of other DI libraries is that they use service names rather than types. This makes setting up the config be a complete nightmare.
     </p>
     <p>
-      This makes setting up the config be a complete nightmare.
+      I wish I'd saved it - there was a bug reported to bugs.php.net where someone had a 15,000 line config file for their Symfony app. And they were wondering why their app was being a bit slow.
     </p>
     <p>
-      I wish I'd saved it - there was a bug reported to bugs.php.net where someone had a 15,000 line config file for their Symfony app.
+      Auryn just uses types, which means that it automatically understands what your types are, without having to setup 15,000 line config files or using abominations like annotations.
     </p>
-    <p>
-      And they were wondering why their app was being a bit slow.
-    </p>
-    
   </aside>
 </section>
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>Sharing is caring - aka </h2>
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+function writeHelloWorld(FileWriter $fileWriter)
+{
+     $fileWriter->write("Hello world");
+}
+
+$fileWriterParams = array(
+    ':path'    => '/var/coolapp',
+);
+
+$injector->define('FileWriter', $fileWriterParams);
+
+$injector->share(FileWriter::class); // This line is new
+$injector->execute('writeHelloWorld'); // FileWriter is created
+$injector->execute('writeHelloWorld'); // FileWriter is reused
+</code>
+</pre>
+  <p>
+    
+  </p>
+  
+  <aside class="notes">
+    <p>
+      For some objects you only ever want to have one of them. For this example we only ever want to have one filewriter.
+    </p>
+    <p>
+      So we tell Auryn to share it as a dependency across all objects that need a file writer. 
+    </p>
+    <p>
+      So the first time we execute writeHelloWorld a FileWriter is created, but then after that, the first object is re-used.
+
+    </p>
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>You can also share objects</h2>
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+
+$object = new Foo();
+      
+// Fiddle with $object state here
+
+$injector->share($object); // This line is new
+
+</code>
+</pre>
+  <p>
+    
+  </p>
+  
+  <aside class="notes">
+    <p>
+      Also, instead of telling Auryn to share an object after it's been created, you can just tell Auryn "Here is an object". If you ever need to use an object of that type, use this one.
+    </p>
+    <p>
+      It's really useful when you need to hack around some legacy code that is doing some horrible stuff to initialize objects.
+    </p>
+
+  </aside>
+</section>
+
 
 
 
@@ -689,7 +916,7 @@ $injector->execute('foo');
   <h1>Aliasing interfaces to classes</h1>
 
 <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
-class StubFileWriter implements FileWriter {
+class StubFileWriter implements Writer {
     function write(string $string) {  ... } 
 }
   
@@ -713,37 +940,6 @@ $injector->execute('foo');
 
 
 
-<!-- *************************** -->
-<section>
-    <h2>Defining raw params</h2>
-    <pre class="danackCode spaceTop em_09" data-trim><code class="php" data-trim>
-$s3Params = array(
-    ':aws_key'    => 'abcde12345',
-    ':aws_secret' => 'fghij67890'
-    ':region'     => 'EU_WEST'
-);
-      
-$injector->define('S3Config', $s3Params);
-
-class S3Config {
-    function __construct(
-        $aws_key,
-        $aws_secret,
-        $region,
-    ) { ... }
-}
-      
-$injector->make(S3Config::class);
-
-</code>
-</pre>
-
-  <aside class="notes">
-    <p>
-      This defines the parameters by name.
-    </p>
-  </aside>
-</section>
 
 
 <!-- *************************** -->
@@ -754,7 +950,7 @@ $injector->make(S3Config::class);
       Most DICs can do that sort of thing.
     </p>
   <p>
-    
+    The key thing that makes Auryn be incredibly powerful is how it allows you to set delegate functions for creating objects.
   </p>
 
   <aside class="notes">
@@ -775,21 +971,20 @@ $injector->make(S3Config::class);
 function createTwitterApiConfig()
 {
     return new TwitterApiConfig(
-      getenv('twitter_api_key'),
-      getenv('twitter_timout'),
+        getenv('twitter_api_key'),
+        getenv('twitter_timout'),
     );
 }
 
-    return new S3Config($key, $secret, $region)
-}
+$injector->delegate('TwitterApiConfig', 'createTwitterApiConfig');
 
-$injector->delegate('S3Config', 'createS3Config');
+
 </code>
 </pre>
 
   <aside class="notes">
     <p>
-      This defines the parameters by name.
+      
     </p>
   </aside>
 </section>
@@ -820,7 +1015,10 @@ $injector->delegate('S3Config', 'createS3Config');
   <aside class="notes">
     <p>I have been using this pattern for a couple of years....I thought it was going to be really easy to explain how awesome it is.</p>
     <p>
-      
+      Although I hope I've explained what it does, it's only when you actually start coding like this, you really get to see how powerful it is.
+    </p>
+    <p>
+      Bootstrapping your application becomes really easy. Writing application code in a way that 
       
     </p>
   </aside>
@@ -845,7 +1043,6 @@ $injector->delegate('S3Config', 'createS3Config');
     <li>
        Unknowable dependencies.
     </li>
-    
   </ul>
   
   <aside class="notes">
@@ -1023,12 +1220,50 @@ function sendMessage(UserPrefs $userPrefs)
 </section>
 
 
+
+<!-- *************************** -->
+<section>
+    <h2>Sometimes you do want to use a service locator</h2>
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+
+$injector->share($injector);
+
+function createFoo(Injector $injector, Config $config)
+{
+    $apiVersion = $config->getApiVersion();
+
+    if ($apiVersion == 1) {
+        return $injector->make('ApiV1');
+    }
+
+    return $injector->make('ApiV2');
+}
+</code>
+</pre>
+
+  
+  <aside class="notes">
+    <p>
+      Sometimes doing dependency injection properly is just too much effort, and you think to yourself, what can one little service locator hurt.
+    </p>
+
+  </aside>
+</section>
+
+
+
 <!-- *************************** -->
 <section class="em1_5">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
   <ul>
-    <li>Use interfaces/classes with only the required methods</li>
+    <li>Push untestable code to the edges of your application.</li>
+    <li>Push untyped code to the edges of your application.</li>
+    <li>Use Auryn it is awesome.</li>
+    <li>CLI app - https://github.com/Danack/console</li>
+    <li>HTTP app - https://github.com/Danack/tier</li>    
+    <li>Watch <a href="https://vimeo.com/80533536">https://vimeo.com/80533536</a></li>
+    <li>https://joind.in/talk/88a21</li>
   </ul>
 </section>
 
@@ -1037,101 +1272,6 @@ function sendMessage(UserPrefs $userPrefs)
 <section style="width: 100%; text-align: center !important;">
     <img src="/images/true_neutral.jpg" />
 </section>
-
-
-<!-- *************************** -->
-<section>
-    <h1>Delegation is awesome</h1>
-  
-    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
-    
-$shares = [
-    'Amp\Reactor',
-    'ASM\Session',
-];
-$aliases = [
-    'ArtaxServiceBuilder\ResponseCache' => 'ArtaxServiceBuilder\ResponseCache\NullResponseCache',
-    'Room11\HTTP\VariableMap' => 'Room11\HTTP\VariableMap\PSR7VariableMap',
-];
-
-
-// Delegate the creation of types to callables.
-$delegates = [
-    'ASM\Session' => 'Blog\App::createSession',
-    'ASM\File\FileDriver' => 'Blog\App::createASMFileDriver',
-    'Amp\Reactor' => 'Amp\getReactor',
-];
-
-$params = [ ];
-
-$defines = [
-    'FileFilter\YuiCompressorPath' => ["/usr/lib/yuicompressor.jar"],
-];
-
-$prepares = [
-    'Jig\Jig' => 'Blog\App::prepareJig'
-];
-
-$injectionParams = new InjectionParams(
-    $shares,
-    $aliases,
-    $delegates,
-    $params,
-    $prepares,
-    $defines
-);
-
-</code>
-</pre>
-
-  <aside class="notes">
-    <p>
-      This defines the parameters by name.
-    </p>
-  </aside>
-</section>
-
-
-<!-- *************************** -->
-<section class="em1_5">
-  <h1 class="finale">Simplicity Is Hard</h1>
-    <aside class="notes">
-    <ul>
-      <li>
-        Is the ArrayVariableMap class clever? Nope.
-      </li>
-
-    </ul>
-  </aside>
-</section>
-
-
-
-<!-- *************************** -->
-<section>
-    <pre class="danackCode spaceTop em1_4" data-trim><code class="php" data-trim>
-
-
-</code>
-</pre>
-
-  <aside class="notes">
-  </aside>
-  
-</section>
-
-<!-- *************************** -->
-<section>
-    <p>
-      Solid structure
-    </p>
-  <ul>
-    <li>
-    </li>
-  </ul>
-</section>
-
-
 
 
 
