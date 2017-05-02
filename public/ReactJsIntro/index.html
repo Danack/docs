@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>React JS - because full stack devs get paid more.</title>
+
+        <meta name="description" content="Danack talking about interface segregation">
+        <meta name="author" content="Dan Ackroyd">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="themecss">
+        <!-- <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss"> -->
+        <link rel="stylesheet" href="lib/css/zenburn_backup.css" id="codeststylecss">
+      
+        <style type="text/css">
+        /* overrides */
+        
+
+        body {
+            background: #a8fcfc;
+            /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+            background: -webkit-radial-gradient(center, circle cover, #f2f3ff 45%, rgba(36, 133, 245, 0.21) 75%);
+            /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+            background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+            /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+            /*background-color: #fdfdfd; */
+        }
+        .reveal section img {
+            border: 0;
+            background: none;
+            box-shadow: 0 0 #000;
+        }
+        .reveal pre {
+            width: 90%;
+            font-size: 0.68em;
+            margin-left: 0px;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+          
+            /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7); */
+        }
+        
+        /* 
+        .reveal pre {
+          box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        */
+        
+        .preformatted {
+          font-family: monospace;
+          white-space: pre;
+      }
+
+        .spaceTop {
+            margin-top: 50px !important;
+        }
+        .spaceBottom {
+            margin-bottom: 50px !important;
+        }
+
+        h2, p, section { text-align: left; }
+        .reveal .slides {text-align: left; }
+        
+        
+        h1, h2, h3, h4, h5 {
+            font-family: "Quicksand", sans-serif !important;
+            font-weight: 200 !important;
+            /*text-transform: uppercase; */
+        }
+            
+        .embiggen { 
+            font-size: 1.2em !important;  
+        }
+        .emlargen {
+            font-size: 1.05em !important;
+        }
+        
+        .emnormal {
+          font-size: 0.9em !important;
+        }
+        
+        .emsmallen { 
+            font-size: 0.8em !important;  
+        }
+        .em_075 {
+          font-size: 0.75em !important;
+        }
+        .em_08 {
+          font-size: 0.8em !important;
+        }
+        .em_085 {
+          font-size: 0.9em !important;
+        }
+        .em_09 {
+          font-size: 0.9em !important;
+        }
+        .em_095 {
+          font-size: 0.95em !important;
+        }
+        .em1 {
+          font-size: 1.0em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        
+        .em1_05 {
+          font-size: 1.05em !important;  
+        }
+        .em1_1 {
+          font-size: 1.1em !important;  
+        }
+        .em1_5 {
+          font-size: 1.5em !important;  
+        }
+        .em1_2 {
+          font-size: 1.2em !important;  
+        }
+        .em1_3 {
+          font-size: 1.3em !important;  
+        }
+        .em1_4 {
+          font-size: 1.4em !important;  
+        }
+        
+         .em1_8 {
+           font-size: 1.8em !important;
+         }
+        
+        .em2 {
+          font-size: 2em !important;  
+        }
+        th {
+          font-size: 1.5em !important;
+        }
+        
+        .finale {
+            font-size: 148px !important; 
+            text-align: center !important;
+            /* margin-bottom: 148px !important; */
+        }
+        .speaker-controls-notes > ul, 
+        .speaker-controls-notes ul, 
+        .notes > ul,
+        .notes  ul{
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+        
+        .centre {
+            text-align: center !important;
+        }
+        
+        .subtle {
+            color: #7c7c7c;
+        }
+        
+        .smallText {
+            font-size: 24px !important;
+        }
+        
+        blockquote {
+            background-color: #f5f5f5;
+        }
+        
+        blockquote {
+            width: 90% !important;
+            /* font-size: 36px !important; */
+        }
+            
+        pre, .danackCode {
+            font-size: 26px;
+        }
+
+        .rotate {
+            /* Safari */
+            -webkit-transform: rotate(-90deg);
+            
+            /* Firefox */
+            -moz-transform: rotate(-90deg);
+            
+            /* IE */
+            -ms-transform: rotate(-90deg);
+            
+            /* Opera */
+            -o-transform: rotate(-90deg);
+            
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+        
+        </style>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <script src="./plugin/jquery/jquery.min.js"></script>
+
+        <script src="./js/react/babel.min.js"></script>
+        <script src="./js/react/react.js"></script>
+        <script src="./js/react/react-dom.js"></script>
+
+    </head>
+
+    <body>
+      <div class="reveal">
+        <div class="slides">
+
+<!-- *************************** -->
+<section class="em1_4">
+    <h1>A quick intro to ReactJS</h1>
+
+    <p>
+        <a href="http://twitter.com/MrDanack">@MrDanack</a>
+    </p>
+    <p class="subtle" style="padding-top: 100px">
+      <small>Press 'c' to toggle code style</small><br/>
+      <small>Press 's' for speaker notes</small>
+    </p>
+
+</section>
+
+          
+<!-- *************************** -->
+<section>
+
+  <h1>Shamoan</h1>
+
+  <p>
+      Mofo
+  </p>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+    <h1>React Hello World</h1>
+
+    <pre class="danackCode spaceTop em1" data-trim><code class="php" data-trim>
+class HelloElement extends React.Component {
+  render() {
+    return (
+      <div>
+        <h2>Hello {this.props.name}! This is ReactJS.</h2>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  &lt;HelloElement name="PHPSW" /&gt;,
+  document.getElementById('react_hello_element_1')
+);
+</code>
+</pre>
+
+
+  <aside class="notes">
+    <ul>
+      <li>Name passed in as a property.</li>
+    </ul>
+  </aside>
+</section>
+
+
+<section>
+    <h1>React Hello World</h1>
+
+    <pre class="danackCode spaceTop em0_8" data-trim><code class="html" data-trim>
+&lt;div id="react_hello_element_1"&gt;&lt;/div&gt;
+</code>
+</pre>
+
+  <p>
+    <div id="react_hello_element_1"></div>
+  </p>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <pre class="danackCode em0_8" data-trim><code class="js" data-trim>
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {date: new Date()};
+    }
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+    tick() {
+        this.setState({
+            date: new Date()
+        });
+    }
+    render() {
+        return (
+            <div>
+                <p>The time is {this.state.date.toLocaleTimeString()}</p>
+            </div>
+        );
+    }
+}
+</code>
+</pre>
+
+
+    <aside class="notes">
+        <ul>
+            <li>Because we have a constructor, we need to pass props around</li>
+            <li>ES6 has arrow functions</li>
+        </ul>
+    </aside>
+</section>
+
+
+
+
+
+
+<section>
+  <h1>React Clock</h1>
+
+    <p>This is the code to load it on the page:</p>
+  <pre class="danackCode spaceTop em0_8" data-trim><code class="html" data-trim>
+     &lt;div id='clock'&gt;&lt;/div&gt;
+</code></pre>
+
+    <p>
+        <div id='clock'></div>
+    </p>
+
+    <aside class="notes">
+    </aside>
+</section>
+
+
+
+
+
+
+
+
+
+
+<section style="width: 100%; text-align: center !important;">
+    <img src="/images/ReactUsers.png" width="75%" />
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h1 class="embiggen finale">Fin</h1>
+<ul>
+  <li>Questions?</li>
+</ul>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+    <blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+    </blockquote>
+</section>
+
+      </div>
+  </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+
+      <script src="./jsx/hello_element.jsx" type="text/babel"></script>
+      <script src="./jsx/clock.jsx" type="text/babel"></script>
+      <!-- <script src="/js/react/src/template_editor.jsx" type="text/babel"></script>
+      <script src="/js/react/src/internal_state.jsx" type="text/babel"></script> -->
+
+
+
+      <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: false,
+                history: true,
+                center: true,
+                width: 1600,
+                height: 900,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.1,
+                slideNumber: true,
+                //transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'none',
+                //transitionSpeed: "slow",
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+
+
+            /* This draws the graph on the slide on a slidechanged event */
+            Reveal.addEventListener('slidechanged', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            } );
+            /* This draws the graph if we got here directly without coming from another slide */
+            Reveal.addEventListener('ready', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            });
+
+var createFunc = function() {
+  var counter = 0;
+    return function(e) {
+      counter = (counter + 1);// % 1;
+
+      var themeCSSList = [
+        "css/theme/whiteDanack.css",
+        "css/theme/beige.css",
+        "css/theme/black.css",
+        "css/theme/blood.css",
+        "css/theme/league.css",
+        "css/theme/moon.css",
+        "css/theme/night.css",
+        "css/theme/serif.css",
+        "css/theme/simple.css",
+        "css/theme/sky.css",
+        "css/theme/solarized.css",
+      ];
+
+      var codeCSSList = [
+        "lib/css/zenburn_backup.css",
+        "lib/css/vsdanack.css",
+      ];
+
+      if(e.which == 67 || e.which == 99) { //'c'
+//        var theme = themeCSSList[counter % themeCSSList.length];
+//        $("#themecss").attr('href', theme);
+
+        var codestyle = codeCSSList[counter % codeCSSList.length];
+        $("#codeststylecss").attr('href', codestyle);
+        $("#debug").text(codestyle);
+      }
+    };
+};
+
+          $(window).keypress(createFunc());
+        </script>
+    </body>
+</html>
