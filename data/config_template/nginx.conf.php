@@ -73,6 +73,13 @@ server {
         fastcgi_pass   unix:${'phpfpm_fullsocketpath'};
     }
 
+    location ~ /*.php {
+        try_files \$uri /index.php;
+        fastcgi_param  QUERY_STRING \$query_string;
+        fastcgi_pass   unix:/var/run/php-fpm/php-fpm-docs-docs.sock;
+        include       ${'docs_root_directory'}/data/config_template/fastcgi.conf;
+    }
+
     location  /index.php {
         fastcgi_param  QUERY_STRING \$query_string;
         fastcgi_pass   unix:/var/run/php-fpm/php-fpm-docs-docs.sock;

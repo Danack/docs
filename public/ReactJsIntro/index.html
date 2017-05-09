@@ -183,6 +183,8 @@
             font-size: 26px;
         }
 
+
+
         .rotate {
             /* Safari */
             -webkit-transform: rotate(-90deg);
@@ -199,7 +201,15 @@
             /* Internet Explorer */
             filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
         }
-        
+
+        textarea, input {
+            font-size: 1em !important;
+        }
+
+        .error {
+            color: #8f2f2f;
+        }
+
         </style>
 
         <!-- Printing and PDF exports -->
@@ -224,33 +234,140 @@
 
 <!-- *************************** -->
 <section class="em1_4">
-    <h1>A quick intro to ReactJS</h1>
-
-    <p>
-        <a href="http://twitter.com/MrDanack">@MrDanack</a>
-    </p>
-    <p class="subtle" style="padding-top: 100px">
-      <small>Press 'c' to toggle code style</small><br/>
-      <small>Press 's' for speaker notes</small>
-    </p>
-
+  <h1>ReactJS is awesome and you can too!</h1>
+  <p>
+    <a href="http://twitter.com/MrDanack">@MrDanack</a>
+  </p>
+  <p class="subtle" style="padding-top: 100px">
+    <small>Press 'c' to toggle code style</small><br/>
+    <small>Press 's' for speaker notes</small>
+  </p>
 </section>
 
-          
 <!-- *************************** -->
-<section>
-
-  <h1>Shamoan</h1>
+<section class="em1_4">
+  <h1>React JS - because full stack devs get paid more</h1>
 
   <p>
-      Mofo
+    <a href="http://twitter.com/MrDanack">@MrDanack</a>
   </p>
+  <p class="subtle" style="padding-top: 100px">
+    <small>Press 'c' to toggle code style</small><br/>
+    <small>Press 's' for speaker notes</small>
+  </p>
+</section>
+
+<!-- *************************** -->
+<section>
+  <h1>The problem - handling forms in PHP sucks</h1>
+
+  <ul>
+    <li>layout HTML</li>
+    <li>interactive Javascript</li>
+    <li>displaying errors</li>
+    <li>validation</li>
+    <li>using the data</li>
+  </ul>
 
   <aside class="notes">
   </aside>
 </section>
 
 
+
+
+<!-- *************************** -->
+<section>
+  <h1>Symfony/zend forms</h1>
+  <p>
+    Both are pretty terrible
+  </p>
+  <p>
+    They start off simple, but when you need to do anything complicated they make you less productive than just not using a library, and instead coding everything by hand
+  </p>
+  <aside class="notes">
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <h1>I tried to do better</h1>
+
+  <p>https://github.com/Danack/FirstClassForms</p>
+
+  <img src="/images/FCForms.png" />
+
+  <p class="fragment">I failed</p>
+
+  <aside class="notes">
+<p>I spent 'some' time trying to make forms be better and although that library was better (imho) than Symfony, it still sucked
+</p>
+    <p>
+    It still left a whole load of Javascript needed to be written to make the form be acceptable for a decent UX.
+    The code for handling forms was still too complicated.
+    </p>
+  </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>Javascript libraries?</h1>
+
+  <ul>
+    <li>were terrible</li>
+    <li>configuration magic</li>
+    <li>long term viability</li>
+  </ul>
+
+  <aside class="notes">
+    <p>Tried a couple, they all kind of either:</p>
+    <ul>
+      <li>were terrible</li>
+      <li>forced you to learn a lot of configuration crap.</li>
+      <li>didn't look like they were going to either be around in a few years</li>
+    </ul>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h1>Enter ReactJS</h1>
+
+<table>
+  <thead>
+    <th>
+      React in browser
+    </th>
+    <th>
+      PHP on the server
+    </th>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Component HTML</td>
+      <td>Page layout HTML</td>
+    </tr>
+    <tr>
+        <td>interactive Javascript</td>
+        <td>validation</td>
+    </tr>
+    <tr>
+        <td>displaying errors</td>
+        <td>using the data</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  <aside class="notes">
+  </aside>
+</section>
 
 <!-- *************************** -->
 <section>
@@ -304,6 +421,34 @@ ReactDOM.render(
 
 <!-- *************************** -->
 <section>
+    <h1>JSX is Javascript with XML</h1>
+    <ul>
+        <li>You could write raw JS + HTML....but kind of would be painful</li>
+
+        <li>These slides are using Babel in browswer compiler</li>
+
+        <li>For production you would 'want' to use ahead of time compilation</li>
+    </ul>
+
+    <aside class="notes">
+        <p>Very similar to Javascript + HTML. Differences are: Can embed stuff in {} brackets, everything is camelCased, properties are maps, string interpolation is shit show.</p>
+
+        <p>
+            What's not to like?
+        </p>
+        <p>
+            Babel in browser seems fine for dev work, but it's 1.4 MB, so not so okay for production.
+        </p>
+
+        <p>
+            Want is in quotes, because this part of the Javascript ecosystem is a shitshow.
+        </p>
+
+    </aside>
+</section>
+
+<!-- *************************** -->
+<section>
     <pre class="danackCode em0_8" data-trim><code class="js" data-trim>
 class Clock extends React.Component {
     constructor(props) {
@@ -335,7 +480,6 @@ class Clock extends React.Component {
 </code>
 </pre>
 
-
     <aside class="notes">
         <ul>
             <li>Because we have a constructor, we need to pass props around</li>
@@ -345,10 +489,7 @@ class Clock extends React.Component {
 </section>
 
 
-
-
-
-
+<!-- *************************** -->
 <section>
   <h1>React Clock</h1>
 
@@ -369,16 +510,197 @@ class Clock extends React.Component {
 
 
 
+<section>
+  <h1>An actual form</h1>
+  <p>
+    <div id='simple_form'></div>
+  </p>
+    <p style="padding-bottom: 300px">
 
+    </p>
 
-
-
-
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/ReactUsers.png" width="75%" />
+  <aside class="notes">
+  </aside>
 </section>
 
 
+
+<section>
+<h1>Weather forecast</h1>
+
+<p>
+  <div id='weather_forecast' class="weather_forecast"></div>
+</p>
+
+    <p style="padding-bottom: 400px"></p>
+
+<aside class="notes">
+    <p>
+        Really easy to implement things that aren't technically forms aka widgets.
+    </p>
+  <p>
+    Child to Parent — Use a callback and states
+  </p>
+</aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode em0_9" data-trim><code class="php" data-trim>
+class WeatherForecast extends React.Component {
+  ...
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;WeatherSearchBox handler={(city) => this.cityUpdateHandler(city)} /&gt;
+        &lt;WeatherResults weather_conditions={this.state.weather_conditions} /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code>
+</pre>
+
+  <aside class="notes">
+    <ul>
+    </ul>
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+ <pre class="danackCode em0_8" data-trim><code class="php" data-trim>
+
+class WeatherResults extends React.Component {
+  render() {
+    const listItems = this.props.weather_conditions.map((weather_condition) =&gt;
+      &lt;ListItem key={weather_condition.dt}
+                weather_condition={weather_condition} /&gt;
+    );
+    return (
+      &lt;div &gt;
+        {listItems}
+      &lt;/div&gt;
+    );
+  }
+}
+
+function ListItem(props) {
+    const wc = props.weather_condition;
+    const styles = {width: '100px', marginBottom: "-35px"};
+
+    return (&lt;li&gt;&lt;span&gt;{wc.time}
+      &lt;img src={"" + wc.icon} style={styles}/&gt; {wc.description} : {wc.temp}
+    &lt;/span&gt;&lt;/li&gt;)
+}
+
+</code>
+</pre>
+
+                <aside class="notes">
+                    <ul>
+                    </ul>
+                </aside>
+            </section>
+
+<!-- *************************** -->
+<section>
+    <h1>Testing is easy - real api</h1>
+    <pre class="danackCode spaceTop em0_8" data-trim><code class="php" data-trim>
+const weather_fetcher = function (city, onSuccess) {
+  fetch('/getWeather.php?city=' + encodeURI(city))
+    .then(handleErrors)
+    .then((response) => response.json())
+    .then(
+      onSuccess
+    )
+    .catch((err) => {
+      alert('error:' + err);
+    });
+};
+
+ReactDOM.render(
+  &lt;WeatherForecast weather_fetcher={weather_fetcher}/&gt;,
+  document.getElementById('weather_forecast_mock')
+);
+
+</code></pre>
+
+    <aside class="notes">
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h1>Testing is easy - mock api</h1>
+    <pre class="danackCode spaceTop em0_8" data-trim><code class="php" data-trim>
+const weather_fetcher_stub = function (city, onSuccess) {
+  let data = [{
+    "dt": 12345,
+    "temp": "20",
+    "time": "Thur 3pm",
+    "description": "warm grey",
+    "icon": "http://openweathermap.org/img/w/03d.png"
+  }];
+  onSuccess(data);
+};
+
+ReactDOM.render(
+  &lt;WeatherForecast weather_fetcher={weather_fetcher_stub}/&gt;,
+  document.getElementById('weather_forecast_mock')
+);
+
+</code></pre>
+
+    <aside class="notes">
+    </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h1>Weather forecast</h1>
+
+    <p>
+    <div id='weather_forecast_mock' class="weather_forecast"></div>
+    </p>
+
+    <p>
+        Child to Parent — Use a callback and states
+    </p>
+    <p style="padding-bottom: 500px">
+
+    </p>
+
+    <aside class="notes">
+    </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h1>React not just in the browser</h1>
+
+    <p>
+        Server side rendering - compiles with Node
+    </p>
+
+    <p>
+        React native - for phones and tablets
+    </p>
+    <aside class="notes">
+    </aside>
+</section>
+
+
+<section style="width: 100%; text-align: center !important;">
+  <img src="/images/ReactUsers.png" width="75%" />
+</section>
 
 
 
@@ -402,16 +724,13 @@ class Clock extends React.Component {
       </div>
   </div>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.js"></script>
-
+      <script src="lib/js/head.min.js"></script>
+      <script src="js/reveal.js"></script>
 
       <script src="./jsx/hello_element.jsx" type="text/babel"></script>
       <script src="./jsx/clock.jsx" type="text/babel"></script>
-      <!-- <script src="/js/react/src/template_editor.jsx" type="text/babel"></script>
-      <script src="/js/react/src/internal_state.jsx" type="text/babel"></script> -->
-
-
+      <script src="./jsx/simple_form.jsx" type="text/babel"></script>
+      <script src="./jsx/weather_forecast.jsx" type="text/babel"></script>
 
       <script>
             // Full list of configuration options available at:
@@ -496,4 +815,18 @@ var createFunc = function() {
           $(window).keypress(createFunc());
         </script>
     </body>
+
+
+    <style type="text/css">
+        .weather_forecast {
+            border: 2px solid #1f1f1f !important;
+            padding: 5px !important;
+        }
+
+        .react_block {
+            border: 1px solid #1f1f1f !important;
+        }
+
+    </style>
+
 </html>
