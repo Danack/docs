@@ -49,7 +49,7 @@ class SimpleForm extends React.Component {
 
     if (math_error_notice.length != 0) {
       //math_error_notice = <span className="error">{math_error_notice}</span>;
-      math_error_notice = <img src="/images/wrong.gif" />
+      math_error_notice = <img src="/images/Wrong.gif" />
     }
 
     return (

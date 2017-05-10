@@ -2,6 +2,10 @@
 
 use Docs\Config;
 
+use Configurator\ConfiguratorException;
+
+$app_name = 'docs';
+
 $default = [
     'nginx_sendFile' => 'off',
     'app_name' => 'docs',
@@ -46,6 +50,22 @@ $centos = [
 ];
 
 
+$evaluate = function ($config, $environment) {
+    if (array_key_exists('app_name', $config) == false) {
+        throw new ConfiguratorException("app.name isn't set for environment '$environment'.");
+    }
+
+    if (array_key_exists('phpfpm_socket_directory', $config) == false) {
+        throw new ConfiguratorException("phpfpm_socket_directory isn't set for environment '$environment'.");
+    }
+
+    $phpfpm_socket_directory = $config['phpfpm_socket_directory'];
+    $app_name = $config['app_name'];
+
+    return [
+        'phpfpm_socket_fullpath' => "$phpfpm_socket_directory/php-fpm-$app_name.sock",
+    ];
+};
 
 
 
