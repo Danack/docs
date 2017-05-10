@@ -99,7 +99,7 @@ class WeatherForecast extends React.Component {
 }
 
 const weather_fetcher = function (city, onSuccess) {
-  fetch('/getWeather.php?city=' + encodeURI(city))
+  fetch('/ReactJsIntro/getWeather.php?city=' + encodeURI(city))
     .then(handleErrors)
     .then((response) => response.json())
     .then(

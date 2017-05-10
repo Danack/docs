@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__ . "/../src/Weather.php";
+require_once __DIR__ . "/../../src/Weather.php";
 
 
 $city = 'Bristol';

@@ -510,25 +510,55 @@ class Clock extends React.Component {
     </aside>
 </section>
 
-
-
-
-
+<!-- *************************** -->
 <section>
-  <h1>An actual form</h1>
-  <p>
+    <h1>An actual form</h1>
+    <p>
     <div id='simple_form'></div>
-  </p>
+    </p>
     <p style="padding-bottom: 300px">
 
     </p>
 
-  <aside class="notes">
-  </aside>
+    <aside class="notes">
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode spaceTop em0_8" data-trim><code class="html" data-trim>
+  &nbsp;&nbsp;formValidate()  {
+    let params = "email=" + encodeURI(this.state.email)
+      + "&question=" + encodeURI(this.state.question);
+
+    fetch('/ReactJsIntro/validateForm.php?' + params)
+      .then((data) => {
+          this.setState({
+            email_error: data.email_error,
+            question_error: data.question_error,
+          })
+        }
+      );
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;div&gt;{this.state.email_error}&lt;/div&gt;
+        &lt;div&gt;&lt;input type="text" placeholder="Email" value={this.state.email}
+          onBlur={() =&gt; this.formValidate()}/&gt; &lt;/div&gt;
+      &lt;/div>
+    );
+</code></pre>
+
+    <aside class="notes">
+    </aside>
 </section>
 
 
 
+<!-- *************************** -->
 <section>
 <h1>Weather forecast</h1>
 

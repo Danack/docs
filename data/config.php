@@ -31,7 +31,7 @@ $centos = [
     'phpfpm_conf_directory' => '/etc/php-fpm.d',
     'phpfpm_pid_directory' => '/var/run/php-fpm',
 
-    'phpfpm_fullsocketpath' => $socketDir."/php-fpm-docs-".basename(dirname(__DIR__)).".sock",
+//    'phpfpm_fullsocketpath' => $socketDir."/php-fpm-docs-".basename(dirname(__DIR__)).".sock",
 
     'php_conf_directory' => '/etc/php',
     'php_log_directory' => '/var/log/php',

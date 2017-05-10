@@ -14,7 +14,7 @@ $config = <<< END
 user = ${"app_name"}
 group = ${'phpfpm_group'}
 
-listen = ${'phpfpm_fullsocketpath'}
+listen = ${'phpfpm_socket_fullpath'}
 
 ; List of ipv4 addresses of FastCGI clients which are allowed to connect.
 listen.allowed_clients = 127.0.0.1
