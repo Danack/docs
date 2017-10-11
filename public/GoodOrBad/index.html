@@ -23,6 +23,7 @@
         
 
         body {
+            font-size: 48px;
             background: #a8fcfc;
             /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
             background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
@@ -228,12 +229,6 @@
       <small>Press 'c' to toggle code style</small><br/>
       <small>Press 's' for speaker notes</small>
     </p>
-  <p>
-    https://en.wikipedia.org/wiki/Rule_of_least_power
-    
-    In programming, the rule of least power is a design principle that "suggests choosing the least powerful [computer] language suitable for a given purpose".[1] Stated alternatively, given a choice among computer languages, classes of which range from descriptive (or declarative) to procedural, the less procedural, more descriptive the language one chooses, the more one can do with the data stored in that language.
-  </p>
-  
 </section>
 
           
@@ -251,158 +246,413 @@
   <aside class="notes">
   </aside>
 </section>
-          
-          
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/DoneItAgain.jpg" width="60%" />
+<!-- *************************** -->
+<section>
+    <h2>Making choices</h2>
+    <ul>
+        <li>Which framework to use</li>
+        <li>which libraries to use</li>
+        <li>how code should be written</li>
+    </ul>
+    <aside class="notes">
+    </aside>
 </section>
 
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/originalIpod.jpg" width="80%" />
+
+<!-- *************************** -->
+<section>
+
+  <h2>Making choices</h2>
+  <ul>
+    <li>Which frameworks are good, and which are bad.</li>
+    <li>Which libraries are good, and which are bad.</li>
+    <li>What code would be good, and what would be bad.</li>
+  </ul>
+  <aside class="notes">
+    <p>
+      Or, to reduce it to the simplest form.
+    </p>
+  </aside>
 </section>
 
+
+
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <p>What is good, what is bad?</p>
+    <aside class="notes">
+      <p>
+      Telling the difference between good and bad is a core part of being a programmer.....but what if pretty much everyone is just bad at this core skill? Or at the very least nowhere near as good as they would like to think?
+      </p>
+
+      <p>
+      Let me give you a concrete example of this:
+      </p>
+    </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>
+    Real world example
+  </h2>
+
+  <img src="/images/originalIpod.jpg" width="80%" />
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
 <section style="text-align: center !important;" class="em2">
+    <blockquote>
+        "No wireless. Less space than a Nomad. Lame."
+    </blockquote>
 
+    <p>
+        Rob Malda (founder of slashdot), on the iPod at its release in 2001.
+    </p>
+
+    <aside class="notes">
+        I pretty much had similar opinions when the iPod was launched. The market was saturated with MP3 players, and I thought that Apple might be able to sell a few iPods, but it wasn't obvious to me that it was going to be a great money maker.
+
+
+        iPod went on to sell 400 million units. There was something about the iPod that wasn't obviously great that made it sell lots.
+    </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>anyone know what this is?</h2>
+
+    <aside class="notes">
+    </aside>
+</section>
+
+            iPhone - anyone know what this is.
+
+
+<!-- *************************** -->
+<section>
+  <h2>iPhone has sold quite a few units.</h2>
+  <p>1.2 billion iPhones solds for about $750 billion revenue</p>
+
+  <aside class="notes">
+    <p>
+    But more amazingly than that, the iPhone currently accounts for something like 90% of all profits from selling phones. i.e. Apple make than double the money selling iPhones, than all other phone manufacturers put together do about ten times over.
+    </p>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
   <blockquote>
-  "No wireless. Less space than a Nomad. Lame."
+This is not an emerging business. In fact it’s gone so far that it’s in the process of consolidation with probably two players dominating everything, Nokia and Motorola.<br/>
+
+These phones go in and out of style so fast that unless Apple has half a dozen variants in the pipeline, its phone, even if immediately successful, will be passé within 3 months.<br/>
+
+There is no likelihood that Apple can be successful in a business this competitive.
   </blockquote>
 
+  http://www.marketwatch.com/story/apple-should-pull-the-plug-on-the-iphone
+
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <p>Some languages are crap.</p>
+  <aside class="notes">
+      Okay - time for something more on topic for this evening.
+
+      Some languages are crap.  Some languages are really just objectively crap. There is a language that most people in the room will be at least a little bit familiar with that is objectively crap, that somehow is widely used.
+
+    Anyone know the language I'm talking about. No, not PHP, I'm actually thinking of English.
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <p>English is an objectively crap language.</p>
+    <aside class="notes">
+      Interestingly, English is crap in ways that are similar to the things people complain about in PHP.
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <p></p>
+  <aside class="notes">
+    English has a hilariously inconsistent. Other languages are much more consistent internally. A lot of this is due to English having taken ideas from other languages
+
+
+    This is very similar to how PHP is not as consistent internally as it could be. This isn't from 'mistakes' this is from a decision to have thin wrappers around the underlying functions, so that people who are familiar with them can use them.
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <p>English lacks features.</p>
+  <aside class="notes">
+    English lacks features.  Features are great right? Having more features makes something better right?
+
+    French has a feature. French has a feature where you can refer to someone formally with 'vous' or you can refer to them more informally.
+
+    And features are great right? What could possibly be bad about having this feature. Well here is a simple chart about whether you should use tu or vous when talking to them
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+  High-res version at twitter.com/MrDanack  Ha-ha self promotion.
+  <aside class="notes">
+    The problem with this feature is that you can piss people off by getting it wrong. Pretty obviously tu'ing someone when they think they deserve a vous would wind them up.
+
+    But you can piss people off the other way round as well. My Dad has retired to Normandy, in France. My French is terrible, and I find it much easier to say s'il vous plait.....so I tend to just use that rather than trying to figure out of I should be using the vous or the tu form. My Dad's girlfriend got a bit annoyed once when I said "S'il vous plait" instead of switching to the informal s'il te plait.
+
+    English doesn't have this feature. We used to have it, with the words 'thee' and 'thou' but they mostly fell out of use during the 1xth century, at least in part due to imported printing presses not having the letter 'thorn', but a y kind of looks like an off-centre thorn.
+
+
+    Not having this feature means that anyone can go up to someone and talk to them without accidentally give them offense. I think this is actually a huge benefit in science and programming, where we can talk about 'your' idea, without someone taking umbrage.
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <p> </p>
+
   <p>
-  Rob Malda (founder of slashdot), on the iPod at its release in 2001.
+    Less, "Yo! You want water?"; and more, "It's a warm day for a nice refreshment, no?"
+
   </p>
-  
-</section>
-          
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/original-iPhone.jpg" width="80%" />
-</section>
+  <aside class="notes">
+    Less amusingly several Asian languages have quite formal and deferential ways of phrasing words that should be used when a junior person talks to a more senior person, otherwise great offense can be taken. In everyday life this is fine......it turned out to be a bit of a problem for South Korean airlines.
 
+    The problem was this; the co-pilot is junior to the pilot. However the co-pilot is also meant to challenge the pilot and point out any mistakes that the pilot has made. There were multiple flights where the co-pilot realised the captain had made a mistake, but brought it to their attentione with such deferential language that the captain didn't realise how serious the situation was.
 
-<section style="width: 100%; " class="em1_8">
-  <h2>PHP</h2>
-  <p>haystack, needle or needle, haystack</p>
-  <p>self::$foo vs $this->foo</p>
-
-  <h2>English</h2>
-  <p>"i before e except after c when the sound is e?"</p>
-  <p>And pronunciation: cholmondeley => chummed-ly</p>
+    English almost doesn't have this feature - it's almost impossible to accidentally give offense to someone by using the wrong phrasing. "Thanks a bunch" -> "Thanks for nothing". "With all due respect" -> "I don't give a crap about your opinion.", "See you next Tuesday" -> this does not relate to a time.
+  </aside>
 </section>
 
 
-          
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/PHPStandardLibrary.jpg" width="75%" />
-</section>
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/LolitOkei.jpg" width="75%" />
-</section>
 
-<section style="width: 100%; " class="em1_8">
-  <p>Yes, English can be weird.</p> 
-  <p>It can be understood through tough thorough thought, though.</p>
-</section>
 
+
+            ----------
+
+
+
+            -------------------
+
+            PHP lacks features.
+
+            PHP lacks threads. This means it's not possible to write programs that deadlock internally.
+
+            Ruby has a feature.
+
+<!-- *************************** -->
 <section>
-  <h2>Tu and vous in french is a complete pain in the derriere</h2>
+    <h1>
+        Ruby has a feature: Monkey-patching
+    </h1>
+    <pre class="danackCode em1_2" data-trim>
+<code class="php">
+r = 4/3  # => 1
+r.class  # => Fixnum
+
+require 'mathn'
+
+r = 4/3  # => (4/3)
+r.class  # => Rational</code>
+</pre>
+
+    <aside class="notes">
+        Ruby has Monkey-patching where it's possible to alter fundamental behaviour of the language.
+
+        Sadly PHP lacks this feature, and we're forced to have deterministic behaviour of basic maths operations.
+    </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+    </aside>
+</section>
+
+            English can be understood through tough thorough thought though.
+
+            English is also the most widely used language around the world, and is now pretty much a requirement for international business.
+
+            PHP is the most widely used language for creating websites. (and tragically some companies are moving back to PHP).
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+        If you don't take away anything else from this talk, take this away.
+
+        If something is objectively crap, but is still hugely successful you're using the wrong criteria to measure 'objective' good and bad.
+
+
+        (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+      So what can we do if we're just rubbish at telling the difference between good and bad?
+
+
+      Most obviously try to get better at it.
+
+      Try and force yourself to look past big up front features, and pay more attention to small details that make like easier.
+
+      Things that make life simpler + easier tend to be relatively more important than difficult to use features.
+
+      I think the surface level features are relatively less important thank people think, and second level (or emergent) behaviour is relatively more important.
+
+    </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+    </aside>
+</section>
+
+            Langauge consistency - easy to adopt new ideas. If nothing looks out of place, then adding new ideas doesn't make people feel surprised.
+
+            Missing features - programmers don't need to learn those features. More seriously,
+
+            (However I would like generics, typed callables, typed scalars + maybe easier async like await)
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+    </aside>
+</section>
+
+            Be prepared to be wrong. Particular around choosing libraries and frameworks....there is an incredibly high chance that whatever you choose is just not going to be the right choice....so write your code so that as much of it as possible is decoupled from _any_ library. (that includes your own libraries).
+
+            (Brucie bonus - this is very likely to make your code easier to test as well).
+
+            (a good way to measure this is to keep asking - if we removed this library how much of the other code would we need to alter - aka I fucking hate active record/eloquent.)
+
+<!-- *************************** -->
+<section>
+    <p>If you're not good at something.....avoid doing it. Deliberately try and avoid spending time figuring out whether something is good or bad.</p>
+    <aside class="notes">
+        <p>
+        Be prepared to be wrong. Spend less time making decisions. Which of the following scenarios is likely to have the best result for the
+        </p>
+    </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
   <ul>
-    <li>
-      You can give offense if you 'tu' someone who thinks you're disrespecting them.
-    </li>
-    <li>
-      My dad's girlfriend gets annoyed when I say "s'il vous plait" - as she thinks I should be using 'tu'.
-    </li>
-    <li>
-      People have to ask each other "is it okay if we start tu'ing each other?".
-    </li>
+    <li>A committee of 5 people spend a week choosing which library to use.</li>
+    <li>A single person spends 5 weeks choosing choose which library to use.</li>
+    <li>You spend 5 minutes choosing which library to use, and then spend the next week trying to use it......then finding out what it wrong with it, and realising that what you need from that library is quite different from what you thought was important.</li>
   </ul>
-  <p>
-    Not having this feature in English makes communication simpler.
-  </p>  
-</section>
-
-
-<section>
-  <h1>
-    Ruby has a feature: Monkey-patching
-  </h1>
-
-  <pre class="danackCode em1_2" data-trim>
-  <code class="php">
-  r = 4/3  # => 1
-  r.class  # => Fixnum
-
-  require 'mathn'
-  
-  r = 4/3  # => (4/3)
-  r.class  # => Rational</code>
-  </pre>
 
   <aside class="notes">
-  </aside>
-</section>
 
-<section style="width: 100%; text-align: center !important;">
-  <h2>
-    Object
-  </h2>
-    <img src="/images/ObjectInheritance2.jpg" width="60%"  />
-  <aside class="notes">
-  </aside>
-</section>
-
-<section style="text-align: center !important;">
-  <h2>
-    Object inheritance
-  </h2>
-    <img src="/images/ObjectInheritance.jpg" width="60%" />
-  <aside class="notes">
-  </aside>
-</section>
-
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/HowToDrawAnOwl.jpg" width="65%" />
-  <aside class="notes">
-  </aside>
-</section>
-
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/JavaVM.gif" width="60%" />
-  <aside class="notes">
+      This is why agile works at all - it assumes the people making decisions about what tickets should be worked on are going to be wrong....so teams only work on a small amount of work before being ready to change direction.
   </aside>
 </section>
 
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/HumanYUDoThis.jpg" width="50%" />
-  <aside class="notes">
-  </aside>
-</section>
 
-<section style="width: 100%; text-align: center !important;">
-    <img src="/images/No_idea_what_i_m_doing.jpg" width="50%" />
-  <aside class="notes">
-  </aside>
-</section>
-          
-          
-<!-- *************************** -->
-<section>
-    <h1 class="embiggen finale">Fin</h1>
-<ul>
-  <li>Telling the difference between good and bad is hard.</li>
-  <li>It is a skill that you can improve by focusing on it.</li>
-  <li>Even with a lot of practice, people still find it hard.</li>
-  <li>Questions?</li>
-</ul>
-</section>
 
 
 
 <!-- *************************** -->
+<section>
+  <h1 class="finale">Fin</h1>
+  <div style="min-height: 100px">&nbsp;</div>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+
+    <h1>
+        Making choices
+    </h1>
+    <ul>
+
+        <li>What framework to use?</li>
+        <li>What libraries to use</li>
+        <li>How to structure code</li>
+    </ul>
+    <aside class="notes">
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+
+<p>
+My newest favourite factoid about English. This is how the words would, should and could were spelled in the 15th century.
+
+Would
+Should
+Coud
+
+Would derives from
+Should derives from
+Coud derives from coude
+
+Someone opened a bug report, asking for coud to be spelled similar to the other two for consistency. Most people agreed and just changed the spelling.
+</p>
+
+</section>
+
+
+            <!-- *************************** -->
 <section>
     <blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
         &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
