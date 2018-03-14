@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Dependency Injection - how to do it right</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
+        <link rel="stylesheet" href="css/theme/whiteDanack.css" id="theme">
+        <!-- <link rel="stylesheet" href="lib/css/xcode.css" id="codeststyle"> -->
+        
+        <!-- Code syntax highlighting -->
+        <!-- <link rel="stylesheet" href="lib/css/magula.css" id="codestyle"> -->
+
+        <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststyle">
+        
+        
+        <!-- Subtill -->
+        <!-- <link rel="stylesheet" href="lib/css/docco.css" id="codeststyle"> -->
+        <!-- <link rel="stylesheet" href="lib/css/color-brewer.css" id="codeststyle"> -->
+        
+        
+        <style type="text/css">
+        /* overrides */
+        body {
+            background: #a8fcfc;
+            /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+            background: -webkit-radial-gradient(center, circle cover, #efefef 45%, #b7b7b7 75%);
+            /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+            background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+            /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+            /*background-color: #fdfdfd; */
+        }
+        .reveal section img {
+            border: 0;
+            background: none;
+            box-shadow: 0 0 #000;
+        }
+        .reveal pre {
+            /*width: 100%; */
+            font-size: 0.68em;
+            margin-left: 0px;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        /*.reveal pre code {
+            max-height: 600px;
+        }*/
+
+        .light {
+            color: #efefef !important;
+            background-color: #1f1f1f;
+            padding: 40px !important;
+        }
+
+        .spaceTop {
+            margin-top: 50px !important;
+        }
+        .spaceBottom {
+            margin-bottom: 50px !important;
+        }
+
+        h2, p, section { text-align: left; }
+        .reveal .slides {text-align: left; }
+        
+        
+        h1, h2, h3, h4, h5 {
+            font-family: "Quicksand", sans-serif !important;
+            font-weight: 200 !important;
+            /*text-transform: uppercase; */
+        }
+            
+        .embiggen { 
+            font-size: 1.2em !important;  
+        }
+        .emlargen {
+            font-size: 1.05em !important;
+        }
+        
+        .emsmallen { 
+            font-size: 0.8em !important;  
+        }
+        .finale {
+            font-size: 192px !important;
+            text-align: center !important;
+            margin-bottom: 148px !important;
+        }
+        
+        .subtle {
+            color: #7c7c7c;
+        }
+        
+        .smallText {
+            font-size: 24px !important;
+        }
+        
+        blockquote {
+            background-color: #ffffff !important;
+        }
+            
+        pre, .danackCode {
+            font-size: 26px;
+            background: white;
+            /* width: auto !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+             
+            
+            minimum-width: 640px !important;
+            display: inline-block !important;
+            */
+        }
+
+        .rotate {
+            /* Safari */
+            -webkit-transform: rotate(-90deg);
+            
+            /* Firefox */
+            -moz-transform: rotate(-90deg);
+            
+            /* IE */
+            -ms-transform: rotate(-90deg);
+            
+            /* Opera */
+            -o-transform: rotate(-90deg);
+            
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+        
+        </style>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <script type="text/javascript" src="./Speeding up the Web with PHP 7_files/jquery.min.js"></script>
+        <script src="./plugin/jquery/jquery.min.js"></script>
+        <script src="./plugin/highcharts/highcharts.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+<!-- *************************** -->
+<section>
+    <h1>Dependency Injection</h1>
+    <h3>How to do it right</h3>
+    <p>
+        <small><a href="http://twitter.com/MrDanack">@MrDanack</a></small>
+    </p>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h2>What is dependency injection?</h2>
+    <ul>
+        <li>Fancy way of saying passing parameters</li>
+        <li>Easier to test</li>
+        <li>Easier to write & refactor code</li>
+        <li>Easier to add new services</li>
+        <li>More reasonable code</li>
+    </ul>
+</section>
+
+                
+<!-- *************************** -->
+<section class="embiggen">
+    <table style="width: 100%;" class="embiggen">
+        <thead>
+        <tr>
+            <th>Reasonable</th>
+            <th style="height: 50px"><span>&nbsp;</span></th>
+            <th>Understandable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="fragment">
+            <td>Obvious from reading the code</td>
+            <td></td>
+            <td>Documentation / colleague can explain how it works</td>
+        </tr>
+        <tr class="fragment">
+            <td>Errors happen at start of execution</td>
+            <td></td>
+            <td>Errors can happen during middle of execution</td>
+        </tr>
+        <tr class="fragment">
+            <td>Simpler parts, more of them</td>
+            <td></td>
+            <td>Fewer parts, but more complex code</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<!-- *************************** -->
+<section class="centrepage">
+    <h1 >Not using DI is bad</h1>
+    <p class="subtle">m'kay?</p>
+</section>
+                
+                
+<!-- *************************** -->
+<section>
+    <section>
+    <h2>Globals</h2>
+    <pre class="danackCode emlargen spaceTop" data-trim>
+<code class="php">
+function foo()
+{
+    global $fileUploader;
+    $fileUploader->putFile();
+}
+</code>
+</pre>
+    </section>
+
+    <section>
+        <h2>Hard code all the things!</h2>
+<pre class="danackCode emlargen" data-trim>
+<code class="php">
+function foo()
+{
+    $storage = new S3Storage();
+}
+</code>
+</pre>
+or
+<pre class="danackCode emlargen">
+<code class="php">
+function foo()
+{
+    $storage = S3Storage::create();
+}
+</code>
+</pre>    
+    </section>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>Service locator</h2>
+<pre class="danackCode emlargen">
+<code class="php">
+function foo($sl) {
+    $storage = $sl->get('fileUploader');
+    …
+    …
+    …
+    if ($criticalError) {
+        $notification = $sl->get('ErrorNotifier');
+    }
+}
+</code>
+</pre>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h2>Also a Service locator</h2>
+<pre class="danackCode emlargen spaceTop spaceBottom">
+<code class="php">
+class FooController extends ContainerAware {
+    function foo() {
+         $db = $this->get('storage');
+    }
+}
+</code>
+</pre>
+    Really a hard coded service locator
+</section>
+
+
+<section>
+    <h2>So....how to do DI right?</h2>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Depdendency Injection is literally just passing in parameters</h2>
+<pre class="danackCode spaceTop">
+<code>
+    
+function backupFile(S3Storage $s3Storage, EntityManager $em)
+{
+    // ...
+}
+    
+backupFile($s3Storage, $entityManager);
+    
+</code>
+</pre>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Code shouldn't be aware of injector</h2>
+</section>
+    
+<section>
+    <h2>Typehints</h2>
+
+<pre class="danackCode spaceTop spaceBottom">
+<code>
+function backupFile(S3Storage $s3Storage, EntityManager $em)
+{
+    // ...
+}
+</code>
+</pre>
+
+    <p class="">Interfaces are best, so ignore that PSR-2 bye-law</p>
+    
+    <p class="subtle">Actually, can we just start calling them types now?</p    >
+</section>
+
+
+<section>
+    <h2>Constructor injection</h2>
+
+<pre class="danackCode spaceTop">
+<code class="php">
+$fooController = new FooController();
+    
+// Any code that touches $fooController between constructor
+// and setter will behave...poorly
+
+$foo->setDBConnection($dbConnection);
+</code>
+</pre>
+    
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Use types for all dependencies</h2>
+
+<pre class="spaceTop">
+<code class="php">
+    $logger = $di->make('log_service');
+</code>
+</pre>
+    vs
+<pre>
+<code class="php">
+    $logger = $di->make(Psr\Log\LoggerInterface::class);
+</code>
+</pre>
+</section>
+
+
+<section>
+    <h2>No really - use types for <b>all</b> dependencies</h2>
+
+<pre class="danackCode">
+<code class="php">
+class S3Config
+{
+    public $key;
+    public $secret;
+    public $region;
+    ...
+}
+</code>
+</pre>
+
+<pre class="danackCode fragment">
+<code class="php">
+class TmpPath
+{
+    public $value;
+    function __construct($value) {
+        $this->value = $value
+    }
+}
+</code>
+</pre>
+
+</section>
+
+
+<section>
+    <h2>Use a Dependency Injection Container</h2>
+
+    <p>
+    https://github.com/rdlowrey/auryn
+    </p>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>Using a 'Dependency Injection Container' makes life easy</h2>
+<pre class="danackCode">
+<code class="php">
+function backupFile(S3Storage $s3Storage, EntityManager $em)
+{
+    // ...
+}
+
+$injector->execute('backupFile');    
+</code>
+</pre>
+'Dependency injection container' is a rubbish name. Going to just use the word 'injector' as opposed to saying DIC 100 times.
+</section>
+
+<!-- *************************** -->
+<section>
+    <h2>Injector - makes life easy</h2>
+<pre class="danackCode">
+<code class="php">
+class BackupController {
+    function backupFile(...) {
+    }
+}
+
+$instance = $injector->make('BackupController');
+$instance->backupFile();
+</code>
+</pre>
+
+    <div class='fragment'>
+Or just invoke directly
+
+<pre class="danackCode">
+<code class="php">
+$injector->execute(['BackupController', 'backupFile']);
+</code>
+</pre>
+</div>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Injector - makes life easy</h2>
+<pre class="danackCode">
+<code class="php">
+$route = $router->matchRequest();
+
+$callable = $route->getCallable();
+
+$injector->execute($callable);
+</code>
+</pre>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    
+    <h2>Configuring the injector</h2>
+<pre class="danackCode fragment">
+<code class="php">
+$injector->alias('FileUploader', 'S3FileUploader');
+</code>
+</pre>
+<pre class="danackCode fragment">
+<code class="php">
+$injector->share('S3FileUploader');
+</code>
+</pre>
+<pre class="danackCode fragment">
+<code class="php">
+$injector->define(
+    'S3Config', 
+    array(
+        ':aws_key'    => 'abcde12345',
+        ':aws_secret' => 'fghij67890'
+        ':region'     => 'EU_WEST'
+    )
+);
+</code>
+</pre>
+
+</section>
+    
+
+
+<section>
+    <h2>Configuring the injector</h2>
+<pre class="danackCode spaceTop">
+<code class="php">
+function createS3Config() {
+    $key    = getenv('aws.s3.key');
+    $secret = getenv('aws.s3.secret');
+    $region = getenv('aws.s3.region');
+
+    return new S3Config($key, $secret, $region)
+}
+
+$injector->delegate('S3Config', 'createS3Config');
+</code>
+</pre>
+</section>
+    
+
+
+
+
+<!-- *************************** 
+<section>
+    <h2>Delegation is awesome</h2>
+    <pre>
+        
+function createSupportWidget()
+{
+    $dayOfWeek = date('w', time());
+    $hourOfDay = date('G', time());
+    if ($dayOfWeek < 6) {
+        if ($hourOfDay > 9 && $hourOfDay <= 17) {
+            return new OfficeHoursWidget();
+        }
+    }
+    return new OutOfHoursWidget();
+};
+
+$injector->delegate('SupportWidget', 'createSupportWidget');
+
+    </pre>
+</section>
+
+
+-->
+
+<!-- *************************** -->
+<section>
+<section>
+    <h2>Delegation is awesome</h2>
+    <pre>
+<code class="php">
+    
+function getClientFromSession(Session $session, ClientRepository $clientRepo) {
+    $clientID = $session->getClientID();
+
+    return $clientRepo->getClientByID($clientID);
+
+};
+    
+function createFileUploader(Client $client, Injector $injector) {
+    $storageType = $client->getFileUploaderType();
+
+    return $injector->make($storageType);
+};
+
+$injector->delegate('Client', 'getClientFromSession');
+$injector->delegate('FileUploader', 'createFileUploader');
+</code>
+</pre>
+</section>
+
+
+    <section>
+        <h2>Configuring the injector</h2>
+<pre class="danackCode">
+<code class="php">
+function prepareS3Client(S3Client $s3Client) {
+    $s3Client->setTimeOut(10000);
+}
+
+$injector->prepare('S3Client', 'prepareS3Client');
+</code>
+</pre>
+    </section>
+
+
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <section>
+    <h2>'Optional' 'dependency' ?</h2>
+<pre class="danackCode">
+<code class="php">
+function foo(ObjectCache $cache = null)
+{
+    if ($cache) {
+        if ($value = $cache->get('bar')) {
+            return $value;
+        }
+    }
+
+    $value = bar();
+
+    if ($cache) {
+        $cache->put('bar', $value);
+    }
+
+    return $value;
+}
+</code>
+</pre>
+    </section>
+    
+    <!-- *************************** -->
+<section>
+    <h2>No such thing as optional dependency</h2>
+    <pre class="danackCode">
+<code class="php">
+function foo(ObjectCache $cache)
+{
+    if ($value = $cache->get('bar')) {
+        return $value;
+    }
+
+    $value = bar();
+    $cache->put('bar', $value);
+
+    return $value;
+}
+</code>
+    </pre>
+</section>
+
+    
+
+
+<section>
+<h2>No such thing as optional dependency!</h2>
+<pre class="danackCode">
+<code class="php">
+class NullCache implements ObjectCache
+{
+    function put($key, $object)
+    {
+    }
+
+    function get()
+    { 
+        return null;
+    }
+}
+</code>
+</pre>
+    <p class="subtle">
+        Q:  Does this break LSP? 
+    </p>
+    
+
+</section>
+
+    <section>
+        <h2>Does this break LSP?</h2>
+        
+        <blockquote cite="http://www.objectmentor.com/resources/articles/lsp.pdf" class="spaceTop spaceBottom">
+
+        <i>“What is wanted here is something like the following substitution property: If
+for each object o1 of type S there is an object o2 of type T such that for all
+programs P defined in terms of T, the <u><b>behavior</b></u> of P is unchanged when o1 is
+substituted for o2 then S is a subtype of T.”</i>
+        </blockquote>
+        
+        <p>
+            I think this turns on whether you interpret 'behaviour' as either 'technical behaviour' or as 'conforming to the business needs behaviour'.
+            
+        </p>
+        
+        <p class="smallText">
+            Taken from http://www.objectmentor.com/resources/articles/lsp.pdf
+        </p>
+        
+    </section>
+    
+
+<section>
+    <h2>Default implementation is okay though</h2>
+<pre>
+<code class="php">
+
+class RouteCollection {
+    public function __construct(RouteFactory $route_factory = null) {
+        if ($route_factory == null) {
+            $route_factory = new Aura\Router\RouteFactory();    
+        }
+    }
+}
+</code>
+</pre>
+    </section>
+
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <pre class="danackCode">
+<code class="php">
+function backupFile(S3Storage $s3Storage,
+    Request $request, \Doctrine\ORM\EntityManager $entityManager)
+{
+    $backupRepository = $entityManager->getRepository('Backup');
+    $sourceFile = $backupRepository->getNextFilename();
+    $backupFilename = $sourceFile.'_'.date("Y_m_d_H_i_s");
+
+    try {
+        $s3Storage->putFile($sourceFile, $backupFilename);
+    }
+    catch(S3Exception $s3Exception) {
+        return new ServerErrorResponse("Somethings borked");
+    }
+    $responseData = ['backupFilename' => $backupFilename];
+    $acceptHeader = $request->getHeader('Accept');
+    if (strcmp($acceptHeader, "text/xml") === 0) {
+        return new XMLResponse($responseData);
+    }
+
+    return new JsonResponse($responseData);
+}
+</code>
+</pre>
+    
+    <aside class="notes">
+        <p>
+            Hard to test as:
+        </p>
+        <ul>
+            <li>S3Client has about 50 methods - which ones do we need to stub/mock</li>
+            <li>Need to stub Request</li>
+            <li>Need to persuade Doctrine to give us a Backup repo object</li>
+            <li>Need to touch doctrine at all</li>
+        </ul>
+    </aside>
+    
+</section>
+
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>Wrong dependency</h2>
+    
+<pre>
+<code class="php">
+function backupFile(\Doctrine\ORM\EntityManager $em)
+{
+    ...
+    $backupRepository = $entityManager->getRepository('Backup');
+    ...
+}
+</code>
+</pre>
+    <div class="fragment">
+<h2>Right dependency</h2>
+<pre>
+function backupFile(BackupRepository $backupRepository)
+{
+    ...
+}
+</pre>
+    
+<p class="subtle">
+    The Law of Demeter - "Only talk to your immediate friends."
+</p>
+</div>
+        
+    
+<aside class="notes">
+    Easier to test.
+</aside>
+
+    
+    
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Delegation removes coupling</h2>
+<pre>
+<code class="php">
+function getBackupRepository(EntityManager $em)
+{
+    return $em->getRepository('Backup');
+}
+
+$injector->delegate(BackupRepository::class, 'getBackupRepository');
+</code>
+</pre>
+<aside class="notes">
+    The function now no longer knows about Doctrine.
+</aside>
+
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>new is a smell...</h2>
+<pre>
+<code class="php">
+function backupFile(..., Request $request, ...)
+{
+    ...
+    $acceptHeader = $request->getHeader('Accept');
+
+    if (strcmp($acceptHeader, "text/xml") === 0) {
+        return new XMLResponse($responseData);
+    }
+    return new JsonResponse($responseData);
+}
+</code>
+</pre>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h1 class="" style="font-size: 4em">Factories
+are 
+objects!!1!</h1>
+    
+    
+        <ul>
+        <li>
+            They encapsulate information. In this case neither neither JsonResponse nor XMLResponse need to know about 'Request'.
+        </li>
+        <li>
+            Named constructors are fine - http://verraes.net/2014/06/named-constructors-in-php/
+        </li>
+        </ul>
+    
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2></h2>
+    <pre>
+<code class="php">
+class RequestResponseFactory implements ResponseFactory
+{
+    private $request;
+
+    function __construct(Request $request) {
+        $this->request = $request;
+    }
+    
+    function create(array $responseData) {
+        $acceptHeader = $this->request->getHeader('Accept');
+        if (strpos($acceptHeader, "text/xml") === 0) {
+            return new XMLResponse($responseData);
+        }
+
+        return new JsonResponse($responseData);	
+    }
+}
+
+$injector->alias('ResponseFactory', 'RequestResponseFactory');
+</code>
+</pre>
+</section>
+
+
+
+<!--
+
+<section>
+    <h2>Factories remove the 'new' code smell...</h2>
+<pre>
+<code class="php">
+function backupFile(..., ResponseFactory $responseFactory, ...)
+{
+    ...
+    $responseFactory->create($responseData);
+}
+</code>
+</pre>
+</section>
+
+-->
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>Depending on an implementation...</h2>
+    <pre>
+<code class="php">
+function backupFile(S3Client $s3Client, ...)
+{
+    ...
+    try {
+        $s3Client->putFile($sourceFile, $backupFilename);
+    }
+    catch(S3Exception $s3Exception) {
+        return new ServerErrorResponse("Somethings borked");
+    }
+    ...
+}
+</code>
+</pre>
+</section>
+
+
+
+   
+<!-- *************************** -->
+<section>
+    <section>
+    <h2>Interface has...</h2>
+<pre>
+<code class="php">
+interface FileUploader {
+    function putFile($srcFilename, $dstFilename);
+}
+</code>
+</pre>
+    <ul>
+        <li>Less coupling</li>
+        <li>Clearer semantic meaning</li>
+        <li>Fewer methods so simpler to reason about</li>
+    </ul>
+    </section>
+    
+    
+    <section>
+        Two types of interfaces
+        <ul>
+            <li>Technical ones - obvious at start of project</li>
+            <li>'Business' driven - emerge during project</li>
+        </ul>
+            
+    </section>
+        
+</section>
+
+
+
+<!-- *************************** -->
+<section data-background="assets/img/MindExplosion.gif" data-background-repeat="repeat" data-background-size="260px" data-background-transition="zoom" data-transition-speed="slow">
+
+</section>
+
+
+<!-- *************************** -->
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+    <h2></h2>
+    
+<svg width="1200" height="600">
+
+    <!-- <line x1="225" y1="120" x2="225" y2="200" style="stroke:rgb(0,0,0);stroke-width:2" /> -->
+    
+    <line x1="600" y1="120" x2="200" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="250" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="300" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="350" y2="420" style="stroke:rgb(200, 0, 0);stroke-width:3" />
+    <line x1="600" y1="120" x2="400" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="450" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="500" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="550" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    
+    <line x1="600" y1="120" x2="600" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="650" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="700" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="750" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="800" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="850" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="900" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="950" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="120" x2="1000" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    
+    
+    
+    <rect x="200" y="20" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="85" text-anchor="middle" fill="black">function backupFile</text>
+    
+    <rect x="200" y="420" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="485" text-anchor="middle" fill="black">class S3Client</text>
+</svg>
+</section>
+
+
+<!-- *************************** -->
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+<svg width="1200" height="600">
+
+    
+    <line x1="600" y1="120" x2="600" y2="220" style="stroke:rgb(200, 0, 0);stroke-width:3" />
+    
+    <line x1="600" y1="320" x2="200" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="250" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="300" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="350" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="400" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="450" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="500" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="550" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="600" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="650" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="700" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="750" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="800" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="850" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="900" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    <line x1="600" y1="320" x2="950" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    
+    <line x1="600" y1="320" x2="1000" y2="420" style="stroke:rgb(0,0,0);stroke-width:2" />
+    
+    <rect x="200" y="20" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="85" text-anchor="middle" fill="black">function backupFile</text>
+    
+    <rect x="200" y="220" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="285" text-anchor="middle" fill="black">S3FileUploader implements FileUploader</text>
+
+    <rect x="200" y="420" width="800" height="100" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="600" y="485" text-anchor="middle" fill="black">class S3Client</text>
+</svg>
+    <p class="subtle">
+    This is the D in SOLID. "Dependency inversion principle" == "Depend upon Abstractions. Do not depend upon concretions.”
+    </p>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>Interface has less coupling</h2>
+<pre>
+<code class="php">
+class S3FileUploader implements FileUploader
+{
+    function __construct(S3Client $s3Client) {
+        $this->s3Client = $s3Client;
+    }
+
+    function putFile($sourceFilename, $backupFilename) {
+        try {
+            $this->s3Client->putFile($sourceFilename, $backupFilename));
+        }
+        catch(\Exception $exception) {
+           throw new FileUploaderException(
+               "FileUploader exception: ".$exception->getMessage(),
+               $exception->getCode(),
+               $exception
+           );
+        }
+    }
+}
+</code>
+</pre>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h2>After refactoring</h2>
+    
+<pre>
+<code class="php">
+function backupFile(FileUploader $fileUploader,
+    ResponseFactory $responseFactory, 
+    BackupRepository $backupRepository)
+{
+    $sourceFile = $backupRepository->getNextFilename();
+    $backupFilename = $sourceFile.'_'.date("Y_m_d_H_i_s");
+
+    try {
+        $fileUploader>putFile($sourceFile, $backupFilename);
+    }
+    catch(FileResponseException $exception) {
+        return new ServerErrorResponse("Somethings borked");
+    }
+
+    return $responseFactory->create(['backupFilename' => $backupFilename]);
+}
+</code>
+</pre>
+    <aside class="notes">
+        <ul>
+            <li>Easier to test</li>
+            <li>Easier to write & refactor code</li>
+            <li>Easier to add new services</li>
+            <li>More reasonable code</li>
+            <li>ServerErrorResponse is 'ok' - still a smell</li>
+        </ul>
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h2>DI not appropriate ... for trivial apps</h2>
+
+</section>
+
+<section>
+    <h2>DI not appropriate ... where the dependencies can't be resolved cleanly</h2>
+    
+    <pre class="danackCode spaceTop">
+<code class="php">
+function archiveOldData(DBConnection $liveDB, DBConnection $archiveDB) {
+   ...
+}
+</code>
+    </pre>
+    
+</section>
+
+
+<!-- *************************** -->
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+<svg width="1200" height="600">
+
+    <defs id="svgEditorDefs">
+        <polygon id="svgEditorPolygonDefs" stroke="black" fill="khaki"
+                 style="vector-effect: non-scaling-stroke; stroke-width: 1px;"/>
+        
+        
+        <marker id="arrow20-16-right" markerHeight="18.0" markerUnits="userSpaceOnUse" markerWidth="30" orient="auto"
+                refX="-3" refY="0" viewBox="-25 -15 50 25">
+            <path d="M -25 -15 L 0 0 L -25 15 z" fill="black"/>
+        </marker>
+    </defs>
+    
+    <text x="0" y="15" fill="black" transform="rotate(90 00,60)">Application / injector</text>
+    <line x1="90" y1="10" x2="90" y2="580" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+    <rect x="200" y="20" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="220" y="75" text-anchor="left" fill="black" style="font-size: 42px;">Execute callable</text>
+    <line x1="90" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+    
+    <rect x="200" y="140" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="220" y="195" text-anchor="left" fill="black" style="font-size: 42px;">Next callable + DI info</text>
+    
+    <line x1="200" y1="180" x2="90" y2="180" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+    <path d="M800,60q60,0,60,60t-60,60" stroke="black" id="e12_curveS2"
+          style="fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);"/>
+
+    <g transform="translate(0 240)">
+        <rect x="200" y="20" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="75" text-anchor="left" fill="black" style="font-size: 42px;">Execute callable</text>
+        <line x1="90" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        
+        <rect x="200" y="140" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="195" text-anchor="left" fill="black" style="font-size: 42px;">Next callable + DI info</text>
+        
+        <line x1="200" y1="180" x2="90" y2="180" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        <path d="M800,60q60,0,60,60t-60,60" stroke="black" id="e12_curveS2"
+              style="fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);"/>
+    </g>
+    
+    <line x1="500" y1="500" x2="500" y2="600" style="stroke:rgb(0,0,0);stroke-width:2; stroke-dasharray: 10,10; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+</svg>
+
+    <p class="smallText spaceTop">
+        This is a form of flow-based programming......probably. <br/>http://www.jpaulmorrison.com/fbp/
+    </p>
+</section>
+
+    
+    
+<section style="text-align: center" data-background="-webkit-radial-gradient(center, circle cover, #dddddd 45%, #b7b7b7 75%)">
+<svg width="1200" height="600">
+
+    <defs id="svgEditorDefs">
+        <polygon id="svgEditorPolygonDefs" stroke="black" fill="khaki"
+                 style="vector-effect: non-scaling-stroke; stroke-width: 1px;"/>
+        
+        
+        <marker id="arrow20-16-right" markerHeight="18.0" markerUnits="userSpaceOnUse" markerWidth="30" orient="auto"
+                refX="-3" refY="0" viewBox="-25 -15 50 25">
+            <path d="M -25 -15 L 0 0 L -25 15 z" fill="black"/>
+        </marker>
+    </defs>
+    
+
+    <g transform="scale(0.8)">
+
+    <text x="0" y="15" fill="black" transform="rotate(90 00,60)">Application / injector</text>
+    <line x1="90" y1="10" x2="90" y2="740" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        
+    <rect x="200" y="20" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="220" y="75" text-anchor="left" fill="black" style="font-size: 42px;">Execute Router callable</text>
+    <line x1="90" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+    
+    <rect x="200" y="140" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+    <text x="220" y="195" text-anchor="left" fill="black" style="font-size: 42px;">Controller + query params</text>
+    
+    <line x1="200" y1="180" x2="90" y2="180" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+
+    <path d="M800,60q60,0,60,60t-60,60" stroke="black" id="e12_curveS2"
+          style="fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);"/>
+
+    <g transform="translate(0 240)">
+        <rect x="200" y="20" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="75" text-anchor="left" fill="black" style="font-size: 42px;">Execute Controller callable</text>
+        <line x1="90" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        
+        <rect x="200" y="140" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="195" text-anchor="left" fill="black" style="font-size: 42px;">View + model</text>
+        
+        <line x1="200" y1="180" x2="90" y2="180" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        <path d="M800,60q60,0,60,60t-60,60" stroke="black" id="e12_curveS2"
+              style="fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);"/>
+    </g>
+    
+    
+    <g transform="translate(0 480)">
+        <rect x="200" y="20" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="75" text-anchor="left" fill="black" style="font-size: 42px;">Execute View callable</text>
+        <line x1="90" y1="60" x2="200" y2="60" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        
+        <rect x="200" y="140" width="600" height="80" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)" />
+        <text x="220" y="195" text-anchor="left" fill="black" style="font-size: 42px;">Response body</text>
+        
+        <line x1="200" y1="180" x2="90" y2="180" style="stroke:rgb(0,0,0);stroke-width:2; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" />
+    
+        <path d="M800,60q60,0,60,60t-60,60" stroke="black" id="e12_curveS2"
+              style="fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);"/>
+    </g>
+    
+    </g>
+    
+    <!-- <line x1="500" y1="500" x2="500" y2="600" style="stroke:rgb(0,0,0);stroke-width:2; stroke-dasharray: 10,10; fill: none; stroke-width: 4px; vector-effect: non-scaling-stroke; marker-end: url(#arrow20-16-right);" /> -->
+
+</svg>
+
+</section>
+
+<section>
+    
+    <h2>Demo time</h2>
+    
+    <p>
+        No time....example app is at www.github.com/danack/Tier
+    </p>
+
+</section>
+    
+    
+<!-- *************************** -->
+<section>
+    <h1 class="embiggen finale">Fin</h1>
+<ul>
+    <li>Pass parameters in</li>
+    <li>Depend on the correct things</li>
+    <li>Use an injector https://github.com/rdlowrey/auryn</li>
+    <li>J.B. Rainsberger - Integrated Tests Are A Scam
+http://vimeo.com/80533536</li>
+    <li>Questions?</li>
+</ul>
+</section>
+
+
+
+<section>
+    <h1 class="">Encapsulated Context Pattern</h1>
+    
+    <p>
+    <i>"The ability to bind the lifecycle and interactions of stateful components to well-defined but extensible lifecycle contexts."</i>
+    </p>
+
+<pre>
+<code class="php">
+class MarketContext {
+    public $tradeExecutor;
+    public $logManager;
+    public $priceValidator;
+
+}
+</code>
+</pre>
+    <p>
+        Stops lower tier code from being able to look up services, making it easier to reason about what is injected. Probably useful for views.
+    </p>
+    
+    http://accu.org/index.php/journals/246
+</section>
+
+
+<section>
+    <h1>Why not other DICs?</h1>
+    
+    <section>
+        <ul>
+            <li>Use names rather than types</li>
+            <li>Lack recursive delegation to functions</li>
+            <li>Lack ability to alias interfaces to classes</li>
+            <li>Bad (imo) syntax</li>
+        </ul>
+    </section>
+
+    <section>
+
+<pre>
+<code class="php">
+$container['session_storage'] = function ($c) {
+    return new SessionStorage('SESSION_ID');
+};
+
+$container['session'] = function ($c) {
+    return new Session($c['session_storage']);
+};
+</code>
+</pre>
+    </section>
+</section>
+
+
+<section>
+    
+    <h2>Current static methods:</h2>
+<pre>
+<code class="php">
+interface Info {
+    static function getInfo();
+}
+
+class Foo implements Info {
+    static function getInfo() {
+    }
+}
+</code>
+</pre>
+
+</section>
+    
+
+<!--
+
+<section>
+
+     <h2>What we really need is a meta level interface</h2>
+<pre>
+<code class="php">
+interface Info {
+    function getInfo();
+}
+
+MetaFoo implements Info {
+    function getInfo() {
+        return ['transactional' => true];
+    }
+}
+
+class Foo implements Info {
+    // Info can only be set via static initializer   
+    meta $info = new MetaFoo();
+}
+
+//Get directly from var
+Foo::$info->getInfo(); 
+
+//Or from a helper function
+$info = get_class_meta('Foo', Info::class); 
+    
+</code>
+</pre>
+
+
+</section>
+
+-->
+
+
+<!-- *************************** -->
+<section>
+    <blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+    </blockquote>
+</section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: false,
+                history: true,
+                center: true,
+                width: 1280,
+                height: 800,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.08,
+                slideNumber: true,
+                //transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'none', 
+                //transitionSpeed: "slow",
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+            
+            
+            /* This draws the graph on the slide on a slidechanged event */
+            Reveal.addEventListener('slidechanged', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            } );
+            /* This draws the graph if we got here directly without coming from another slide */
+            Reveal.addEventListener('ready', function(event) {
+                var callback = "render_"+event.currentSlide.id;
+                if(typeof(window[callback])=="function") {
+                    window[callback]();
+                }
+            });
+        </script>
+    </body>
+</html>
