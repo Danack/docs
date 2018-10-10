@@ -577,7 +577,7 @@ xdebug.remote_host=10.254.254.254
 
     <!-- *************************** -->
     <section>
-      <div style="text-align: center !important;" class="em1_4"  >
+      <div style="text-align: center !important;" class="em1_2"  >
         <h1>
           Copy all project files into container
         </h1>
@@ -592,10 +592,9 @@ xdebug.remote_host=10.254.254.254
         </pre>
 
 <pre style="color: white">        volumes:
-        - .:/var/www
+- .:/var/www
 </pre>
-<pre style="color: white">
-        docker build -t load_balancer:latest --file ./docker/php_backend/Dockerfile .
+<pre style="color: white">docker build -t load_balancer:latest --file ./docker/php_backend/Dockerfile .
 </pre>
 
 
