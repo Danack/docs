@@ -1,0 +1,1487 @@
+<!-- *************************** -->
+<section class="em1_4">
+    <h1>Good or bad </h1>
+    <h3>Telling the difference is hard.</h3>
+    <p>
+        <a href="http://twitter.com/MrDanack">@MrDanack</a>
+    </p>
+    <p class="subtle" style="padding-top: 100px">
+      <small>Press 'c' to toggle code style</small><br/>
+      <small>Press 's' for speaker notes</small>
+    </p>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>
+  Being a programmer is mostly
+  </h1>
+  <ul>
+
+    <li>Drinking coffee</li>
+    <li>Googling answers on stackoverflow</li>
+    <li>Making choices</li>
+  </ul>
+  <aside class="notes">
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+    <h2>Making choices</h2>
+    <ul>
+        <li>Which framework to use</li>
+        <li>Which libraries to use</li>
+        <li>How code should be written</li>
+    </ul>
+    <aside class="notes">
+    </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+
+  <h2>Making choices</h2>
+  <ul>
+    <li>Which frameworks are good, and which are bad.</li>
+    <li>Which libraries are good, and which are bad.</li>
+    <li>What code would be good, and what would be bad.</li>
+  </ul>
+  <aside class="notes">
+    <p>
+      Or, to reduce it to the simplest form.
+    </p>
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+
+  <h2>What is good? What is bad?</h2>
+
+  <aside class="notes">
+    <p>
+      Telling the difference between good and bad is a core skill of being a programmer.....but what if pretty much everyone is just bad at this core skill? Or at the very least nowhere near as good as they would like to think?
+      How can we either learn to better at telling the difference, or live with this disability if we can't.
+      Telling the difference between good and bad software is hard, lets start with something easier.
+      Something physical that can be held, as that should easier to reason about.
+    </p>
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+
+    <h2>What is this</h2>
+
+  <img src="/images/originalIpod.jpg" width="80%" />
+  <aside class="notes">
+  And what did people think about it at the time. Overpriced and too late.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section style="text-align: center !important;">
+    <blockquote class="em2">
+        "No wireless. Less space than a Nomad. Lame."
+    </blockquote>
+
+    <div>
+        Rob Malda (founder of slashdot), on the iPod at its release in 2001.
+    </div>
+
+    <aside class="notes">
+        I pretty much had similar opinions when the iPod was launched. The market was saturated with MP3 players, and I thought that Apple might be able to sell a few iPods, but it wasn't obvious to me that it was going to be a great money maker.
+
+        iPod went on to sell 400 million units. There was something about the iPod that wasn't obviously great that made it sell lots.
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <img src="/images/originalIphone.jpg" width="80%" />
+
+    <aside class="notes">
+      <p>iPhone - anyone know what this is.</p>
+
+      <p>Did people think the iPhone is going to be successful.</p>
+
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <blockquote>
+  There's no chance that the iPhone is going to get any significant market share. No chance. It's a $500 subsidized item. They may make a lot of money. But if you actually take a look at the 1.3 billion phones that get sold, I'd prefer to have our software in 60% or 70% or 80% of them, than I would to have 2% or 3%, which is what Apple might get.</blockquote>
+
+  Steve Ballmer, Microsoft CEO, 30 April 2007
+
+  <blockquote>
+  We've learned and struggled for a few years here figuring out how to make a decent phone. PC guys are not going to just figure this out. They're not going to just walk in.</blockquote>
+
+  Ed Colligan, Ex-Palm CEO, 16 Nov 2006
+
+  <blockquote>
+  I don't think that what we have seen so far (from Apple) is something that would any way necessitate us changing our thinking when it comes to openness, our software and business approach.</blockquote>
+
+
+  Nokia chief executive Olli-Pekka Kallasvuo
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <p class="em3" style="text-align: center !important;" >1.2 billion iPhones sold<br/>$750 billion revenue</p>
+
+  <aside class="notes">
+    <p>
+    But more amazingly than that, the iPhone currently accounts for something like 90% of all profits from selling phones. i.e. Apple make than double the money selling iPhones, than all other phone manufacturers put together do about ten times over.
+    </p>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+
+<section>
+<h2>Why I'm giving this talk.</h2>
+<p>
+  Some still saw the iPhone as shit:
+</p>
+
+<ul>
+    <li>can't even replace the battery</li>
+    <li>can't even put a memory card in it</li>
+    <li>can't even send MMS at launch.</li>
+</ul>
+
+<p>
+Some thought the iPhone was only selling well for the wrong reasons:
+</p>
+
+<ul>
+  <li>First smart phone to the market.</li>
+  <li>Apple products sell well just because they look good.</li>
+  <li>Apple spends more on marketing than other companies.</li>
+  <li>Iphone owners are sheep who buy it just because it's popular</li>
+</ul>
+  <aside class="notes">
+  I want to explain why I'm giving this talk.
+
+  After the iPhone had launched and it was selling really well, people were still trying to argue that it was shit.
+
+  Some people people arguing that is wasn't a very good phone, and that it was only selling well for the "wrong" reasons.
+
+  This is for a device that a _lot_ of people obviously liked.
+
+  And they weren't that calm about their dislike
+
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src='/images/stop_liking_file.jpg' width="40%" />
+  </div>
+  <aside class="notes">
+  These people who thought Android phones should be selling better were actually getting quite angry a lot of the time,
+
+  (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+  <div style="text-align: center !important;" class="fragment" >
+      If you think something is bad, but it's hugely popular, you're failing to tell good from bad.
+  </div>
+  <aside class="notes">
+    If you don't take away anything else from this talk, take this away.
+    (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <h2>Telling good from bad is hard is two separate ways</h2>
+  <p>
+    <b>Emotions</b>
+  </p>
+  <p>
+    <b>Math is hard</b>
+  </p>
+  <aside class="notes">
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" class="fragment" >
+        <h2>Emotions</h2>
+  </div>
+
+
+  <aside class="notes">
+    Programmers like to think of themselves as coldly logical and rational beings
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/Webscale.jpg" width="40%" />
+  </div>
+  <p>
+    http://www.mongodb-is-web-scale.com/
+  </p>
+
+  <aside class="notes">
+
+  But we get bored of using current technology and want to start using new stuff.
+
+  Fun story - the last place I worked we were evaluating what technology we should be using for the project.
+
+  One of the senior programmers suggested we should use Neo4J as it's FAST.
+
+  Me: Do we really need fast?
+
+  Them: We could serve 10s of thousands of requests a second if we used it!
+
+  We then did some work to figure out how many requests we needed to server per second.
+
+  It turns out that the highest the load would be is less than 1 request per second.
+
+  Choosing the most boring technology that fits your need is almost always going to be the right choice.
+
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Which of these is better</h2>
+  <p>Code that is easy to understand, has a good design, and is fully unit tested.</p>
+  <p>Code that is rough around the edges, is full of hacks and isn</p>
+  <aside class="notes">
+  This is a not a question based on logic. Without information like cost, time taken, or number of bugs, you can't answer.
+
+  This is a question based on aesthetics.
+
+  What is more beautiful.
+
+  What is more attractive.
+
+
+  Most people, naturally, have a set of things they find attractive
+
+  https://en.wikipedia.org/wiki/Aesthetics
+  </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Aesthetics</h2>
+
+    <img src="/images/BeautifulMan.jpg" width="40%" />
+
+    <img src="/images/AttractiveWoman.jpg" width="40%" />
+
+    <img src="/images/BeautySheep.jpg" width="40%" />
+  <aside class="notes">
+    Humans instinctively find some things draw
+
+    You can however teach yourself to appreciate other aesthetics.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Kintsugi</h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/kintsugi_pot.jpg" width="40%" />
+  </div>
+
+  <p>https://en.wikipedia.org/wiki/Kintsugi</p>
+
+  <aside class="notes">
+      This can be seen as a rationale for keeping an object around even
+      after it has broken and as a justification of kintsugi itself,
+      highlighting the cracks and repairs as simply an event in the life of
+      an object rather than allowing its service to end at the time of its
+      damage or breakage.[12]
+
+      Kintsugi can relate to the Japanese philosophy of "no mind" (無心
+      mushin), which encompasses the concepts of non-attachment, acceptance
+      of change and fate as aspects of human life.[13]
+
+  </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Wabi-sabi</h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/RoughTeapot.jpg" width="40%" />
+      <img src="/images/FancyTeapot.jpeg" width="40%" />
+  </div>
+
+  <p>https://en.wikipedia.org/wiki/Wabi-sabi</p>
+
+  <aside class="notes">
+    In Western culture we have an ingrained attraction to things that are perfect, pristine, delicate and expensive.
+
+    Wabi-sabi is a Japanese aesthetic centered on the acceptance of transience and imperfection.
+
+    The aesthetic is sometimes described as one of beauty that is "imperfect, impermanent, and incomplete".
+
+    It celebrates things that are good enough to do their job,
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <h2>Wabi-sabi</h2>
+
+    <p>
+    Derived from the Buddhist teaching of the three marks of existence
+    </p>
+
+    <ul>
+      <li>impermanence</li>
+      <li>suffering</li>
+      <li>emptiness / absence of self-nature</li>
+    </ul>
+
+
+  <aside class="notes">
+    Wabi-sabi is derived from the Buddhist teaching of the three marks of existence
+
+    I think we've all been on projects where we've felt these things.
+  </aside>
+</section>
+
+<!--
+
+https://en.wikipedia.org/wiki/Mushin_(mental_state)
+
+https://en.wikipedia.org/wiki/Mono_no_aware
+
+is a Japanese term for the awareness of impermanence (無常 mujō), or
+transience of things, and both a transient gentle sadness (or
+wistfulness) at their passing as well as a longer, deeper gentle
+sadness about this state being the reality of life.
+
+-->
+
+
+<!-- *************************** -->
+<section>
+
+  <div style="text-align: center !important;" class="fragment" >
+      <h2>Math is hard</h2>
+  </div>
+  <aside class="notes">
+  So the other main cause of people not being able to tell the difference between good and bad is that math is hard.
+
+  And I do mean math singular - I don't mean maths in general I mean very specifically:
+
+  Counting up numbers in your hard is really, really, really hard.
+
+  Humans can cope with numbers
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/ManagementExpenses.png" width="40%" />
+  </div>
+  <p>https://twitter.com/farbodsaraf/status/923353731948863489</p>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+ <div style="text-align: center !important;" class="fragment" >
+  <ul>
+    <li>We overvalue features</li>
+    <li>We undervalue ease of use.</li>
+  </ul>
+  </div>
+  <aside class="notes">
+    Being bad at maths leads to two problems in telling the difference between good and bad
+  </aside>
+</section>
+
+
+
+
+
+Some languages are crap. Okay - time for something more on topic for the conference. Some languages are just objectively crap. There is a language that I hope everyone in this room uses that is objectively crap, that somehow is widely used.
+
+Anyone know the language I'm talking about. No, not PHP, I'm actually thinking of English.
+
+English is an objectively crap language.
+
+Interestingly, English is crap in ways that are similar to the things people complain about in PHP.
+
+
+
+
+<!-- *************************** -->
+<section>
+  <p class="em3" style="text-align: center !important;" >
+  Some languages are crap
+  </p>
+  <aside class="notes">
+      Okay - time for something more on topic for this evening.
+
+      Some languages are crap.  Some languages are really just objectively crap. There is a language that most people in the room will be pretty familiar with that is objectively crap, that somehow is widely used.
+
+    Anyone know the language I'm talking about. No, not PHP, I'm actually thinking of English.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <p class="em3" style="text-align: center !important;" >English is an objectively crap language.</p>
+    <aside class="notes">
+      Interestingly, English is crap in ways that are similar to the things people complain about in PHP.
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <p class="em3" style="text-align: center !important;" >Did you read it?</p>
+  <p class="em3" style="text-align: center !important;" >Yes, I read it.</p>
+
+  <div style="text-align: center !important;" class="fragment" >
+    <img src="/images/funny-rage-face.jpg" width="40%" />
+  </div>
+
+  <blockquote>English can be understood through tough thorough thought though.</blockquote>
+
+
+
+
+  <aside class="notes">
+    English has a hilariously inconsistent. Other languages are much more consistent internally. A lot of this is due to English having taken ideas from other languages
+
+    This is very similar to how PHP is not as consistent internally as it could be. This isn't from 'mistakes' this is from a decision to have thin wrappers around the underlying functions, so that people who are familiar with them can use them.
+
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+
+  <blockquote>English has pursued other languages down alleyways to beat them unconscious and rifle their pockets for new vocabulary.</blockquote>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" >
+    <img src="/images/PHPStandardLibrary.jpg" width="80%" />
+  </div>
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+
+English lacks features.
+
+French has a feature. French has a feature where you can refer to someone formally with 'vous' or you can refer to them more informally with 'tu
+
+Other languages, particularly Asian ones, have other 'polite' structures
+
+===============================================
+
+English doesn't have this feature. We used to have it, with the words 'thee' and 'thou' but they mostly fell out of use during the 1xth century, at least in part due to imported printing presses not having the letter 'thorn', but a y kind of looks like an off-centre thorn.
+
+
+ Features are great right? Having more features makes something better right?
+
+-----------------------------------------------
+
+<!-- *************************** -->
+<section>
+  <p>Other languages have deferential ways of talking</p>
+
+  <p>
+    Less, "Yo! You want water?"; and more, "It's a warm day for a nice refreshment, no?"
+
+    <p>Some Asian languages have deferential ways of talking between people of different rank.</p>
+
+  </p>
+</section>
+
+
+===============================================
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <h1>
+        Ruby has a feature: Monkey-patching
+    </h1>
+
+    <blockquote>
+    One of the most powerful aspects of Ruby is the ability to re-open any class and change it’s methods.
+
+    Yes that’s right, you can actually reopen any class and change how it works. This includes the standard Ruby classes like String, Array or Hash!
+    </blockquote>
+
+
+
+  <aside class="notes">
+    Ruby has Monkey-patching where it's possible to alter fundamental behaviour of the language.
+
+    They added this to the language because they thought it would make things better
+  </aside>
+</section>
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" >
+      Neither PHP or English are widely used.
+  </div>
+
+
+  <aside class="notes">
+    So, because they are both terrible, neither are used anymore, having been replaced by better languages.
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" class="fragment" >
+      80% of the web powered by PHP
+  </div>
+
+  <div style="text-align: center !important;" class="fragment" >
+    1.5 billion people speak English, and it's the language used for business worldwide.
+  </div>
+  <aside class="notes">
+    If you think something is bad, but it's hugely popular, you're failing to tell good from bad.
+
+    So, lets look at those things that made other languages good, and made both PHP and English be bad.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important; margin-top: -80px">
+    <img src="/images/TuOrVu.jpg" width="400px"  />
+  </div>
+
+  <p>
+  http://www.latimes.com/opinion/op-ed/la-og-bastile-vous-tu-20140711-htmlstory.html
+  </p>
+  <p>https://twitter.com/MrDanack</p>
+
+  <aside class="notes">
+  This are the rules for determining if you should use tu or vous.
+
+  The problem with this feature is that you can piss people off by getting it wrong. Pretty obviously tu'ing someone when they think they deserve a vous would wind them up.
+
+  But you can piss people off the other way round as well. My Dad has retired to Normandy, in France. My French is terrible, and I find it much easier to say s'il vous plait.....so I tend to just use that rather than trying to figure out of I should be using the vous or the tu form.
+
+  My Dad's girlfriend got a bit annoyed once when I said "S'il vous plait" instead of switching to the informal s'il te plait, because she thought I was trying to mark her as 'not family'.
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Formal / polite</h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/ManagementExpenses.png" width="40%" />
+  </div>
+
+
+  <aside class="notes">
+
+Less amusingly several Asian languages have quite formal and deferential ways of phrasing words that should be used when a junior person talks to a more senior person, otherwise great offense can be taken. In everyday life this is a small problem......it turned out to be a big problem for South Korean airlines.
+
+The problem was this; the co-pilot is junior to the pilot. However the co-pilot is also meant to challenge the pilot and point out any mistakes that the pilot has made. There were multiple flights where the co-pilot realised the captain had made a mistake, but brought it to their attention with such deferential language that the captain didn't realise how serious the situation was.
+
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+   <h2>English - hard to give offense accidentally.</h2>
+
+  <p>With all due respect....</p>
+
+  <p>Thanks a bunch!</p>
+
+  <p>See you next Tuesday</p>
+
+  <aside class="notes">
+
+  English almost doesn't have this feature - it's almost impossible to accidentally give offense to someone by using the wrong phrasing.
+
+
+   <p>NEVER SAY THESE THINGS</p>
+
+   <p>This promotes a lot more honest conversation</p>
+
+   <p>You can go up to someone senior or otherwise 'deserves' respect and not worry about how you're phrasing your words</p>
+
+   <p>This is awesome for talking about code, or theory and remove an impediment</p>
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Lack of consistency</h2>
+  <div style="text-align: center !important;" class="fragment" >
+      Easier to adopt new ideas.
+
+      Easier to grow and adapt.
+  </div>
+
+  <p>
+  https://en.wikipedia.org/wiki/List_of_language_regulators
+  https://www.goethe.de/en/spr/mag/20802137.html
+  </p>
+
+
+  <aside class="notes">
+
+    The process for English acquiring a new word is "We'll have that. Thanks".
+
+    Most other languages have acadamies that discuss introducing new words after years of discussions, or spend decades changing spellings.
+
+    If nothing looks out of place, then adding new ideas doesn't make people feel surprised.
+
+    PHP started off as a purely procedural language.
+
+    Grew into classes.
+
+    Continues to grow organically.
+
+  </aside>
+</section>
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>PHP lacks features threading</h2>
+  <p>PHP lacks threads. This means it's not possible to write programs that deadlock internally.</p>
+  <aside class="notes">
+
+Missing features - programmers don't need to learn those features. More seriously,
+
+(However I would like generics, typed callables, typed scalars + maybe something easier async.)
+
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <h1>
+        Ruby has a feature: Monkey-patching
+    </h1>
+    <pre class="danackCode em1_2" data-trim>
+<code class="php">
+r = 4/3  # => 1
+r.class  # => Fixnum
+
+require 'mathn'
+
+r = 4/3  # => (4/3)
+r.class  # => Rational</code>
+</pre>
+
+    <aside class="notes">
+        This is an example of monkey patching, where the basic maths operations have been changed.
+
+        Sadly PHP lacks this feature, and we're forced to have deterministic behaviour of basic maths operations.
+
+
+
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+
+  <ul>
+   <li>Features generally make things harder to use</li>
+   <li>things that affect everyday use accumulate, but that involve big numbers</li>
+  </ul>
+
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Why was the iPod so successful?</h2>
+
+  <ul>
+   <li>Itunes - shit but good enough</li>
+   <li>The wheel interface</li>
+  </ul>
+
+
+
+  <img src="/images/IPodWheel.jpg" width="40%" />
+
+  <aside class="notes">
+  So, to close a loop, after learning all we have learned
+
+  Let me clear itunes was not good software, and is not good software now, but it was good enough.
+
+  It allowed someone to put a CD in their computer and a few minutes later that music was on their iPod.
+
+  The software that came with most Mp3 players at the time didn't include CD ripping software, so users had to rip a CD with one piece of software, and then load it to the MP3 with a different piece of software.
+
+  And the iPhone ?
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Nokia made a huge mistake</h2>
+
+
+  <h2>Apple should pull the plug on the iPhone</h2>
+    <blockquote class="em1_2">This is not an emerging business. In fact it’s gone so far that it’s in the process of consolidation with probably two players dominating everything, Nokia and Motorola.<br/><br/>
+  These phones go in and out of style so fast that unless Apple has half a dozen variants in the pipeline, its phone, even if immediately successful, will be passé within 3 months.<br/><br/>
+  There is no likelihood that Apple can be successful in a business this competitive.
+    </blockquote> - John Dvorak
+
+  <p>http://www.marketwatch.com/story/apple-should-pull-the-plug-on-the-iphone</p>
+
+  <aside class="notes">
+    At the time people thought that phones were like fashion items
+
+    Nokia thought that it is good to launch as many models as possible so that they always had a 'hot new thing'.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+  <h2>iPhone models in 10 years</h2>
+<p>
+iPhone
+iPhone 3G
+iPhone 3GS
+iPhone 4
+iPhone 4S
+iPhone 5
+iPhone 5c
+iPhone 5s
+iPhone 6
+iPhone 6 Plus
+iPhone 6s
+iPhone 6s Plus
+iPhone SE
+iPhone 7
+iPhone 7 Plus
+iPhone 8
+iPhone 8 Plus
+iPhone X
+</p>
+
+
+  <aside class="notes">
+  This is a list of all the iPhone models released in 10 years.
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+<h2>Nokia models in _just_ 2007</h2>
+
+<p>
+Nokia N800
+Nokia N93i
+Nokia 6110 Navigator
+Nokia 6131 NFC
+Nokia N76
+Nokia 3110 classic
+Nokia E61i
+Nokia E65
+Nokia E90
+Nokia N77
+Nokia 5070
+Nokia 5700 XpressMusic
+Nokia 7088
+Nokia 8800 Sirocco Gold
+Nokia 6120 classic
+Nokia 1200
+Nokia 1208
+Nokia 1208b
+Nokia 1650
+Nokia 2505
+Nokia 2630
+Nokia 2660
+Nokia 2760
+Nokia 2760h
+Nokia 3109 classic
+Nokia 6500 classic
+Nokia 6500 slide
+Nokia 8600 Luna
+Nokia 3500 classic
+Nokia 6121 classic
+Nokia 6267
+Nokia 5611 XpressMusic
+Nokia 6131i
+Nokia 7500 Prisma
+Nokia 7900 Prism
+Nokia 6555
+Nokia 500 Auto Navigation
+Nokia 5310 XpressMusic
+Nokia 5610 XpressMusic
+Nokia N81
+Nokia N81 8GB
+Nokia N95 8GB
+Nokia 8800 Sirocco Edition
+Nokia E51
+Nokia 6301
+Nokia 2135
+Nokia N810
+Nokia 6066
+Nokia NM705i
+Nokia 8800 Arte
+Nokia 8800 Sapphire Arte
+Nokia N82
+Nokia 3110 Evolve
+Nokia 6263
+</p>
+
+<p>53!!ONE!!! different models.</p>
+
+<p>List from http://nokiamuseum.info/category/launching-year/2007/</p>
+
+
+  <aside class="notes">
+
+  Giving customers a choice of model is a 'feature' the feature is having lots of choice.
+
+  FEATURES ARE BAD.
+
+  Basically, if at any point in the last 10 years, you walked into a shop and say 'I want an iPhone, most of the time, you have a choice of "do you want the old model, or do you want the new model?", and then what colour/storage size.
+
+  If you walked into a phone store in 2007 and said I want a Nokia, you have an overwhelming choice, which leads to people not being able to make a decision, and walking out without buying a phone.
+
+  </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h2>Why was the iPhone so success (initially at least)?</h2>
+
+  <ul>
+    <li>Left features out - no copy paste, no MMS,
+
+    <li>Really simplified the interface <br/>
+    Original iphone - 3 buttons<br/>
+    K800i - 9 buttons + 5 way nipple</li>
+
+    <li>Spent a huge amount of engineering on making the scrolling smooth</li>
+  </ul>
+
+
+
+
+  <aside class="notes">
+This involved customising the browser, required a whole lot of work at the operating system level
+and restricted what could run in a browser aka no flash or Java - which obviously is the correct decision in retrospect.
+
+This is a really subtle thing and isn't something that most people aren't going to notice.
+
+But it has a huge effect of making it always feel easy and pleasant to use.
+
+Even though all the other android phones were powerful enough to theoretically have smoother displays, because if the lack of
+engineering focus on just making sure the screen scrolled smoothly, pretty much every android device in the first few years of the iPhones existance were just unpleasant to use at length, due to the jank.
+  </aside>
+</section>
+
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>So what can you do?</h1>
+
+ <ul>
+  <li>Recognise your own emotions.</li>
+  <li>Push back against features.</li>
+  <li>Put effort into making life easy</li>
+  <li>Be prepared to still be wrong</li>
+ </ul>
+
+  <aside class="notes">
+
+  Making life easier - we fucked up. For project we didn't have local dev environment setup with xdebug enabled by default.
+
+  This means that to do debugging we needed to stop docker containers, edit a file,
+
+  Result of this - lots of debugging through var_dump()
+
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h1>Be prepared to be wrong.</h1>
+    <ul>
+      <li>Decouple your code</li>
+      <li>Don't make functions be 600 lines wrong</li>
+      <li>Spend less time making decisions.</li>
+    </ul>
+
+  <aside class="notes">
+  Be prepared to be wrong. Particular around choosing libraries and frameworks....there is an incredibly high chance that whatever you choose is just not going to be the right choice....so write your code so that as much of it as possible is decoupled from _any_ library. (that includes your own libraries).
+
+  Brucie bonus - this is very likely to make your code easier to test as well.
+
+  a good way to measure this is to keep asking - if we removed this library how much of the other code would we need to alter - aka I fucking hate active record/eloquent.
+
+
+  Spend less time making decisions. Which of the following scenarios is likely to have the best result for the
+
+  i) A committee of 5 people spend a week choosing which library to use.
+  ii) A single person spends 5 weeks choosing choose which library to use.
+  iii) You spend 5 minutes choosing which library to use, and then spend the next week trying to use it......then finding out what it wrong with it, and realising that what you need from that library is quite different from what you thought was important.
+
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+
+    <h2>What is this</h2>
+
+  <img src="/images/ThisIsntCarpentry.png" width="80%" />
+
+  https://twitter.com/mrmrs_/status/919984596166508544
+
+  <aside class="notes">
+      This is why agile kind of works - it assumes the people making decisions about what tickets should be worked on are going to be wrong....so teams only work on a small amount of work before being ready to change direction.
+ </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <h1 class="finale">Fin</h1>
+  <div style="min-height: 100px">&nbsp;</div>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>
+Why is KFC popular around the world.
+  </h1>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h1>
+Good or bad? - telling the difference is hard.
+  </h1>
+
+  <p>A large part of being a programmer is making choices, whether it's what framework to use, what libraries to use or just how to structure code. Every day when we're programming we try to take choices that are good, and avoid choices that are bad.</p>
+
+  <p>
+  But what if actually we're all terrible at telling the difference between good and bad? What if we're all just not very good at a fundamental skill needed to do our jobs?</p>
+
+  <p>In this talk I'm going to try to demonstrate a couple of common epistemological mistakes that people make, how you can try to analyze what is good and what is bad a bit better, and how to limit the consequences that come inevitably when bad choices are made.</p>
+
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+**********************END OF TALK**********************
+**********************END OF TALK**********************
+**********************END OF TALK**********************
+**********************END OF TALK**********************
+
+
+
+<p>
+My newest favourite factoid about English. This is how the words would, should and could were spelled in the 15th century.
+
+Would - from willan
+Should - from sceolde
+Coud - from coude
+
+Someone opened a bug report, asking for coud to be spelled similar to the other two for consistency. Most people agreed and just changed the spelling.
+</p>
+
+</section>
+
+------------------------------------
+
+https://www.youtube.com/watch?v=v76f6KPSJ2w
+
+
+https://www.youtube.com/watch?v=7GuCJGRj33c
+
+------------------------------------
+
+
+
+------------------------------------
+
+
+
+
+
+-----------------------
+
+
+And features are great right? What could possibly be bad about having this feature. Well here is a simple chart about whether you should use tu or vous when talking to them
+
+High-res version at twitter.com/MrDanack  Ha-ha self promotion.
+
+
+
+
+
+
+----------
+
+
+
+
+PHP lacks features.
+
+PHP lacks threads. This means it's not possible to write programs that deadlock internally.
+
+Ruby has a feature. Ruby has mixins where it's possible to alter fundamental behaviour of the language.
+
+Sadly PHP lacks this feature, and we're forced to have deterministic behaviour of basic maths operations.
+
+
+-----
+
+
+
+
+English is also the most widely used language around the world, and is now pretty much a requirement for international business.
+
+If you don't take away anything else from this talk, take this away.
+
+If something is objectively crap, but is still hugely successful you're using the wrong criteria to measure 'objective' good and bad.
+
+
+So what actually makes languages be 'good' or 'bad'.
+
+I think the surface level features are relatively less important thank people think, and second level (or emergent) behaviour is relatively more important.
+
+
+----
+
+
+
+
+
+
+
+
+
+
+Okay - time for something more on topic for the conference.
+
+Some languages are crap.  Some languages are really just objectively crap. There is a language that most people in the room will be at least a little bit familiar with that is objectively crap, that somehow is widely used.
+
+Anyone know the language I'm talking about. No, not PHP, I'm actually thinking of English.
+
+English is an objectively crap language.
+
+Interestingly, English is crap in ways that are similar to the things people complain about in PHP.
+
+------------------
+
+English has a hilariously inconsistent. Other languages are much more consistent internally. A lot of this is due to English having taken ideas from other languages
+
+
+This is very similar to how PHP is not as consistent internally as it could be. This isn't from 'mistakes' this is from a decision to have thin wrappers around the underlying functions, so that people who are familiar with them can use them.
+
+
+-----------------------
+English lacks features.  Features are great right? Having more features makes something better right?
+
+French has a feature. French has a feature where you can refer to someone formally with 'vous' or you can refer to them more informally.
+
+And features are great right? What could possibly be bad about having this feature. Well here is a simple chart about whether you should use tu or vous when talking to them
+
+High-res version at twitter.com/MrDanack  Ha-ha self promotion.
+
+The problem with this feature is that you can piss people off by getting it wrong. Pretty obviously tu'ing someone when they think they deserve a vous would wind them up.
+
+But you can piss people off the other way round as well. My Dad has retired to Normandy, in France. My French is terrible, and I find it much easier to say s'il vous plait.....so I tend to just use that rather than trying to figure out of I should be using the vous or the tu form. My Dad's girlfriend got a bit annoyed once when I said "S'il vous plait" instead of switching to the informal s'il te plait.
+
+English doesn't have this feature. We used to have it, with the words 'thee' and 'thou' but they mostly fell out of use during the 1xth century, at least in part due to imported printing presses not having the letter 'thorn', but a y kind of looks like an off-centre thorn.
+
+Not having this feature means that anyone can go up to someone and talk to them without accidentally give them offense. I think this is actually a huge benefit in science and programming, where we can talk about 'your' idea, without someone taking umbrage.
+
+----------
+
+Less amusingly several Asian languages have quite formal and deferential ways of phrasing words that should be used when a junior person talks to a more senior person, otherwise great offense can be taken. In everyday life this is fine......it turned out to be a bit of a problem for South Korean airlines.
+
+The problem was this; the co-pilot is junior to the pilot. However the co-pilot is also meant to challenge the pilot and point out any mistakes that the pilot has made. There were multiple flights where the co-pilot realised the captain had made a mistake, but brought it to their attentione with such deferential language that the captain didn't realise how serious the situation was.
+
+English almost doesn't have this feature - it's almost impossible to accidentally give offense to someone by using the wrong phrasing. "Thanks a bunch" -> "Thanks for nothing". "With all due respect" -> "I don't give a crap about your opinion.", "See you next Tuesday" -> this does not relate to a time.
+
+-------------------
+
+PHP lacks features.
+
+PHP lacks threads. This means it's not possible to write programs that deadlock internally.
+
+Ruby has a feature. Ruby has mixins where it's possible to alter fundamental behaviour of the language.
+
+Sadly PHP lacks this feature, and we're forced to have deterministic behaviour of basic maths operations.
+
+
+-----
+
+English can be understood through tough thorough thought though.
+
+English is also the most widely used language around the world, and is now pretty much a requirement for international business.
+
+PHP is the most widely used language for creating websites. (and tragically some companies are moving back to PHP).
+
+------------
+
+
+
+So what can we do if we're just rubbish at telling the difference between good and bad?
+
+
+Most obviously try to get better at it.
+
+Try and force yourself to look past big up front features, and pay more attention to small details that make like easier.
+
+Things that make life simpler + easier tend to be relatively more important than difficult to use features.
+
+I think the surface level features are relatively less important thank people think, and second level (or emergent) behaviour is relatively more important.
+
+
+
+
+
+---------------------------
+
+More subtly - if you're not good at something.....avoid doing it. Deliberately try and avoid spending time figuring out whether something is good or bad.
+
+Be prepared to be wrong.
+
+
+----------------------------
+
+
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+      So what can we do if we're just rubbish at telling the difference between good and bad?
+
+
+      Most obviously try to get better at it.
+
+      Try and force yourself to look past big up front features, and pay more attention to small details that make like easier.
+
+      Things that make life simpler + easier tend to be relatively more important than difficult to use features.
+
+      I think the surface level features are relatively less important thank people think, and second level (or emergent) behaviour is relatively more important.
+
+    </aside>
+</section>
+
+
+
+************************dead********************************
+************************dead********************************
+************************dead********************************
+************************dead********************************
+
+
+----
+
+Langauge consistency - easy to adopt new ideas. If nothing looks out of place, then adding new ideas doesn't make people feel surprised.
+
+Missing features - programmers don't need to learn those features. More seriously,
+
+(However I would like generics, typed callables, typed scalars + maybe easier async like await)
+
+
+<!-- *************************** -->
+<section>
+  <p class="em3" style="text-align: center !important;" >English lacks features</p>
+  <aside class="notes">
+    English lacks features. Features are great right? Having more features makes something better right?
+
+    French has a feature. French has a feature where you can refer to someone formally with 'vous' or you can refer to them more informally.
+
+    And features are great right? What could possibly be bad about having this feature. Well here is a simple chart about whether you should use tu or vous when talking to them
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+  High-res version at twitter.com/MrDanack  Ha-ha self promotion.
+  <aside class="notes">
+    The problem with this feature is that you can piss people off by getting it wrong. Pretty obviously tu'ing someone when they think they deserve a vous would wind them up.
+
+    But you can piss people off the other way round as well. My Dad has retired to Normandy, in France. My French is terrible, and I find it much easier to say s'il vous plait.....so I tend to just use that rather than trying to figure out of I should be using the vous or the tu form. My Dad's girlfriend got a bit annoyed once when I said "S'il vous plait" instead of switching to the informal s'il te plait.
+
+    English doesn't have this feature. We used to have it, with the words 'thee' and 'thou' but they mostly fell out of use during the 1xth century, at least in part due to imported printing presses not having the letter 'thorn', but a y kind of looks like an off-centre thorn.
+
+
+    Not having this feature means that anyone can go up to someone and talk to them without accidentally give them offense. I think this is actually a huge benefit in science and programming, where we can talk about 'your' idea, without someone taking umbrage.
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <p>Some Asian languages have deferential ways of talking between people of different rank.</p>
+
+  <p>
+    Less, "Yo! You want water?"; and more, "It's a warm day for a nice refreshment, no?"
+
+  </p>
+
+  <aside class="notes">
+    Less amusingly several Asian languages have quite formal and deferential ways of phrasing words that should be used when a junior person talks to a more senior person, otherwise great offense can be taken. In everyday life this is fine......it turned out to be a bit of a problem for South Korean airlines.
+
+    The problem was this; the co-pilot is junior to the pilot. However the co-pilot is also meant to challenge the pilot and point out any mistakes that the pilot has made. There were multiple flights where the co-pilot realised the captain had made a mistake, but brought it to their attentione with such deferential language that the captain didn't realise how serious the situation was.
+
+    English almost doesn't have this feature - it's almost impossible to accidentally give offense to someone by using the wrong phrasing. "Thanks a bunch" -> "Thanks for nothing". "With all due respect" -> "I don't give a crap about your opinion.", "See you next Tuesday" -> this does not relate to a time.
+  </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <p>English can be understood through tough thorough thought though.</p>
+    <aside class="notes">
+
+      English is also the most widely used language around the world, and is now pretty much a requirement for international business.
+
+      PHP is the most widely used language for creating websites. (and tragically some companies are moving back to PHP).
+
+
+    </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+    <aside class="notes">
+        If you don't take away anything else from this talk, take this away.
+
+        If something is objectively crap, but is still hugely successful you're using the wrong criteria to measure 'objective' good and bad.
+
+
+        (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+    </aside>
+</section>
+
+<!-- *************************** -->
+<section>
+  <p>
+  Language consistency - easy to adopt new ideas. If nothing looks out of place, then adding new ideas doesn't make people feel surprised.
+  </p>
+    <aside class="notes">
+      Missing features - programmers don't need to learn those features. More seriously,
+
+      (However I would like generics, typed callables, typed scalars + maybe easier async like await)
+    </aside>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- *************************** -->
+<section>
+
+    <h2>What if we're still terrible at telling good from bad </h2>
+
+  Be prepared to be wrong.
+
+  <aside class="notes">
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+
+  Be prepared to be wrong.
+
+  Decouple the code you write from calling library / framework directly
+
+    <aside class="notes">
+
+
+      Particular around choosing libraries and frameworks....there is an incredibly high chance that whatever you choose is just not going to be the right choice....so write your code so that as much of it as possible is decoupled from _any_ library. (that includes your own libraries).
+
+      (Brucie bonus - this is very likely to make your code easier to test as well).
+
+      (a good way to measure this is to keep asking - if we removed this library how much of the other code would we need to alter - aka I fucking hate active record/eloquent.)
+
+    </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+    <p>If you're not good at something.....avoid doing it. Deliberately try and avoid spending time figuring out whether something is good or bad.</p>
+    <aside class="notes">
+        <p>
+        Be prepared to be wrong. Spend less time making decisions. Which of the following scenarios is likely to have the best result for the
+        </p>
+    </aside>
+</section>
+
+
+
+
+<!-- *************************** -->
+<section>
+  <ul>
+    <li>A committee of 5 people spend a week choosing which library to use.</li>
+    <li>A single person spends 5 weeks choosing choose which library to use.</li>
+    <li>You spend 5 minutes choosing which library to use, and then spend the next week trying to use it......then finding out what it wrong with it, and realising that what you need from that library is quite different from what you thought was important.</li>
+  </ul>
+
+  <aside class="notes">
+
+      This is why agile works at all - it assumes the people making decisions about what tickets should be worked on are going to be wrong....so teams only work on a small amount of work before being ready to change direction.
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <h2></h2>
+  <div style="text-align: center !important;" class="fragment" >
+      <img src="/images/ManagementExpenses.png" width="40%" />
+  </div>
+
+
+  <aside class="notes">
+  </aside>
+</section>
