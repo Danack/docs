@@ -1,0 +1,183 @@
+
+Docker mistakes so you don't have to.
+
+# Above all else; developer time is expensive
+
+Some of the mistakes were as simple as "we need to talk about how to implement this"
+e.g. which files should we copy the files into the container. If we just copied all files
+then the container would have been 5MB bigger, but saved three hours of developer time.
+
+So some of these don't apply if you are deploying 1000 instances of a container.
+
+# It's not trolling; it's provoking a discussion
+
+Yarp.
+
+# Not using docker already
+
+Vagrant is theoretically a better solution.
+
+In practice.
+
+
+# Not setting WORKDIR
+
+WORKDIR /var/www
+
+
+# No dependencies between containers
+
+Thought we were being clever by having a 'common' php box image, and then adding stuff.
+
+Added so much complexity - doing `docker-compose up --build' could fail.
+
+Just copied the bits to be separate. And then edit them both.
+
+
+
+
+# Building config files separate from container images
+
+We separated them out to be built by helm when the container gets built. Our helm stuff is in a separate repo.....which means that even to just find out what a container is using in prod means searching around.
+
+Put them all in the container and choose from an environment flag passed in
+
+Or build them on the fly each time if you're cool enough.
+
+
+
+
+
+# Separate container that has xdebug enabled
+
+Makes debugging code in server be as simple as adding :8001
+
+Docker file
+
+FROM php_backend:latest
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends php7.2-xdebug
+
+COPY xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini
+
+
+xdebug.ini
+
+zend_extension=xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_port=9000
+xdebug.remote_autostart=1
+; Disable "Break at first line in PHP scripts"
+
+; Remote connect back doesn't work in docker apparently, as the incoming
+; request IP doesn't map back to the host properly.
+xdebug.remote_connect_back=0
+; This needs to be the IP address of the host on its local network
+xdebug.remote_host=10.254.254.254
+
+xdebug.overload_var_dump=0
+
+
+
+
+
+
+
+# Mistake: one process per container
+
+Typical deployment is LoadBalancer with lots of nginx backends
+
+LB knows about domain names + pools. Backends know about their application e.g. aware of files
+
+Complete duplication of files if separate
+
+Harder to configure as nginx backend needs name of php backend.
+
+This is dumb.
+
+# Better: one deployable unit per container
+
+
+Make containers be logical units rather than things that can't be deployed.
+
+Script Two things at the same time:
+
+https://gist.github.com/Danack/15e88f28e2b3504223c06582d5650bcc
+
+
+# Setup catch all domain names for boxes.
+
+Setup domain names once at the routing load-balancer.
+
+
+*.example.org
+
+
+# Copy all project files into container
+
+├── src
+├── public
+├── docker
+│   └── php_backend
+│       └── Dockerfile
+├── docker-compose.yml
+
+
+
+
+
+    volumes:
+      - .:/var/www
+
+
+
+
+Makes life so much simpler.
+
+By default not possible as docker will only include files from under the docker file location.
+
+Use 'build context' to make it include all from project root - except stuff you don't want e.g. node_modules in docker ignore.
+
+
+
+
+
+
+
+# Consistent IP address
+
+Setup loopback address means same IP used anywhere.
+
+com.ralphschindler.docker_10254_alias.plist
+
+
+# Don't copy config files around needlessly.
+
+Leave them where they are in your repo.
+
+Don't refer to files that ship by default, put them all under source control.
+
+Avoid inheritance - copying and pasting from one container to another is fast.
+
+
+# Kubernetes cron jobs are a waste of time.
+
+Apparently containers don't shutdown properly.
+
+They don't respect deployment so keep running
+
+# Supervisord is still fucking awesome.
+
+Allows pure devs to setup running tasks
+
+Allows dev environment to match live environment unlike kubernetes cron jobs.
+
+Easier to allocate resources...
+
+
+# Docker file system on OSX still too slow for yarn/webpack
+
+Spent quite a bit of time setting this up. Didn't work well.
+
+Just install npm/yarn through Brew - works fine.
+

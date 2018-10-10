@@ -1,0 +1,51 @@
+
+
+# Oop taught in schools university is terrible.
+
+I blame C++ and Java developers for this - they seem to be obsessed with using the features of those languages.
+
+
+# Why OOP 'fails'
+
+Inheritance is the smallest part of most programs.
+
+It's almost always a technical detail that doesn't matter.
+
+But worse - it fails at what it promises.
+
+# Inheritance failure examples
+
+
+# How Objects are actually used.
+
+
+
+
+# Value objects
+
+Pure value, identified by their values.
+
+# Entities
+
+Identity is used to locate value objects
+
+# Services
+
+Talk to databases, apis.
+
+# Translation
+
+Convert from domain logic to service layer
+
+# Communication / Orchestration.
+
+Event manager?
+
+
+# Types
+
+
+
+
+
+

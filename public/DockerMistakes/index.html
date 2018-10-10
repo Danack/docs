@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Docker mistakes</title>
+
+  <meta name="description" content="Danack talking about interface segregation">
+  <meta name="author" content="Dan Ackroyd">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <!-- link rel="stylesheet" href="css/theme/black.css" id="theme" -->
+  <link rel="stylesheet" href="css/theme/whiteDanack.css" id="themecss">
+  <!-- <link rel="stylesheet" href="lib/css/vsdanack.css" id="codeststylecss"> -->
+  <link rel="stylesheet" href="lib/css/zenburn_backup.css" id="codeststylecss">
+
+  <style type="text/css">
+    /* overrides */
+
+
+    body {
+      background: #a8fcfc;
+      /* background: -moz-radial-gradient(center, circle cover, #ffffff 0%, #1f1f1f 100%);
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #555a5f), color-stop(100%, #1f1f1f));*/
+      background: -webkit-radial-gradient(center, circle cover, #f2f3ff 45%, rgba(36, 133, 245, 0.21) 75%);
+      /* background: -o-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%);
+      background: -ms-radial-gradient(center, circle cover, #ffffff 0%, #efefef 100%); */
+      /* background: radial-gradient(center, circle cover, #ffffff 0%, #7f7f7f 100%); */
+      /*background-color: #fdfdfd; */
+    }
+    .reveal section img {
+      border: 0;
+      background: none;
+      box-shadow: 0 0 #000;
+    }
+    .reveal pre {
+      width: 90%;
+      font-size: 0.68em;
+      margin-left: 0px;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      /* box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7); */
+    }
+
+    /*
+    .reveal pre {
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    */
+
+    .preformatted {
+      font-family: monospace;
+      white-space: pre;
+    }
+
+    .spaceTop {
+      margin-top: 50px !important;
+    }
+    .spaceBottom {
+      margin-bottom: 50px !important;
+    }
+
+    h2, p, section { text-align: left; }
+    .reveal .slides {text-align: left; }
+
+
+    h1, h2, h3, h4, h5 {
+      font-family: "Quicksand", sans-serif !important;
+      font-weight: 200 !important;
+      /*text-transform: uppercase; */
+    }
+
+    .embiggen {
+      font-size: 1.2em !important;
+    }
+    .emlargen {
+      font-size: 1.05em !important;
+    }
+
+    .emnormal {
+      font-size: 0.9em !important;
+    }
+
+    .emsmallen {
+      font-size: 0.8em !important;
+    }
+    .em_075 {
+      font-size: 0.75em !important;
+    }
+    .em_08 {
+      font-size: 0.8em !important;
+    }
+    .em_085 {
+      font-size: 0.9em !important;
+    }
+    .em_09 {
+      font-size: 0.9em !important;
+    }
+    .em_095 {
+      font-size: 0.95em !important;
+    }
+    .em1 {
+      font-size: 1.0em !important;
+    }
+    .em1_1 {
+      font-size: 1.1em !important;
+    }
+
+    .em1_05 {
+      font-size: 1.05em !important;
+    }
+    .em1_1 {
+      font-size: 1.1em !important;
+    }
+    .em1_5 {
+      font-size: 1.5em !important;
+    }
+    .em1_2 {
+      font-size: 1.2em !important;
+    }
+    .em1_3 {
+      font-size: 1.3em !important;
+    }
+    .em1_4 {
+      font-size: 1.4em !important;
+    }
+
+    .em1_8 {
+      font-size: 1.8em !important;
+    }
+
+    .em2 {
+      font-size: 2em !important;
+    }
+    .em3 {
+      font-size: 3em !important;
+    }
+    .em4 {
+      font-size: 4em !important;
+    }
+    th {
+      font-size: 1.5em !important;
+    }
+
+    .finale {
+      font-size: 148px !important;
+      text-align: center !important;
+      /* margin-bottom: 148px !important; */
+    }
+    .speaker-controls-notes > ul,
+    .speaker-controls-notes ul,
+    .notes > ul,
+    .notes  ul{
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .centre {
+      text-align: center !important;
+    }
+
+    .subtle {
+      color: #7c7c7c;
+    }
+
+    .smallText {
+      font-size: 24px !important;
+    }
+
+    blockquote {
+      background-color: #f5f5f5;
+    }
+
+    blockquote {
+      width: 90% !important;
+      /* font-size: 36px !important; */
+    }
+
+    pre, .danackCode {
+      font-size: 26px;
+    }
+
+    .rotate {
+      /* Safari */
+      -webkit-transform: rotate(-90deg);
+
+      /* Firefox */
+      -moz-transform: rotate(-90deg);
+
+      /* IE */
+      -ms-transform: rotate(-90deg);
+
+      /* Opera */
+      -o-transform: rotate(-90deg);
+
+      /* Internet Explorer */
+      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    }
+
+  </style>
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <script src="./plugin/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="reveal">
+  <div class="slides">
+
+
+
+    <!-- *************************** -->
+    <section class="em1_4">
+      <h1>Docker mistakes</h1>
+      <h3>Docker mistakes so you don't have to.</h3>
+      <p>
+        <a href="http://twitter.com/MrDanack">@MrDanack</a>
+      </p>
+      <p class="subtle" style="padding-top: 100px">
+        <small>Press 'c' to toggle code style</small><br/>
+        <small>Press 's' for speaker notes</small>
+      </p>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2">
+      <h1>
+        Developer time is expensive
+      </h1>
+
+      <aside class="notes">
+        Some of the mistakes were as simple as "we need to talk about how to implement this"
+        e.g. which files should we copy the files into the container. If we just copied all files
+        then the container would have been 5MB bigger, but saved three hours of developer time.
+
+        So some of these don't apply if you are deploying 1000 instances of a container.
+      </aside>
+      </div>
+    </section>
+
+
+
+    <!-- *************************** -->
+    <!--
+    <section>
+      <div style="text-align: center !important;" class="em2">
+        <h1>
+          Not trolling.
+          <br/>
+          <br/>
+
+
+        Provoking a discussion.</h1>
+
+        <aside class="notes">
+        </aside>
+      </div>
+    </section>
+    -->
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          Not using docker already.
+        </h1>
+
+      </div>
+      <aside class="notes">
+
+        Even if you're not going to use containers for deployment, docker is really good for switching between branches.
+
+        My last job, doing a vagrant up took about 30 minutes, so if someone asked if I could debug something on a different branch, the answer was going to be no most of the time.
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em1_8"  >
+        <h1>
+          Docker too slow for yarn/webpack on OSX
+        </h1>
+
+      </div>
+      <aside class="notes">
+        I'm a strong believer that all of the tools someone needs should be usable after a single clone of a repo.
+
+        So we tried to make webpack work within a container.
+
+        Spent quite a bit of time setting this up. Didn't work well on OSX the file system is just too slow, and how many frontend developer use linux?
+
+        Just install npm/yarn through Brew - works fine.
+      </aside>
+    </section>
+
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div class="em1_4"  >
+        <h1>
+          Forget Docker networking
+        </h1>
+        <p>&nbsp;</p>
+
+        <ul>
+          <li>Setup loopback address on host machine</li>
+          <li>Available both from the host and the docker boxes.</li>
+          <li>com.ralphschindler.docker_10254_alias.plist</li>
+          <li class="emsmallen">https://gist.github.com/ralphschindler/535dc5916ccbd06f53c1b0ee5a868c93</li>
+        </ul>
+
+      </div>
+      <aside class="notes">
+        Setup loopback address means same IP used anywhere.
+        Makes it so you can test code outside of the container.
+      </aside>
+    </section>
+
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em1_8"  >
+        <h1>
+          Not setting WORKDIR
+        </h1>
+        <pre class="danackCode em1_8" data-trim>
+<code class="php">
+WORKDIR /var/www</code>
+</pre>
+      </div>
+      <aside class="notes">
+        Puts you in the correct directory when you bash into the box.
+      </aside>
+    </section>
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          Dependencies between containers
+        </h1>
+      </div>
+      <aside class="notes">
+        We thought we were being clever by having a 'common' php box image, and then adding stuff.
+
+        Added so much complexity - doing `docker-compose up --build' could fail.
+
+        Just copied the bits to be separate. And then edit them both.
+      </aside>
+    </section>
+
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          Except xdebug enabled
+        </h1>
+
+      </div>
+      <aside class="notes">
+        Makes debugging code in server be as simple as adding :8001
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <h1>Docker file</h1>
+
+      <pre class="danackCode em1_1" data-trim>
+<code class="php">
+FROM php_backend:latest
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  --no-install-recommends php7.2-xdebug
+
+COPY xdebug.ini /etc/php/7.2/fpm/conf.d/20-xdebug.ini</code>
+</pre>
+      <aside class="notes">
+        Docker file for extending php box.
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      xdebug.ini<br/>
+      <pre class="danackCode em1_2" data-trim><code class="php">zend_extension=xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_port=9000
+xdebug.remote_autostart=1
+
+; Remote connect back doesn't work in docker
+; as the incoming request IP doesn't map back
+; to the host properly.
+xdebug.remote_connect_back=0
+
+; Loopback ftw
+xdebug.remote_host=10.254.254.254
+</code>
+</pre>
+      <aside class="notes">
+        xdebug init file .
+      </aside>
+    </section>
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          One process per container
+        </h1>
+        <h1>
+          Boo!! I SAY BOOOOOOO!!!!!
+        </h1>
+
+      </div>
+      <aside class="notes">
+
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" >
+        <img src="/images/Containers_one_process_per_container.png" width="80%" />
+      </div>
+
+      <aside class="notes">
+        Typical deployment is LoadBalancer with lots of nginx backends
+
+        LB knows about domain names + pools. Backends know about their application e.g. aware of files
+
+        Complete duplication of files if separated, and can't use sendfile.
+
+        Harder to configure as nginx backend needs name of php backend.
+      </aside>
+    </section>
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" >
+        <img src="/images/containers_deployable_units.png" width="80%" />
+        <div>
+          Script Two things at the same time <br/>
+          https://gist.github.com/Danack/15e88f28e2b3504223c06582d5650bcc
+        </div>
+      </div>
+
+      <aside class="notes">
+        Better: one deployable unit per container
+
+        Make containers be logical units rather than things that can't be deployed.
+      </aside>
+    </section>
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em1_4">
+        <h1>
+          Catch all domain names like this:
+        </h1>
+
+        <h1>
+          local.api.foobar.com
+        </h1>
+
+      </div>
+      <aside class="notes">
+        Setup domain names once at the routing load-balancer.
+        *.example.org
+
+        Also Google chrome gets confused when you have the environment in the middle.
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          Config files belong in repo for containers
+        </h1>
+
+      </div>
+      <aside class="notes">
+        We separated them out to be built by helm when the container gets built. Our helm stuff is in a separate repo.....which means that even to just find out what a container is using in prod means searching around.
+
+        Put them all in the container and choose from an environment flag passed in
+
+        Or build them on the fly each time if you're cool enough.
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em1_1"  >
+        <h1>
+          Really all files in source control - none taken from /etc
+        </h1>
+
+        <pre class="danackCode em1_0" data-trim>
+<code class="php">
+/usr/sbin/php-fpm7.2 \
+  --fpm-config=/var/www/docker/php_backend/config/php/fpm.conf \
+  --daemonize \
+  -c /var/www/docker/php_backend/config/php.ini</code>
+</pre>
+      </div>
+      <aside class="notes">
+        Leave them where they are in your repo.
+
+        Don't refer to files that ship by default, put them all under source control.
+
+        Avoid inheritance - copying and pasting from one container to another is fast.
+      </aside>
+    </section>
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em2"  >
+        <h1>
+          Supervisord is still rather awesome.
+        </h1>
+
+        <div>
+          Both Docker and Kubernetes are reinventing the wheel for this tool.
+        </div>
+
+      </div>
+      <aside class="notes">
+        Allows pure devs to setup running tasks
+
+        Allows dev environment to match live environment unlike kubernetes cron jobs.
+
+        Easier to allocate resources...
+      </aside>
+    </section>
+
+
+
+    <!-- *************************** -->
+    <section>
+      <div style="text-align: center !important;" class="em1_4"  >
+        <h1>
+          Copy all project files into container
+        </h1>
+
+        <pre style="color: white">
+├── src
+├── public
+├── docker
+│   └── php_backend
+│       └── Dockerfile
+├── docker-compose.yml
+        </pre>
+
+<pre style="color: white">        volumes:
+        - .:/var/www
+</pre>
+<pre style="color: white">
+        docker build -t load_balancer:latest --file ./docker/php_backend/Dockerfile .
+</pre>
+
+
+      </div>
+      <aside class="notes">
+
+        Makes life so much simpler.
+
+        By default not possible as docker will only include files from under the docker file location.
+
+        Use 'build context' to make it include all from project root - except stuff you don't want e.g. node_modules in docker ignore.
+
+      </aside>
+    </section>
+
+    <!-- *************************** -->
+    <section>
+      <h1 class="finale">Fin</h1>
+      <div style="min-height: 100px">&nbsp;</div>
+
+      <div style="text-align: center !important;"  >
+        <a href="https://joind.in/talk/c5716 ">https://joind.in/talk/c5716 </a>
+      </div>
+
+    </section>
+
+
+
+
+  </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: false,
+    history: true,
+    center: true,
+    width: 1600,
+    height: 900,
+
+    // Factor of the display size that should remain empty around the content
+    margin: 0.1,
+    slideNumber: true,
+    //transition: 'slide', // none/fade/slide/convex/concave/zoom
+    transition: 'none',
+    //transitionSpeed: "slow",
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad({languages: ["php"]}); },  },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+
+  /* This draws the graph on the slide on a slidechanged event */
+  Reveal.addEventListener('slidechanged', function(event) {
+    var callback = "render_"+event.currentSlide.id;
+    if(typeof(window[callback])=="function") {
+      window[callback]();
+    }
+  } );
+  /* This draws the graph if we got here directly without coming from another slide */
+  Reveal.addEventListener('ready', function(event) {
+    var callback = "render_"+event.currentSlide.id;
+    if(typeof(window[callback])=="function") {
+      window[callback]();
+    }
+  });
+
+  var createFunc = function() {
+    var counter = 0;
+    return function(e) {
+      counter = (counter + 1);// % 1;
+
+      var themeCSSList = [
+        "css/theme/whiteDanack.css",
+        "css/theme/beige.css",
+        "css/theme/black.css",
+        "css/theme/blood.css",
+        "css/theme/league.css",
+        "css/theme/moon.css",
+        "css/theme/night.css",
+        "css/theme/serif.css",
+        "css/theme/simple.css",
+        "css/theme/sky.css",
+        "css/theme/solarized.css",
+      ];
+
+      var codeCSSList = [
+        "lib/css/zenburn_backup.css",
+        "lib/css/vsdanack.css",
+      ];
+
+      if(e.which == 67 || e.which == 99) { //'c'
+//        var theme = themeCSSList[counter % themeCSSList.length];
+//        $("#themecss").attr('href', theme);
+
+        var codestyle = codeCSSList[counter % codeCSSList.length];
+        $("#codeststylecss").attr('href', codestyle);
+        $("#debug").text(codestyle);
+      }
+    };
+  };
+
+  $(window).keypress(createFunc());
+</script>
+</body>
+</html>
