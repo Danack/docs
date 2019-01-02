@@ -261,6 +261,22 @@
     <!-- *************************** -->
     <!--
     <section>
+      <div style="text-align: center !important;" >
+        <h4>Same number of dots both sides</h4>
+        <img src="/images/SameNumberDots.jpg" width="40%" />
+      </div>
+
+      <aside class="notes">
+
+      </aside>
+    </section>
+    -->
+
+
+
+    <!-- *************************** -->
+    <!--
+    <section>
       <div style="text-align: center !important;" class="em2">
         <h1>
           Not trolling.
@@ -490,17 +506,25 @@ xdebug.remote_host=10.254.254.254
 
     <!-- *************************** -->
     <section>
-      <div style="text-align: center !important;" class="em1_4">
+      <div class="em1_4">
         <h1>
-          Catch all domain names like this:
+          Domain names like
         </h1>
 
         <h1>
           local.api.foobar.com
         </h1>
 
+        <h1>Not</h1>
+        <h1>
+          api.local.foobar.com
+        </h1>
+
       </div>
       <aside class="notes">
+
+        Allows you to setup wildcard domain names, rather than hand-craft them.
+
         Setup domain names once at the routing load-balancer.
         *.example.org
 
@@ -594,7 +618,8 @@ xdebug.remote_host=10.254.254.254
 <pre style="color: white">        volumes:
 - .:/var/www
 </pre>
-<pre style="color: white">docker build -t load_balancer:latest --file ./docker/php_backend/Dockerfile .
+<pre style="color: white">docker build -t load_balancer:latest \
+  --file ./docker/php_backend/Dockerfile .
 </pre>
 
 
@@ -613,7 +638,9 @@ xdebug.remote_host=10.254.254.254
     <!-- *************************** -->
     <section>
       <h1 class="finale">Fin</h1>
-      <div style="min-height: 100px">&nbsp;</div>
+  <div style="text-align: center !important;">
+      <img style="text-align: center !important;" src="/images/SameNumberDotsHoriz.jpg" width="50%" />
+  </div>
 
       <div style="text-align: center !important;"  >
         <a href="https://joind.in/talk/c5716 ">https://joind.in/talk/c5716 </a>

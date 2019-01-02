@@ -1,27 +1,26 @@
 version: "3"
 services:
-  docs_php_backend:
-    build: docker/php_backend
-    image: docs_php_backend:latest
+  php_fpm:
+    build: docker/php_fpm
+    image: docs_php_fpm:latest
     volumes:
       - .:/var/www
+      - ../keys.php:/var/keys.php
     restart: always
-  docs_php_backend_debug:
-    build: docker/php_backend_debug
-    image: docs_php_backend_debug:latest
-    volumes:
-      - .:/var/www
-    restart: always
-  web_server:
-    build: docker/web_server
-    image: docs_web_server:latest
-    command: ["/usr/sbin/nginx", "-c", "/etc/config/nginx.conf"]
+  php_fpm_debug:
+    build: docker/php_fpm_debug
+    image: docs_php_backend
     depends_on:
-      - docs_php_backend
-      - docs_php_backend_debug
+      - php_fpm
     volumes:
       - .:/var/www
-      - ./docker/web_server/config:/etc/config
-    ports:
-      - "80:8000"
+      - ../keys.php:/var/keys.php
+    restart: always
+  nginx:
+    build: docker/nginx
+    depends_on:
+      - php_fpm
+      - php_fpm_debug
+    volumes:
+      - .:/var/www
     restart: always
