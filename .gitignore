@@ -1,3 +1,5 @@
 autogen
 vendor
 var/cache
+.idea
+Feedback.txt
