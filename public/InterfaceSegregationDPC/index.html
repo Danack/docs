@@ -1965,21 +1965,21 @@ class MySQLDB extends MySqli implements DB {
 
 
 <!-- *************************** -->
-<section>
-  <h1 class="em3">Don't wrap other services</h1>
-  <img src="/images/WrapTheDbClass.jpg" />
+<section >
+  <h1 class="em3" style="text-align: center">Don't wrap other services</h1>
+  <div class="centre">
+    <img src="/images/WrapTheDbClass.jpg" width="70%" />
+  </div>
 </section>
-
-
-
 
 <!-- *************************** -->
 <section>
-  <h1 class="em3">Create an abstraction layer</h1>
+  <h1 class="em3">Business / domain types</h1>
   <ul class="em2" style="padding-top: 100px">
     <li class="fragment">Get discovered when making an application.</li>
     <li class="fragment">Probably not reusable.</li>
     <li class="fragment">Provide a large amount of value.</li>
+    <li class="fragment">Cover just a small concept.</li>
   </ul>
 
   <aside class="notes">
@@ -2157,33 +2157,7 @@ class ArrayVariableMap implements VariableMap
     <img src="/images/true_neutral.jpg" />
 </section>
 
-
-
 <!-- *************************** -->
-<section>
-    <h1>Context objects</h1>
-    <pre class="danackCode spaceTop em1_1" data-trim>
-<code class="php" data-trim>
-function backupDB(DB $liveDb, DB $archiveDb) {
-
-}
-
-
-
-
-</code></pre>
-
-    <aside class="notes">
-        <ul>
-            <li>Instead of having big monolithic interfaces, break them up into sensible components.</li>
-        </ul>
-    </aside>
-</section>
-
-
-
-
-            <!-- *************************** -->
 <section>
     <p>
       When people give talks on the "S.O.L.I.D." design principles one of the letters that doesn't get enough attention is the "i" - the "interface segregation principle". This talk seeks to redress that imbalance by going into a bit more in-depth into:
