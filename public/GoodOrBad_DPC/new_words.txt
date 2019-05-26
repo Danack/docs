@@ -1,0 +1,80 @@
+
+# Small things
+
+* Check your decisions don't require violating any physical laws to work. e.g. if a distributed system, needs to break the speed of light to work.
+
+* Check you're not going to be sued into oblivion.
+
+
+# Be careful with your language
+
+People learn to one-side questions to make them come out the way they want.
+
+
+Can we just do this?
+Can you try it real fast?
+We need this.
+
+
+If you ask questions like this, you're phrasing the question
+
+What would be the difficulties with.
+How long would it take to evaluate this?
+What would be the impact of not doing this? *make sure whoever wants the work is paying for it.
+
+
+Person asking for a feature would get a bonus if we did it, costs would come out of companies general funds.
+
+
+https://signalvnoise.com/posts/439-four-letter-words
+
+
+
+# You're going to make bad decisions.
+
+Making bad decisions is unavoidable.
+
+I once worked in a company alongside a team of pretty clever people who couldn't come to accept this.
+
+They'd managed to get themselves into a position where they were spending longer and longer analyzing problems, to try to make sure they delivered a solution that would cover all the requirements.
+
+They'd gotten to the point where they were taking a week to plan a task that took a few days.
+
+This is not a good place to be.
+
+People think this is what the chart is like for whether they are going to make the right decision.
+
+# chart that goes from 0 -> 99
+
+We couldn't possibly spend zero time making a decision, that wouldn't be responsible.
+
+But if we spend some time on it, we're quite likely to make the right decision
+
+
+# Chart that goes from 50 -> 75
+
+
+
+
+
+# Acknowledge your emotions when making decisions
+
+
+# Ease of use over features
+
+
+
+Hard to define exactly what is a feature and what is 'ease of use',
+
+
+
+
+
+
+
+
+
+
+
+
+
