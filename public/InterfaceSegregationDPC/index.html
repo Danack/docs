@@ -1396,99 +1396,6 @@ class SearchController
   
 </section>
 
-
-
-<!-- *************************** -->
-<section>
-  <h2>Use semantically meaningful types</h2>
-  <pre class="danackCode spaceTop em1_1" data-trim>
-<code class="php">function writeTempFile(string $tmpPath) {
-    ...
-    file_put_contents($tmpPath.'/foo.txt', $data);
-    ...
-}</code>
-<code class="php fragment em1_1">function writeImageTempFile(string $tmpPath) {
-    ...
-    file_put_contents($tmpPath.'/foo.png', $imageData);
-    ...
-}
-</code>
-</pre>
-  
-  <aside class="notes">
-   <ul>
-     <li>This type specialization applies to trivial types as well.</li>
-     <li>Common pattern to need to have pass around temp paths for writing</li>
-     <li>Very easy to pass wrong parameter to methods like this, as it will accept any string </li>
-   </ul>
-  </aside>
-  
-  
-</section>
-
-
-
-<!-- *************************** -->
-<section>
-  <pre class="danackCode spaceTop em1_1" data-trim>
-<code class="php" data-trim>
-class TmpPath
-{
-    private $path;
-
-    public function __construct(string $tmpPath)
-    {
-        $this->path = $tmpPath;
-    }
-
-    public function getPath()
-    {
-        return $this->path;
-    }
-}
-</code></pre>
-  
-  <aside class="notes">
-   <ul>
-     <li>This really isn't the most complicated object ever.</li>
-   </ul>
-  </aside>  
-</section>
-
-
-<!-- *************************** -->
-<section>
-  <h2>Use semantically meaningful types</h2>
-  <pre class="danackCode spaceTop em1" data-trim>
-<code class="php" data-trim>
-function writeTempFile(TmpPath $tmpPath)
-{
-    ...
-    file_put_contents($tmpPath->getPath().'/foo.txt', $data);
-    ...
-}
-
-function writeImageTempFile(ImageTmpPath $tmpPath)
-{
-    ...
-    file_put_contents($tmpPath->getPath().'/foo.png', $imageData);
-    ...
-}
-</code></pre>
-  
-  
-  <aside class="notes">
-   <ul>
-     <li>Allows you to see at a glance a semantically meaningful name for the parameter.</li>
-     <li>Hey, it turns out that we wanted to have different paths.</li>
-     <li>Now it is impossible for the wrong tmpPath to be used.</li>
-   </ul>
-  </aside>  
-</section>
-
-
-
-
 <!-- *************************** -->
 <section class="em1_5"> 
   <h1>Everything is a trade-off</h1>
@@ -1660,6 +1567,91 @@ solidCode($logger, $userRepo); // This is harder to call
 
 
 
+<!-- *************************** -->
+<section>
+  <h2>Semantically meaningful types</h2>
+  <pre class="danackCode spaceTop em1_1" data-trim>
+<code class="php">function writeTempFile(string $tmpPath) {
+    ...
+    file_put_contents($tmpPath.'/foo.txt', $data);
+    ...
+}</code>
+<code class="php fragment em1_1">function writeImageTempFile(string $tmpPath) {
+    ...
+    file_put_contents($tmpPath.'/foo.png', $imageData);
+    ...
+}
+</code>
+</pre>
+
+  <aside class="notes">
+    <ul>
+      <li>This type specialization applies to trivial types as well.</li>
+      <li>Common pattern to need to have pass around temp paths for writing</li>
+      <li>Very easy to pass wrong parameter to methods like this, as it will accept any string </li>
+    </ul>
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section>
+  <pre class="danackCode spaceTop em1_1" data-trim>
+<code class="php" data-trim>
+class TmpPath
+{
+    private $path;
+
+    public function __construct(string $tmpPath)
+    {
+        $this->path = $tmpPath;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+}
+</code></pre>
+
+  <aside class="notes">
+    <ul>
+      <li>This really isn't the most complicated object ever.</li>
+    </ul>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Use semantically meaningful types</h2>
+  <pre class="danackCode spaceTop em1" data-trim>
+<code class="php" data-trim>
+function writeTempFile(TmpPath $tmpPath)
+{
+    ...
+    file_put_contents($tmpPath->getPath().'/foo.txt', $data);
+    ...
+}
+
+function writeImageTempFile(ImageTmpPath $tmpPath)
+{
+    ...
+    file_put_contents($tmpPath->getPath().'/foo.png', $imageData);
+    ...
+}
+</code></pre>
+
+
+<aside class="notes">
+  <ul>
+    <li>Allows you to see at a glance a semantically meaningful name for the parameter.</li>
+    <li>Hey, it turns out that we wanted to have different paths.</li>
+    <li>Now it is impossible for the wrong tmpPath to be used.</li>
+  </ul>
+</aside>
+</section>
 
 
 <!-- *************************** -->
@@ -2150,17 +2142,16 @@ class ArrayVariableMap implements VariableMap
 
 
 <!-- *************************** -->
-<section class="em1_5">
+<section class="em1_5" style="text-align: center">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
-  <ul>
-    <li>Use interfaces/classes with only the required methods</li>
-    <li>Use semantically meaningful types</li>
-    <li>If your code is <strike>boring</strike> simple, you're doing good</li>
-    <li>Use DIC/Auryn to do the boring wiring up</li>
-    <li>Questions?</li>
-  </ul>
+  <p class="centre">https://joind.in/talk/729af</p>
+
+  <div class="centre">
+    <img class="centre" src="/images/DPC_interface_segregation.png" />
+  </div>
 </section>
+
 
 <section style="width: 100%; text-align: center !important;">
     <img src="/images/true_neutral.jpg" />
