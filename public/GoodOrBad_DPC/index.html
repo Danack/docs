@@ -69,9 +69,14 @@
       margin-bottom: 50px !important;
     }
 
-    h2, p, section { text-align: left; }
-    .reveal .slides {text-align: left; }
+    /*h2, p, section { text-align: left; }*/
+    /*.reveal .slides {text-align: left; }*/
 
+
+    .left,
+    .left > h1,
+    .left > h2,
+    .left > p {text-align: left; }
 
     h1, h2, h3, h4, h5 {
       font-family: "Quicksand", sans-serif !important;
@@ -229,18 +234,27 @@
 
 
 
-    <!-- *************************** -->
-    <section class="em1_4">
-      <h1>Good or bad </h1>
-      <h3>Telling the difference is hard.</h3>
-      <p>
-        <a href="http://twitter.com/MrDanack">@MrDanack</a>
-      </p>
-      <p class="subtle" style="padding-top: 100px">
-        <small>Press 'c' to toggle code style</small><br/>
-        <small>Press 's' for speaker notes</small>
-      </p>
-    </section>
+<!-- *************************** -->
+<section class="em1_4">
+  <h1>Good or bad </h1>
+  <h3>Telling the difference is hard.</h3>
+  <p>
+    <a href="http://twitter.com/MrDanack">@MrDanack</a>
+  </p>
+  <p class="subtle" style="padding-top: 100px">
+    <small>Press 'c' to toggle code style</small><br/>
+    <small>Press 's' for speaker notes</small>
+  </p>
+</section>
+
+<!-- *************************** -->
+<section class="centre">
+  <h1>CVE-2019-11037</h1>
+
+  <aside class="notes">
+  </aside>
+</section>
+
 
 
 
@@ -389,6 +403,14 @@
 
       -->
       <aside class="notes">
+        <p>
+          I'd learned a bit from seeing how succesful the iPod was, and thought apple would easily get 15%, maybe 20% of the market share.
+        </p>
+        <p>
+          But there's no chance that they would displace Nokia, Motorola, Blackberry or Palm.
+        </p>
+        <p>So how did the iPhone actually do. Well first, in case you don't recognise those names, those used to be billion dollar companies that made phones.
+        </p>
       </aside>
     </section>
 
@@ -399,15 +421,21 @@
       <p class="em3" style="text-align: center !important;" ></p>
 
       <div style="text-align: center !important;" class="em3"  >
-        1.2 billion iPhones sold<br/>
-        $750 billion revenue
+        2 billion iPhones sold<br/>
+        $1 trillion revenue
       </div>
 
 
       <aside class="notes">
         <p>
-          But more amazingly than that, the iPhone currently accounts for something like 90% of all profits from selling phones. i.e. Apple make than double the money selling iPhones, than all other phone manufacturers put together do about ten times over.
+          That's not bad. Probably the most successful product ever in the history of mankind.
         </p>
+        <p>
+          So....let's put that down as a 'win'
+        </p>
+<!--        <p>-->
+<!--          But more amazingly than that, the iPhone currently accounts for something like 90% of all profits from selling phones. i.e. Apple make than double the money selling iPhones, than all other phone manufacturers put together do about ten times over.-->
+<!--        </p>-->
       </aside>
     </section>
 
@@ -437,6 +465,7 @@
         <li>Iphone owners are sheep who buy it just because it's popular</li>
       </ul>
       <aside class="notes">
+        <p>
         I want to explain why I'm giving this talk.
 
         After the iPhone had launched and it was selling really well, people were still trying to argue that it was shit.
@@ -448,7 +477,7 @@
         This is for a device that a _lot_ of people obviously liked.
 
         And they weren't that calm about their dislike.
-
+        </p>
       </aside>
     </section>
 
@@ -458,9 +487,11 @@
         <img src='/images/stop_liking_file.jpg' width="40%" />
       </div>
       <aside class="notes">
+        <p>
         These people who thought Android phones should be selling better were actually getting quite angry a lot of the time.
 
-        (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+<!--        (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).-->
+        </p>
       </aside>
     </section>
 
@@ -472,8 +503,14 @@
         If you think something is bad, but it's hugely popular, you're failing to tell good from bad.
       </div>
       <aside class="notes">
-        If you don't take away anything else from this talk, take this away.
-        (and it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).
+        <p>
+          If you don't take away anything else from this talk, take this away.
+        </p>
+
+        <p>
+          If you think something is bad, but it's hugely popular, you're failing to tell good from bad.
+        </p>
+<!--        it's you that has the problem.....it's not the case that apple fanboys are making the wrong decisions).-->
       </aside>
     </section>
 
@@ -507,7 +544,7 @@
 
       <aside class="notes">
 
-
+        <p>
         Programmers like to think of themselves as coldly logical and rational beings
 
         But we get bored of using current technology and want to start using new stuff.
@@ -526,6 +563,7 @@
 
         Choosing the most boring technology that fits your need is almost always going to be the right choice.
 
+        </p>
       </aside>
     </section>
 
@@ -1015,9 +1053,10 @@ sadness about this state being the reality of life.
 
 
 <!-- *************************** -->
-<section>
+<section class="centre" style="text-align: center !important;">
 
-  <h2>English - hard to give offense accidentally</h2>
+  <h2  class="centre">English - hard to give offense accidentally</h2>
+  <div style="height: 100px">&nbsp;</div>
 
   <ul>
     <li>With all due respect....</li>
@@ -1025,7 +1064,7 @@ sadness about this state being the reality of life.
     <li>See you next Tuesday</li>
   </ul>
 
-  <p class="fragment em2">NEVER SAY THESE PHRASES</p>
+  <p class="fragment em2 centre">NEVER SAY THESE PHRASES</p>
 
   <aside class="notes">
     English almost doesn't have this feature - it's almost impossible to accidentally give offense to someone by using the wrong phrasing.
@@ -1232,8 +1271,38 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
-  <h2>How to improve</h2>
+<section class="em1_4">
+  <h1>Cut for time</h1>
+
+  <ul>
+    <li>Laws of physics</li>
+
+    <li>
+      Side effects often more important than the main thing. e.g. OO is rubbish but autocomplete in IDEs is great.
+    </li>
+
+    <li>Avoid 'clever words' which distort how you think e.g. 'webscale', 'facade', 'interface segregation'</li>
+
+    <li>
+      Ask people how sure they are, rather than yes/no questions.
+    </li>
+    <li>
+      Estimate
+    </li>
+  </ul>
+
+  <aside class="notes">
+    <p>
+
+    </p>
+  </aside>
+</section>
+
+
+
+<!-- *************************** -->
+<section >
+  <h1>How to improve</h1>
 
   <ul>
     <li>Spend energy on learning to make better decision</li>
@@ -1250,9 +1319,9 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
-  <h2>Some things take effort</h2>
-
+<section class="left" >
+  <h1>Some things take effort</h1>
+  <div style="height: 80px"></div>
   <p>You learn to get better at programming by being exposed to better code.</p>
 
   <p>You learn to make better decisions by being exposed to better decision making processes.</p>
@@ -1270,18 +1339,10 @@ r.class  # => Rational</code>
   </aside>
 </section>
 
-<!--&lt;!&ndash; *************************** &ndash;&gt;-->
-<!--<section>-->
-<!--  <h2>Some things take effort</h2>-->
-<!--  <img src="/images/KFC_2.jpg" width="40%" />-->
-
-<!--  <aside class="notes">-->
-<!--  </aside>-->
-<!--</section>-->
 
 
 <!-- *************************** -->
-<section>
+<section class="left">
   <h2>Recognise how emotions affect decision making</h2>
 
   <p>Fun</p>
@@ -1313,9 +1374,10 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
+<section class="em1_6">
   <h2>Accept you're going to be wrong</h2>
 
+  <div style="height: 80px"></div>
   <p>Don't spend too much time on thinking.</p>
 
 
@@ -1337,9 +1399,9 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
+<section class="em1_6">
   <h2>Accept you're going to be wrong</h2>
-
+  <div style="height: 80px"></div>
   <p>Make it easier to correct mistakes.</p>
 
   <aside class="notes">
@@ -1354,7 +1416,7 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
+<section class="left">
   <h2>What JS build tool should we use?</h2>
 
   <p>Yarn</p>
@@ -1381,7 +1443,7 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
+<section class="left">
   <h2>What JS build tool should we use?</h2>
 
   <p>Yarn</p>
@@ -1412,16 +1474,6 @@ r.class  # => Rational</code>
 </section>
 
 
-<!--&lt;!&ndash; *************************** &ndash;&gt;-->
-<!--<section>-->
-<!--  <h2>Ease of use > features</h2>-->
-
-<!--  <img src="/images/KFC_2.jpg" width="40%" />-->
-
-<!--  <aside class="notes">-->
-<!--  </aside>-->
-<!--</section>-->
-
 <!-- *************************** -->
 <section>
   <h1>Getting better at telling good from bad</h1>
@@ -1443,93 +1495,72 @@ r.class  # => Rational</code>
 </section>
 
 
-    <!-- *************************** -->
-    <section>
-      <h1>Be prepared to be wrong.</h1>
-      <ul>
-        <li>Decouple your code</li>
-        <li>Write tests</li>
-        <li>Spend less time thinking deciding between good or bad</li>
-      </ul>
-
-      <aside class="notes">
-        Be prepared to be wrong. Particular around choosing libraries and frameworks....there is an incredibly high chance that whatever you choose is just not going to be the right choice....so write your code so that as much of it as possible is decoupled from _any_ library. (that includes your own libraries).
-
-        Brucie bonus - this is very likely to make your code easier to test as well.
-
-        a good way to measure this is to keep asking - if we removed this library how much of the other code would we need to alter - aka I fucking hate active record/eloquent.
-
-        If you're not good at something, spend less time doing it.
-
-        Spend less time making decisions. Which of the following scenarios is likely to have the best result for the
-
-        i) A committee of 5 people spend a week choosing which library to use.
-        ii) A single person spends 5 weeks choosing which library to use.
-        iii) A single person spend 5 minutes choosing which library to use, and then spending the next 5 weeks trying it out......then finding out what it wrong with it, and realising that what you need from that library is quite different from what you thought was important.
-
-      </aside>
-    </section>
-
-
-
-    <!-- *************************** -->
-    <section>
-      <h2>Ease of use > features, on a personal level</h2>
-
-
-      <p>People get a kick out of delivering features</p>
-      <p>People get less of a kick out of making 'ease of use' improvements</p>
-
-
-      <aside class="notes">
-        <p>
-
-        </p>
-      </aside>
-    </section>
-
-
-    <!-- *************************** -->
-    <section>
-      <h2>Ease of use > features, on an organisation level</h2>
-
-      <p>people get rewarded for delivering features.</p>
-      <p>people don't get rewarded for delivering ease of use.</p>
-
-      <!-- "I bet somebody got a really nice bonus for that feature" -->
-
-      <blockquote cite="https://devblogs.microsoft.com/oldnewthing/20061101-03/?p=29153">
-        “Not many people have gotten a raise and a promotion for stopping features from shipping.”
-      </blockquote>
-
-
-      <aside class="notes">
-        <p>
-          This is why organisations fail...
-        </p>
-      </aside>
-    </section>
-
 
 
 <!-- *************************** -->
 <section>
-  <div style="text-align: center !important;" >
-    <img src="/images/ThisIsntCarpentry.png" width="60%" />
-    https://twitter.com/mrmrs_/status/919984596166508544
-  </div>
+  <h2>Ease of use > features, on a personal level</h2>
+
+
+  <p>People get a kick out of delivering features</p>
+  <p>People get less of a kick out of making 'ease of use' improvements</p>
+
 
   <aside class="notes">
-    This is why agile kind of works - it assumes the people making decisions about what tickets should be worked on are going to be wrong....so teams only work on a small amount of work before being ready to change direction.
+    <p>
+
+    </p>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section>
+  <h2>Ease of use > features, on an organisation level</h2>
+
+  <p>People get rewarded for delivering features.</p>
+  <p>People don't get rewarded for delivering ease of use.</p>
+
+  <!-- "I bet somebody got a really nice bonus for that feature" -->
+
+  <blockquote cite="https://devblogs.microsoft.com/oldnewthing/20061101-03/?p=29153">
+    “Not many people have gotten a raise and a promotion for stopping features from shipping.” - Raymond Chen
+  </blockquote>
+
+
+  <p>https://devblogs.microsoft.com/oldnewthing/20061101-03/?p=29153</p>
+
+  <aside class="notes">
+    <p>
+      This is why organisations fail...
+    </p>
   </aside>
 </section>
 
 
 
 <!-- *************************** -->
+<section>
+  <h1>Choices that make life easier</h1>
+
+  <p>Automate deployments, tests</p>
+  <p>Decouple your code from your framework.</p>
+  <p>Name things so they are easy to read.</p>
+
+
+
+  <aside class="notes">
+
+  </aside>
+</section>
+
+
+
+    <!-- *************************** -->
 <section class="em1_5" style="text-align: center">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
+
   <div style="text-align: center !important;"  >
     <a href="https://joind.in/talk/2c761">https://joind.in/talk/2c761</a>
   </div>
@@ -1537,6 +1568,13 @@ r.class  # => Rational</code>
   <div class="centre">
     <img class="centre" src="/images/qr_dpc_good_or_bad.png" />
   </div>
+
+  <div style="text-align: center !important;"  >
+    <p class="centre">Twitter: @MrDanack</p>
+  </div>
+
+
+
 </section>
 
 
@@ -1547,15 +1585,13 @@ r.class  # => Rational</code>
   </h1>
 
   <blockquote cite="https://www.politico.eu/article/french-english-language-brexit-european-parliament-ecj-commission-eu-next-waterloo/">
-    &ldquo;there’s a big temptation to make English the language of reference even more in the future,” said Sylvie Guillaume, a French Socialist MEP and one of the European Parliament’s vice presidents. “It worries me because I don’t really want us to end up speaking a language without subtlety on sensitive subjects.”
+    &ldquo;there’s a big temptation to make English the language of reference even more in the future. It worries me because I don’t really want us to end up speaking a language without subtlety on sensitive subjects.” - Sylvie Guillaume, French MEP and European Parliament’s vice president. “
+
   </blockquote>
 
   <aside class="notes">
   </aside>
 </section>
-
-
-
 
 
 <!-- *************************** -->
@@ -1570,117 +1606,146 @@ r.class  # => Rational</code>
 
 
 
-    <!-- *************************** -->
-    <section>
 
-      <h2>iPhone models in 10 years</h2>
-      <p>
-        iPhone
-        iPhone 3G
-        iPhone 3GS
-        iPhone 4
-        iPhone 4S
-        iPhone 5
-        iPhone 5c
-        iPhone 5s
-        iPhone 6
-        iPhone 6 Plus
-        iPhone 6s
-        iPhone 6s Plus
-        iPhone SE
-        iPhone 7
-        iPhone 7 Plus
-        iPhone 8
-        iPhone 8 Plus
-        iPhone X
-      </p>
+<!-- *************************** -->
+<section>
+  <h1>Be prepared to be wrong.</h1>
+  <ul>
+    <li>Decouple your code</li>
+    <li>Write tests</li>
+    <li>Spend less time thinking deciding between good or bad</li>
+  </ul>
 
+  <aside class="notes">
+    Be prepared to be wrong. Particular around choosing libraries and frameworks....there is an incredibly high chance that whatever you choose is just not going to be the right choice....so write your code so that as much of it as possible is decoupled from _any_ library. (that includes your own libraries).
 
-      <aside class="notes">
-        This is a list of all the iPhone models released in 10 years.
-      </aside>
-    </section>
+    Brucie bonus - this is very likely to make your code easier to test as well.
+
+    a good way to measure this is to keep asking - if we removed this library how much of the other code would we need to alter - aka I fucking hate active record/eloquent.
+
+    If you're not good at something, spend less time doing it.
+
+    Spend less time making decisions. Which of the following scenarios is likely to have the best result for the
+
+    i) A committee of 5 people spend a week choosing which library to use.
+    ii) A single person spends 5 weeks choosing which library to use.
+    iii) A single person spend 5 minutes choosing which library to use, and then spending the next 5 weeks trying it out......then finding out what it wrong with it, and realising that what you need from that library is quite different from what you thought was important.
+
+  </aside>
+</section>
 
 
-    <!-- *************************** -->
-    <section>
+<!-- *************************** -->
+<section>
 
-      <h2>Nokia models in <i>just</i> 2007</h2>
-
-      <p>
-        Nokia N800
-        Nokia N93i
-        Nokia 6110 Navigator
-        Nokia 6131 NFC
-        Nokia N76
-        Nokia 3110 classic
-        Nokia E61i
-        Nokia E65
-        Nokia E90
-        Nokia N77
-        Nokia 5070
-        Nokia 5700 XpressMusic
-        Nokia 7088
-        Nokia 8800 Sirocco Gold
-        Nokia 6120 classic
-        Nokia 1200
-        Nokia 1208
-        Nokia 1208b
-        Nokia 1650
-        Nokia 2505
-        Nokia 2630
-        Nokia 2660
-        Nokia 2760
-        Nokia 2760h
-        Nokia 3109 classic
-        Nokia 6500 classic
-        Nokia 6500 slide
-        Nokia 8600 Luna
-        Nokia 3500 classic
-        Nokia 6121 classic
-        Nokia 6267
-        Nokia 5611 XpressMusic
-        Nokia 6131i
-        Nokia 7500 Prisma
-        Nokia 7900 Prism
-        Nokia 6555
-        Nokia 500 Auto Navigation
-        Nokia 5310 XpressMusic
-        Nokia 5610 XpressMusic
-        Nokia N81
-        Nokia N81 8GB
-        Nokia N95 8GB
-        Nokia 8800 Sirocco Edition
-        Nokia E51
-        Nokia 6301
-        Nokia 2135
-        Nokia N810
-        Nokia 6066
-        Nokia NM705i
-        Nokia 8800 Arte
-        Nokia 8800 Sapphire Arte
-        Nokia N82
-        Nokia 3110 Evolve
-        Nokia 6263
-      </p>
-
-      <p>53!!ONE!!! different models.</p>
-
-      <p>List from http://nokiamuseum.info/category/launching-year/2007/</p>
+  <h2>iPhone models in 10 years</h2>
+  <p>
+    iPhone
+    iPhone 3G
+    iPhone 3GS
+    iPhone 4
+    iPhone 4S
+    iPhone 5
+    iPhone 5c
+    iPhone 5s
+    iPhone 6
+    iPhone 6 Plus
+    iPhone 6s
+    iPhone 6s Plus
+    iPhone SE
+    iPhone 7
+    iPhone 7 Plus
+    iPhone 8
+    iPhone 8 Plus
+    iPhone X
+  </p>
 
 
-      <aside class="notes">
+  <aside class="notes">
+    This is a list of all the iPhone models released in 10 years.
+  </aside>
+</section>
 
-        Giving customers a choice of model is a 'feature' the feature is having lots of choice.
 
-        FEATURES ARE BAD.
+<!-- *************************** -->
+<section>
 
-        Basically, if at any point in the last 10 years, you walked into a shop and say 'I want an iPhone, most of the time, you have a choice of "do you want the old model, or do you want the new model?", and then what colour/storage size.
+  <h2>Nokia models in <i>just</i> 2007</h2>
 
-        If you walked into a phone store in 2007 and said I want a Nokia, you have an overwhelming choice, which leads to people not being able to make a decision, and walking out without buying a phone.
+  <p>
+    Nokia N800
+    Nokia N93i
+    Nokia 6110 Navigator
+    Nokia 6131 NFC
+    Nokia N76
+    Nokia 3110 classic
+    Nokia E61i
+    Nokia E65
+    Nokia E90
+    Nokia N77
+    Nokia 5070
+    Nokia 5700 XpressMusic
+    Nokia 7088
+    Nokia 8800 Sirocco Gold
+    Nokia 6120 classic
+    Nokia 1200
+    Nokia 1208
+    Nokia 1208b
+    Nokia 1650
+    Nokia 2505
+    Nokia 2630
+    Nokia 2660
+    Nokia 2760
+    Nokia 2760h
+    Nokia 3109 classic
+    Nokia 6500 classic
+    Nokia 6500 slide
+    Nokia 8600 Luna
+    Nokia 3500 classic
+    Nokia 6121 classic
+    Nokia 6267
+    Nokia 5611 XpressMusic
+    Nokia 6131i
+    Nokia 7500 Prisma
+    Nokia 7900 Prism
+    Nokia 6555
+    Nokia 500 Auto Navigation
+    Nokia 5310 XpressMusic
+    Nokia 5610 XpressMusic
+    Nokia N81
+    Nokia N81 8GB
+    Nokia N95 8GB
+    Nokia 8800 Sirocco Edition
+    Nokia E51
+    Nokia 6301
+    Nokia 2135
+    Nokia N810
+    Nokia 6066
+    Nokia NM705i
+    Nokia 8800 Arte
+    Nokia 8800 Sapphire Arte
+    Nokia N82
+    Nokia 3110 Evolve
+    Nokia 6263
+  </p>
 
-      </aside>
-    </section>
+  <p>53!!ONE!!! different models.</p>
+
+  <p>List from http://nokiamuseum.info/category/launching-year/2007/</p>
+
+
+  <aside class="notes">
+
+    Giving customers a choice of model is a 'feature' the feature is having lots of choice.
+
+    FEATURES ARE BAD.
+
+    Basically, if at any point in the last 10 years, you walked into a shop and say 'I want an iPhone, most of the time, you have a choice of "do you want the old model, or do you want the new model?", and then what colour/storage size.
+
+    If you walked into a phone store in 2007 and said I want a Nokia, you have an overwhelming choice, which leads to people not being able to make a decision, and walking out without buying a phone.
+
+  </aside>
+</section>
 
 
 
@@ -1703,6 +1768,36 @@ r.class  # => Rational</code>
   </aside>
 </section>
 
+<!-- *************************** -->
+<section>
+  <div style="text-align: center !important;" >
+    <img src="/images/ThisIsntCarpentry.png" width="60%" />
+    https://twitter.com/mrmrs_/status/919984596166508544
+  </div>
+
+  <aside class="notes">
+    This is why agile kind of works - it assumes the people making decisions about what tickets should be worked on are going to be wrong....so teams only work on a small amount of work before being ready to change direction.
+  </aside>
+</section>
+
+
+  <!-- *************************** -->
+  <section>
+    <h1>
+      Good or bad? - telling the difference is hard.
+    </h1>
+
+    <p>A large part of being a programmer is making choices, whether it's what framework to use, what libraries to use or just how to structure code. Every day when we're programming we try to take choices that are good, and avoid choices that are bad.</p>
+
+    <p>
+      But what if actually we're all terrible at telling the difference between good and bad? What if we're all just not very good at a fundamental skill needed to do our jobs?</p>
+
+    <p>In this talk I'm going to try to demonstrate a couple of common epistemological mistakes that people make, how you can try to analyze what is good and what is bad a bit better, and how to limit the consequences that come inevitably when bad choices are made.</p>
+
+
+    <aside class="notes">
+    </aside>
+  </section>
 
 
   </div>

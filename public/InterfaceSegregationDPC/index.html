@@ -1300,12 +1300,33 @@ function testSearchControllerException()
 
     <aside class="notes">
    <ul>
-     <li>Arrays in PHP are great - but hard to 'reason' about, as they can hold anything, and you can't tell what you can or should put in them.</li>
-     <li>For this example the array of 'search options' isn't particularly semantically meaningful</li>
+     <li>And one thing that I think can help you think clearly about a subject is to avoid using 'clever phrases'.</li>
+     <li>
+       We've already gotten rid of 'interfaces' but 'client-specific' is still suspiciously 'clever' to me.
+     </li>
+
+     <!-- <li>Arrays in PHP are great - but hard to 'reason' about, as they can hold anything, and you can't tell what you can or should put in them.</li>
+     <li>For this example the array of 'search options' isn't particularly semantically meaningful</li> -->
    </ul>  
   </aside>  
 </section>
 
+
+<!-- *************************** -->
+<section class="em1_5">
+  <h2 class="spaceBottom">What is <strike>interface segregation</strike> type specialization?</h2>
+  <span style="height: 50%">&nbsp;</span>
+  <blockquote class="spaceBottom embiggen">
+    “many small <strike>client-specific</strike> <strike>interfaces</strike> types are better than one big <strike>general-purpose</strike> <strike>interface</strike> type.”
+  </blockquote>
+
+  <aside class="notes">
+    <ul>
+      <li>Arrays in PHP are great - but hard to 'reason' about, as they can hold anything, and you can't tell what you can or should put in them.</li>
+      <li>For this example the array of 'search options' isn't particularly semantically meaningful</li>
+    </ul>
+  </aside>
+</section>
 
 
 <section>
@@ -1438,7 +1459,7 @@ class SearchController
 
 
 <!-- *************************** -->
-<section>
+<section >
   <h1>Compare SOLID code</h1>
 
     <pre class="danackCode spaceTop em1_1" data-trim>
@@ -1473,12 +1494,13 @@ function solidCode(Session $session, UserRepo $userRepo)
 
 
 <!-- *************************** -->
-<section>
+<section class="em1_2">
   <h1>Compare SOLID code</h1>
 
     <pre class="danackCode spaceTop em1_1" data-trim>
 <code class="php" data-trim>
-badCode(); // This is easy to call
+// This is easy to call
+badCode();
 </code></pre>
   
     <pre class="danackCode spaceTop em1_1" data-trim>
@@ -1486,8 +1508,8 @@ badCode(); // This is easy to call
 $session = new FileSession("/var/php/sessions", $request);
 $userRepo = new UserSqlRepo($pdo);
 
-solidCode($logger, $userRepo); // This is harder to call
-
+// This is harder to call
+solidCode($logger, $userRepo);
 </code></pre>
 
   <aside class="notes">
@@ -1501,9 +1523,8 @@ solidCode($logger, $userRepo); // This is harder to call
 
 
 <!-- *************************** -->
-<section class="em1_1">
-  <h2>*Insert one hour talk about dependency injection here</h2>
-
+<section class="em1_4">
+  <h1>Insert one hour talk about dependency injection here</h1>
 
   <p>
     Don't have time to do this properly
@@ -1520,9 +1541,11 @@ solidCode($logger, $userRepo); // This is harder to call
 
   <aside class="notes">
   <p>
-    .
+    I don't have time to talk about this. I have an example project here
   </p>
- 
+  <p>
+    Or you can come and talk to me in the speakers corner.
+  </p>
 
   
   </aside>
@@ -1654,6 +1677,27 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
 </section>
 
 
+
+<!-- *************************** -->
+<section class="em1_5">
+  <h2 class="spaceBottom">What is type specialization?</h2>
+  <span style="height: 50%">&nbsp;</span>
+  <blockquote class="spaceBottom embiggen">
+    “many small types are better than one big type”
+  </blockquote>
+  <blockquote class="spaceBottom embiggen fragment">
+    “Naming your types makes them easier to reason about”
+  </blockquote>
+
+  <aside class="notes">
+    <ul>
+     <li></li>
+    </ul>
+  </aside>
+</section>
+
+
+
 <!-- *************************** -->
 <section>
   <h1>Boundary crossing types</h1>
@@ -1676,9 +1720,12 @@ $emailSender->send(
 </code></pre>
 
   <aside class="notes">
-    <ul>
-      <li></li>
-    </ul>
+    <p>
+      Quite similar to the earlier examples, I really like using types anywhere I have code that is crossing 'boundaries' in an application.
+    </p>
+    <p>
+      So we've got some code here where we're passing in two strings. You can't see it but this is a type.
+    </p>
   </aside>
 </section>
 
@@ -1797,11 +1844,79 @@ $emailSender->send(
   </aside>
 </section>
 
+<!-- *************************** -->
+<section>
+  <h1>Extract and name input parameters type</h1>
+  <pre class="danackCode spaceTop em1_2" data-trim>
+<code class="php" data-trim>
+// Gets a list of articles
+function getArticles(
+  VarMap $varMap,
+  ArticlesRepo $articlesRepo
+) {
 
+  $limit = v::intVal()->max(20)
+    ->validate($varMap->get('limit'));
+
+  $after = v::oneOf(
+    v::nullType(),
+    v::intVal()->max(10000)
+  )->validate($varMap->get('after'));
+
+  return $articlesRepo->getArticles($limit, $after);
+}
+
+</code></pre>
+
+  <aside class="notes">
+    <ul>
+      <li></li>
+    </ul>
+  </aside>
+</section>
 
 
 
 <!-- *************************** -->
+<section>
+  <h1>Extract and name input parameters type</h1>
+  <pre class="danackCode spaceTop em1_2" data-trim>
+<code class="php" data-trim>
+// Gets a list of articles
+function getArticles(
+  VarMap $varMap,
+  ArticlesRepo $articlesRepo
+) {
+
+  $getArticlesParams = GetArticlesParams::create($varMap);
+
+  return $articlesRepo->getArticles($getArticlesParams);
+}
+
+</code></pre>
+  <p class="em1_8">
+    danack/params on packagist and github.
+  </p>
+  <p class="em1_8">
+    Generate Swagger/OpenApi schema from the rules.
+  </p>
+
+  <aside class="notes">
+    <ul>
+      <li></li>
+    </ul>
+  </aside>
+</section>
+
+
+
+
+
+
+
+
+
+          <!-- *************************** -->
 <section>
   <h1>Avoid big interfaces</h1>
 
@@ -1948,10 +2063,10 @@ interface DB {
   function character_set_name() : string;
   function close(void) : bool;
   function commit(int $flags = 0 , string $name = null ) : bool;
-  // and all the others.
+  // and all the others from MySQLi
 }
 
-class MySQLDB extends MySqli implements DB {
+class MySQLDB extends MySQLi implements DB {
   ...
 }
 
@@ -2150,6 +2265,10 @@ class ArrayVariableMap implements VariableMap
   <div class="centre">
     <img class="centre" src="/images/DPC_interface_segregation.png" />
   </div>
+
+  <p class="centre">Twitter: @MrDanack</p>
+  <p class="centre">Danack/Params</p>
+
 </section>
 
 
