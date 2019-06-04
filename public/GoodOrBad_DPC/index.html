@@ -76,7 +76,7 @@
     .left,
     .left > h1,
     .left > h2,
-    .left > p {text-align: left; }
+    .left > p { text-align: left; }
 
     h1, h2, h3, h4, h5 {
       font-family: "Quicksand", sans-serif !important;
@@ -442,44 +442,44 @@
 
     <!-- *************************** -->
 
-    <section>
-      <h2>Why this talk</h2>
-      <p>
-        Some still saw the iPhone as shit:
-      </p>
+<section class="left">
+  <h2>Why this talk</h2>
+  <p>
+    Some still saw the iPhone as shit:
+  </p>
 
-      <ul>
-        <li>can't even replace the battery</li>
-        <li>can't even put a memory card in it</li>
-        <li>can't even send MMS at launch.</li>
-      </ul>
+  <ul>
+    <li>can't even replace the battery</li>
+    <li>can't even put a memory card in it</li>
+    <li>can't even send MMS at launch.</li>
+  </ul>
 
-      <p>
-        Some thought the iPhone was only selling well for the wrong reasons:
-      </p>
+  <p>
+    Some thought the iPhone was only selling well for the wrong reasons:
+  </p>
 
-      <ul>
-        <li>First smart phone to the market.</li>
-        <li>Apple products sell well just because they look good.</li>
-        <li>Apple spends more on marketing than other companies.</li>
-        <li>Iphone owners are sheep who buy it just because it's popular</li>
-      </ul>
-      <aside class="notes">
-        <p>
-        I want to explain why I'm giving this talk.
+  <ul>
+    <li>First smart phone to the market.</li>
+    <li>Apple products sell well just because they look good.</li>
+    <li>Apple spends more on marketing than other companies.</li>
+    <li>Iphone owners are sheep who buy it just because it's popular</li>
+  </ul>
+  <aside class="notes">
+    <p>
+    I want to explain why I'm giving this talk.
 
-        After the iPhone had launched and it was selling really well, people were still trying to argue that it was shit.
+    After the iPhone had launched and it was selling really well, people were still trying to argue that it was shit.
 
-        And it did have things that you could point at and say "this isn't very good"
+    And it did have things that you could point at and say "this isn't very good"
 
-        Some people people arguing that is wasn't a very good phone, and that it was only selling well for the "wrong" reasons.
+    Some people people arguing that is wasn't a very good phone, and that it was only selling well for the "wrong" reasons.
 
-        This is for a device that a _lot_ of people obviously liked.
+    This is for a device that a _lot_ of people obviously liked.
 
-        And they weren't that calm about their dislike.
-        </p>
-      </aside>
-    </section>
+    And they weren't that calm about their dislike.
+    </p>
+  </aside>
+</section>
 
     <!-- *************************** -->
     <section>
@@ -1287,7 +1287,7 @@ r.class  # => Rational</code>
       Ask people how sure they are, rather than yes/no questions.
     </li>
     <li>
-      Estimate
+      Write estimated values down i.e. how much would choices be worth
     </li>
   </ul>
 
@@ -1449,8 +1449,8 @@ r.class  # => Rational</code>
   <p>Yarn</p>
 
   <ul>
-    <li><strike>Better lock file than NPM</strike>NPM has equivalent lock file support</li>
-    <li>Works just as well as NPM</li>
+    <li><strike>Better lock file than NPM</strike> NPM has equivalent lock file support</li>
+    <li><strike>Works just as well as NPM</strike></li>
     <li>Not many library developers use yarn, more than a few bugs installing</li>
   </ul>
 
@@ -1474,37 +1474,13 @@ r.class  # => Rational</code>
 </section>
 
 
-<!-- *************************** -->
-<section>
-  <h1>Getting better at telling good from bad</h1>
-
-  <ul>
-    <li>Recognise your own emotions.</li>
-    <li>Be prepared to still be wrong</li>
-    <li>Put effort into making life easy</li>
-  </ul>
-
-  <aside class="notes">
-<p>
-    Making life easier - we fucked up. For project we didn't have local dev environment setup with xdebug enabled by default.
-    This means that to do debugging we needed to stop docker containers, edit a file,
-
-    Result of this - lots of debugging through var_dump()
-</p>
-  </aside>
-</section>
-
-
-
 
 <!-- *************************** -->
 <section>
   <h2>Ease of use > features, on a personal level</h2>
 
-
   <p>People get a kick out of delivering features</p>
   <p>People get less of a kick out of making 'ease of use' improvements</p>
-
 
   <aside class="notes">
     <p>
@@ -1521,12 +1497,9 @@ r.class  # => Rational</code>
   <p>People get rewarded for delivering features.</p>
   <p>People don't get rewarded for delivering ease of use.</p>
 
-  <!-- "I bet somebody got a really nice bonus for that feature" -->
-
   <blockquote cite="https://devblogs.microsoft.com/oldnewthing/20061101-03/?p=29153">
     “Not many people have gotten a raise and a promotion for stopping features from shipping.” - Raymond Chen
   </blockquote>
-
 
   <p>https://devblogs.microsoft.com/oldnewthing/20061101-03/?p=29153</p>
 
@@ -1540,23 +1513,67 @@ r.class  # => Rational</code>
 
 
 <!-- *************************** -->
-<section>
-  <h1>Choices that make life easier</h1>
+<section class="em1_3 left">
+  <h1>Choices for 'ease of use'</h1>
 
-  <p>Automate deployments, tests</p>
-  <p>Decouple your code from your framework.</p>
-  <p>Name things so they are easy to read.</p>
-
-
+  <ul>
+    <li>Make it easier to write tests than to develop in the application.</li>
+    <li>Debugger needs to be instantly available.</li>
+    <li>Automate deployments, tests.</li>
+    <li>Decouple your code from your framework.</li>
+    <li>Name things so they are easy to read.</li>
+  </ul>
 
   <aside class="notes">
+    <p>
+      Making life easier - we fucked up. For project we didn't have local dev environment setup with xdebug enabled by default.
+      This means that to do debugging we needed to stop docker containers, edit a file,
 
+      Result of this - lots of debugging through var_dump()
+    </p>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section class="em1_3">
+  <h1>What not to do</h1>
+
+  <img src="/images/apple_touch_bar.png" width="80%" />
+
+  <!-- "I bet somebody got a really nice bonus for that feature" -->
+
+  <aside class="notes">
+    <p>
+      This is pretty much the worst thing ever.
+    </p>
   </aside>
 </section>
 
 
 
-    <!-- *************************** -->
+<!-- *************************** -->
+<section>
+  <h1>Getting better at telling good from bad</h1>
+
+  <ul>
+    <li>Recognise your own emotions.</li>
+    <li>Be prepared to still be wrong</li>
+    <li>Put effort into making life easy</li>
+  </ul>
+
+  <aside class="notes">
+    <p>
+      Making life easier - we fucked up. For project we didn't have local dev environment setup with xdebug enabled by default.
+      This means that to do debugging we needed to stop docker containers, edit a file,
+
+      Result of this - lots of debugging through var_dump()
+    </p>
+  </aside>
+</section>
+
+
+<!-- *************************** -->
 <section class="em1_5" style="text-align: center">
   <h1 class="finale">Fin</h1>
   <div style="min-height: 100px">&nbsp;</div>
@@ -1572,9 +1589,11 @@ r.class  # => Rational</code>
   <div style="text-align: center !important;"  >
     <p class="centre">Twitter: @MrDanack</p>
   </div>
+</section>
 
-
-
+<!-- *************************** -->
+<section style="width: 100%; text-align: center !important;">
+  <img src="/images/true_neutral.jpg" />
 </section>
 
 

@@ -1570,6 +1570,27 @@ solidCode($logger, $userRepo);
 </section>
 
 
+
+<!-- *************************** -->
+<section class="em1_5">
+  <h2 class="spaceBottom">What is type specialization?</h2>
+  <span style="height: 50%">&nbsp;</span>
+  <blockquote class="spaceBottom embiggen">
+    “many small types are better than one big type”
+  </blockquote>
+  <blockquote class="spaceBottom embiggen fragment">
+    “Naming your types makes them easier to reason about”
+  </blockquote>
+
+  <aside class="notes">
+    <ul>
+      <li></li>
+    </ul>
+  </aside>
+</section>
+
+
+
 <!-- *************************** -->
 <section class="em2">
   <h1>Trivial ones</h1>
@@ -1677,24 +1698,6 @@ function writeImageTempFile(ImageTmpPath $tmpPath)
 </section>
 
 
-
-<!-- *************************** -->
-<section class="em1_5">
-  <h2 class="spaceBottom">What is type specialization?</h2>
-  <span style="height: 50%">&nbsp;</span>
-  <blockquote class="spaceBottom embiggen">
-    “many small types are better than one big type”
-  </blockquote>
-  <blockquote class="spaceBottom embiggen fragment">
-    “Naming your types makes them easier to reason about”
-  </blockquote>
-
-  <aside class="notes">
-    <ul>
-     <li></li>
-    </ul>
-  </aside>
-</section>
 
 
 
@@ -1894,16 +1897,13 @@ function getArticles(
 }
 
 </code></pre>
-  <p class="em1_8">
+  <p class="em1_6">
     danack/params on packagist and github.
-  </p>
-  <p class="em1_8">
-    Generate Swagger/OpenApi schema from the rules.
   </p>
 
   <aside class="notes">
     <ul>
-      <li></li>
+      <li>Bonus - generate Swagger/OpenApi schema from the rules.</li>
     </ul>
   </aside>
 </section>
@@ -1920,18 +1920,37 @@ function getArticles(
 <section>
   <h1>Avoid big interfaces</h1>
 
-  
-    <pre class="danackCode spaceTop em1_3" data-trim>
+    <pre class="danackCode spaceTop em1_2" data-trim>
 <code class="php" data-trim>
+interface Cache {
+  function get($key);
+  function set($key, $value);
+  function setTtl($key, $value, $ttl);
 
-interface FileUploader {
-    function upload($localFilename, $storageName);
+  function delete($key);
+  function deleteItems(array $keys);
+
+  function clear();
+  function clearKeys(array $keys);
+  function clearPattern($regex);
+
+  function setNx($key, callable $fn);
+  function setNxTtl($key, $ttl, $value);
 }
 </code></pre>
 
   <aside class="notes">
     <ul>
-     <li></li>
+      <li>
+        So - this pattern causes a couple of problems.
+      </li>
+      <li>
+        For types that are shared by the community across different libraries, no
+      </li>
+      <li>
+        But even for self-contained projects using big types like this is not great.
+             Someone addingclear()
+      </li>
     </ul>
   </aside>
 </section>
@@ -1939,77 +1958,32 @@ interface FileUploader {
 
 
 
-<!-- *************************** -->
-<section>
-  <h1>Avoid big interfaces</h1>
-
-  
-    <pre class="danackCode spaceTop em1_3" data-trim>
-<code class="php" data-trim>
-
-interface FileTransfer {
-    function upload($localFilename, $storageName);
-    function download($localFilename, $storageName);
-}
- 
-</code></pre>
-
-  <aside class="notes">
-    <ul>
-     <li></li>
-    </ul>
-  </aside>
-</section>
 
 
-
-<!-- *************************** -->
-<section>
-  <h1>Avoid big interfaces</h1>
-
-    <pre class="danackCode spaceTop em1_3" data-trim>
-<code class="php" data-trim>
-interface FileTransfer {
-    function upload($localFilename, $storageName);
-    function download($localFilename, $storageName);
-    function fileExists($storageName);
-}
-</code></pre>
-  
-  <p class="fragment em1_3">
-    And so it grows...
-  </p>
-  
-  <aside class="notes">
-    <ul>
-     <li>The problem is that not all implementations are equal</li>
-      <li>Also, when you come to test your application, you will have mock or stub out methods that are not actually used in the test.</li>
-    </ul>
-  </aside>
-</section>
 
 
 <!-- *************************** -->
 <section>
   <h1>Breakup big interfaces</h1>
-    <pre class="danackCode spaceTop em1_1" data-trim>
+    <pre class="danackCode spaceTop em1_3" data-trim>
 <code class="php" data-trim>
-interface FileUploader {
-    function upload($localFilename, $storageName);
+interface CacheBasic {
+    function get($key);
+    function set($key, $value);
 }
 
-interface FileDownloader {
-    function download($localFilename, $storageName);
+interface CacheDelete {
+    function delete($key);
 }
 
-interface FileChecker {
-    function fileExists($storageName);
+interface CacheClear {
+    function clear();
 }
 </code></pre>
 
   <aside class="notes">
     <ul>
-     <li>Instead of having big monolithic interfaces, break them up into sensible components.</li>
+     <li>Instead of having big monolithic interfaces, break them up into small components.</li>
     </ul>
   </aside>
 </section>
@@ -2021,23 +1995,25 @@ interface FileChecker {
   <h2>Magic to make it work</h2>
     <pre class="danackCode spaceTop em1_1" data-trim>
 <code class="php" data-trim>
-interface FileTransfer extends FileUploader, FileDownloader { }
+interface BasicAndDeleteCache extends CacheBasic, CacheDelete { }
 
-class S3FileManager implements 
-    FileUploader, 
-    FileDownloader, 
-    FileChecker
-{ ...}
+class RedisCache implements
+    CacheBasic,
+    CacheDelete
+{ ... }
 
-function foo(FileTransfer $fileTransfer) { ...}
+function foo(BasicAndDeleteCache $fileTransfer) {...}
 
-class S3FileTransfer extends S3FileManager
-    implements FileTransfer {
+class RedisCache extends RedisCache
+    implements BasicAndDeleteCache {
   // empty - just used for declaring interface
 }
   
-foo(new S3FileTransfer(...));
+foo(new RedisCache(...));
 </code></pre>
+  <p>
+    Union types RFC if/when passed will make this easier to do.
+  </p>
 
   <aside class="notes">
     <ul>
@@ -2223,9 +2199,9 @@ class ArrayVariableMap implements VariableMap
       “The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise. The intellectual effort needed  to ... understand a program need not grow more than proportional to program length.” - Edsger W. Dijkstra
   </blockquote>
 
-  <blockquote class="emnormal">
-    “In the long term 'easy' is much more valuable than short-term ego boosting things.” - DanAck
-  </blockquote>
+  <!--<blockquote class="emnormal">-->
+    <!--“In the long term 'easy' is much more valuable than short-term ego boosting things.” - DanAck-->
+  <!--</blockquote>-->
 
 
   <aside class="notes">
@@ -2252,10 +2228,6 @@ class ArrayVariableMap implements VariableMap
 
 
 
-
-
-
-
 <!-- *************************** -->
 <section class="em1_5" style="text-align: center">
   <h1 class="finale">Fin</h1>
@@ -2267,8 +2239,6 @@ class ArrayVariableMap implements VariableMap
   </div>
 
   <p class="centre">Twitter: @MrDanack</p>
-  <p class="centre">Danack/Params</p>
-
 </section>
 
 
