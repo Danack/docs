@@ -1423,7 +1423,7 @@ class SearchController
 <section class="em1_5"> 
   <h1>Everything is a trade-off</h1>
 
-  <aside class="notes em1" >
+  <aside class="notes em_08" >
     <p>
      I hate it when you go to a conference and the speaker present a technology or idea as great with no downsides.
     </p>
@@ -1578,16 +1578,15 @@ solidCode($logger, $userRepo);
   <h2 class="spaceBottom">What is type specialization?</h2>
   <span style="height: 50%">&nbsp;</span>
   <blockquote class="spaceBottom embiggen">
-    “many small types are better than one big type”
+    “many small types are better than one big type,
+    <span class="fragment"> and naming your types makes them easier to reason about</span>”
   </blockquote>
-  <blockquote class="spaceBottom embiggen fragment">
-    “Naming your types makes them easier to reason about”
-  </blockquote>
+  <!--<blockquote class="spaceBottom embiggen fragment">-->
+    <!--“Naming your types makes them easier to reason about”-->
+  <!--</blockquote>-->
 
   <aside class="notes">
-    <ul>
-      <li></li>
-    </ul>
+    <p>I'm going to add one bit to the definition of what is 'type specialization'.</p>
   </aside>
 </section>
 
@@ -1874,9 +1873,16 @@ function getArticles(
 </code></pre>
 
   <aside class="notes">
-    <ul>
-      <li></li>
-    </ul>
+    <p>So.....I sometimes see code like this inside controllers in applications, where some input validation code is being called directly.</p>
+    <p>
+      Although this code works fine, I find it hard to read, let alone reason about.
+    </p>
+    <p>
+      There is a type in this code ....somewhere. But it's hard to trace whether it's the same type as used elsewhere.
+    </p>
+    <p>
+      I really strongly recommend that developers have input parameter be a type, that can be re-used and reasoned across your application.
+    </p>
   </aside>
 </section>
 
@@ -1904,9 +1910,17 @@ function getArticles(
   </p>
 
   <aside class="notes">
-    <ul>
-      <li>Bonus - generate Swagger/OpenApi schema from the rules.</li>
-    </ul>
+    <p>
+      I have a parameter validation library, that promotes input parameters to a type, that can be reused across the application.
+    </p>
+
+    <p>
+      It's on github, but it's too boring to talk about here.
+    </p>
+    <p>
+      Bonus - generate Swagger/OpenApi schema from the rules.
+    </p>
+
   </aside>
 </section>
 
@@ -1947,11 +1961,11 @@ interface Cache {
         So - this pattern causes a couple of problems.
       </li>
       <li>
-        For types that are shared by the community across different libraries, no
+        For types that are shared by the community across different libraries, it's really hard to get agreement on what the scope of this interface should be. It will always be too small for some people, too big for others.
       </li>
       <li>
         But even for self-contained projects using big types like this is not great.
-             Someone addingclear()
+             As it means you can easily see which methods are actually going to be used when this interface is required by a class.
       </li>
     </ul>
   </aside>
@@ -1985,7 +1999,7 @@ interface CacheClear {
 
   <aside class="notes">
     <ul>
-     <li>Instead of having big monolithic interfaces, break them up into small components.</li>
+     <li>Instead of having big monolithic interfaces, breaking them up into smaller components and the using those makes your code easier to reason about.</li>
     </ul>
   </aside>
 </section>
@@ -2052,6 +2066,11 @@ class MySQLDB extends MySQLi implements DB {
 </code></pre>
 
   <aside class="notes">
+    <p>
+      Don't wrap other services if you're not creating a new level of abstraction.
+
+    </p>
+
     <p>Pretty sure most people have done this at least once. </p>
   </aside>
 </section>
@@ -2081,6 +2100,9 @@ class MySQLDB extends MySQLi implements DB {
       <li>These interfaces are likely to be the ones that provide the most value to your company, as they are a vital step in decoupling layers of your application.</li>
       <li>They also provide a clean 'language' for programmers in a team to communicate with. Because there's no implementation to be distracting, you can talk about just the input and output of the interface.</li>
     </ul>
+
+    <p><b>THEY DON'T NEED TO RESEMBLE THE UNDERLYING TECHNOLOGY</b></p>
+
   </aside>
 </section>
 
@@ -2089,7 +2111,7 @@ class MySQLDB extends MySQLi implements DB {
 
 <!-- *************************** -->
 <section>
-  <h1 class="em3">Create an abstraction layer</h1>
+  <h1 class="em3">Abstraction layer for database access</h1>
 
   <pre class="danackCode spaceTop em1_1" data-trim>
 <code class="php" data-trim>
