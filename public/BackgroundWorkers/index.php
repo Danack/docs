@@ -423,8 +423,6 @@ SVG;
 </section>
 
 
-
-
 <!--&lt;!&ndash; *************************** &ndash;&gt;-->
 <section class="centre">
 
