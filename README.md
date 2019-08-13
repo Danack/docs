@@ -11,3 +11,6 @@ Run as standalone
 =================
 
 php -S 0.0.0.0:8001 -t public
+
+
+php -S 0.0.0.0:8080 -t public

@@ -1,0 +1,195 @@
+
+The diverſe
+
+# I'm Daniel maintainer of Imagick talking about background workers
+
+
+# Without a background worker - what's happening is
+
+  * Request comes in
+
+# Why? better user experience - 1 min
+
+ //# e.g. submitting forms better user experience.
+
+# Why? avoid locking up request workers - 2 min
+
+   Denial of service protection
+
+# Why? Performance tuning - 1 minute
+
+# Why? Performance monitoring and scaling - 1 minute
+
+Boxes that do one thing are much easier to tune.
+Web boxes need more threads, but less processing power per thread.
+Image boxes need faster cpu, but less threads.
+
+# Why? Security 2 minutes
+
+   # Attack surfaces
+
+     Narrow channel
+
+   https://imagetragick.com/
+
+   CVE-2019-11037
+
+
+   # Background worker doesn't need secrets.
+
+    But also, quite difficult to break out of, as can't get info out directly, only via files.
+
+   # No secrets in processing container. 1 minutes
+
+# What's happening with background processor - 1 minute
+
+  * Worker is run in background and sits there waiting for data
+  * Request comes in
+  * Info is pushed into a queue/message
+  * Worker picks up the data, does the work and pushes the results somewhere
+  * Browser polls (or websocket) for status.
+
+
+# Message queues 2 minute
+  Redis -> Gearman -> RabbitMQ ->  Amazon SQS
+
+ The only thing that is important is that the number (and location) of your background workers
+ shouldn't matter. Jobs should be able to be processed in any order.
+
+ Small point, you should choose a queueing technology that
+
+# Redis is fast  1 minute
+  And reliable enough for most things
+  But not enough for financials transactions.
+
+#  Redis supports 'lists',
+  " Redis Lists are simply lists of strings, sorted by insertion order."
+
+  They're the simplest way to implement queues in Redis
+
+    ```Code for pushing messages```
+
+  Don't need to check if the list exists first
+
+
+# Top tip, I like to use class name as key - 0.5 minute
+
+    Makes it really easy to go from looking to see what data is stored in Redis to where that data is used in code and vice-versa.
+
+
+# Code needs to do some obey some stuff - 1 minute
+
+  ```Code for waiting for messages```
+
+This is actually quite cool. This Redis command will pop (i.e. remove) an entry off the list if there is one.
+
+If there isn't one you can specify how many seconds you're willing to wait for an entry to arrive.
+That means that the code isn't 'spinning' and using the CPU.
+
+
+# Code for looping - 1 minute
+
+  You want to i) avoid spinning the CPU ii) avoid hammering other people's apis.
+
+  Because I use redis which can wait
+
+  Avoid hammering other people's api
+
+  Avoid hammering your own DB.
+
+
+# Signals - 1 minute
+
+  ```Code for signals```
+
+  Listen to signals.
+
+
+# Something to manage the background processes - 1 minute
+
+  Supervisord is awesome. It's another piece of software that does one thing but does it really well.
+
+
+# Supervisord config - 1 minute
+
+
+# A tangent - 5 minutes
+
+  So....Kubernetes is a thing. Whether we like it or not.
+
+  I like diagrams, just in general but also as a way of being able to think about choices.
+
+  I'm going to show you a diagram that can help you choose between two technologies
+
+  Imagine we've got two different pieces of tech, one of them simpler and less capable, and the other more compicated, but more capable. The diagram is going to show how much stuff is done vs time taken.
+
+  Almost always, the simpler tech will be quick to get stuff setup, but then once you reach the limit of what it can do, and have to add start implementing features yourself, everything will slow down.
+
+  For the more complicated/capable tech, stuff is more difficult to setup, so it takes you longer to get the same amount of stuff working, but it can do more complicated stuff more easily.
+
+  This diagram works for comparing almost any tech.
+
+  Imagine if someone wanted a blog, or a content management system like Drupal. You could do the same things
+
+
+# Scaling
+
+ScalingWorkers.jpg
+
+# Scaling
+
+4 GB / 16 MB per worker = 256 workers
+
+256 workers
+* 8 business hours a day
+* 5 days a week
+* 4 weeks a month
+* 60 minutes in an hour
+* 60 seconds in a minute
+/ 4 seconds to send an email = 36,864,000 emails a month
+
+# never_scale.jpeg
+
+
+KubernetesPrice.png
+
+
+# Docker container to run this
+
+# Consistent naming for checking if work done - 1 minute
+
+# What tasks should be moved to background
+
+    Anything that takes more than a normal amount of time to process.
+
+    * Image processing
+    * PDF generating.
+    * anything that calls multiple external apis.
+
+
+# What other benefits are there - 1 minute
+
+    * Disable email sending when service is down.
+
+    * Retrying failed emails
+
+
+Maybe -
+
+# Moving cron jobs to background workers.
+
+
+Nah -
+
+    # Javascript bollocks
+
+
+
+
+
+
+
+
+
+
+
