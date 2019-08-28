@@ -255,12 +255,12 @@ SVG;
 
     .iframeScale {
 
-      -ms-zoom: 2;
-      -moz-transform: scale(2);
+      -ms-zoom: 1.5;
+      -moz-transform: scale(1.5);
       -moz-transform-origin: 0 0;
-      -o-transform: scale(2);
+      -o-transform: scale(1.5);
       -o-transform-origin: 0 0;
-      -webkit-transform: scale(2);
+      -webkit-transform: scale(1.5);
       -webkit-transform-origin: 0 0;
     }
 
@@ -370,8 +370,7 @@ SVG;
   <div style="height: 100px"></div>
 
   <p class="fragment em1_4">
-    4GB / 128 MB  = 32 requests<br/>
-    to lock up a server for 30 seconds.
+    4GB / 128 MB  = 32 requests
   </p>
 
   <aside class="notes">
@@ -424,7 +423,7 @@ SVG;
 
 
 <!--&lt;!&ndash; *************************** &ndash;&gt;-->
-<section class="centre">
+<section class="em1_4 left">
 
   <h2>Security</h2>
 
@@ -470,9 +469,9 @@ SVG;
       <text text-anchor="middle" alignment-baseline="middle" fill="black">Server</text>
       <line y1="50" y2="1000" style="stroke:rgb(0,0,0);stroke-width:2" stroke-linecap="butt" />
 
-      <rect x="-25" y="200" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
-      <rect x="-25" y="500" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
-      <rect x="-25" y="800" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+
+
+
     </g>
 
 
@@ -484,40 +483,65 @@ SVG;
     </g>
 
 
+
     <g transform="translate(1400 100)">
       <rect x="-100" y="-50" width="200" height="100" style="fill:rgb(207, 226, 243);stroke-width:3;stroke:rgb(0,0,0)" />
       <text x="0" y="0" text-anchor="middle" alignment-baseline="middle" fill="black">Worker</text>
       <line y1="50" y2="1000" style="stroke:rgb(0,0,0);stroke-width:2" stroke-linecap="butt" />
 
-      <rect x="-25" y="250" width="50" height="500" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
     </g>
+
+
+    <g class="fragment">
+      <g transform="translate(850 100)">
+        <rect x="-25" y="200" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+      </g>
+
+      <g transform="translate(1400 100)">
+        <rect x="-25" y="250" width="50" height="500" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+      </g>
 
       <!-- Client to server request -->
       <?= pointyLine(300, 220, 825, 300); ?>
       <?= pointyLine(825, 350, 300, 400); ?>
-
 
     <text x="290" y="230" text-anchor="end" alignment-baseline="middle" fill="black">Request</text>
     <text x="290" y="400" text-anchor="end" alignment-baseline="middle" fill="black">$jobID</text>
 
       <!-- Server to worker -->
       <?= pointyLine(875, 300, 1375, 350); ?>
-      <?= pointyLine(1375, 850, 875, 900); ?>
 
+    </g>
+
+    <g class="fragment">
       <!-- Client to server data not ready -->
       <?= pointyLine(300, 530, 825, 600); ?>
       <?= pointyLine(825, 650, 300, 720); ?>
 
       <text x="290" y="540" text-anchor="end" alignment-baseline="middle" fill="black">$jobID data?</text>
       <text x="290" y="720" text-anchor="end" alignment-baseline="middle" fill="black">Not ready</text>
+      <g transform="translate(850 100)">
+        <rect x="-25" y="500" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+      </g>
+    </g>
+
+
 
     <!-- Client to server data ready -->
+    <g class="fragment">
+
+        <?= pointyLine(1375, 850, 875, 900); ?>
       <?= pointyLine(300, 830, 825, 900); ?>
       <?= pointyLine(825, 950, 300, 1020); ?>
 
+      <text x="290" y="840" text-anchor="end" alignment-baseline="middle" fill="black">$jobID data?</text>
+      <text x="290" y="1020" text-anchor="end" alignment-baseline="middle" fill="black">Here's the data</text>
 
-    <text x="290" y="840" text-anchor="end" alignment-baseline="middle" fill="black">$jobID data?</text>
-    <text x="290" y="1020" text-anchor="end" alignment-baseline="middle" fill="black">Here's the data</text>
+      <g transform="translate(850 100)">
+        <rect x="-25" y="800" width="50" height="50" style="fill:rgb(255, 153, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+      </g>
+
+    </g>
   </svg>
 
   <aside class="notes">
@@ -533,7 +557,7 @@ SVG;
 
 
 <!-- *************************** -->
-<section class="em1_6 left">
+<section class="em1_4 left">
   <h1>Demo time</h1>
 
   <iframe src="http://local.app.basereality.com/image_queue" width="1200px" height="800px" class="iframeScale"></iframe>
@@ -618,8 +642,47 @@ SVG;
 
 
 
+
+    <!-- *************************** -->
+    <section class="em1_2 left">
+      <h3>Some code to send the jobs</h3>
+
+      <pre class="danackCode" data-trim>
+<code class="php">class ImageJob {
+
+    /** @var string */
+    private $text;
+
+    function __construct(string $text) {
+        $this->text = $text;
+    }
+
+    public function toString(): string {
+        $data = ['text' => $this->text];
+
+        return json_encode_safe($data);
+    }
+
+    public function getText(): string {
+      return $this->text;
+    }
+
+    public static function fromString(string $string) {
+        $data = json_decode_safe($string);
+        return new self($data['text']);
+    }
+}
+</code></pre>
+
+  <aside class="notes">
+  </aside>
+</section>
+
+
+
+
 <!-- *************************** -->
-<section class="em1_4 left">
+<section class="em1_6 left">
   <h3>Some code to send the jobs</h3>
 
   <pre class="danackCode" data-trim>
@@ -735,9 +798,9 @@ class ImageJobKey {
   <h3>Supervisord config</h3>
 
   <pre class="danackCode" data-trim>
-<code class="php">[program:invoice_pdf_generator]
+<code class="php">[program:image_generator]
 directory=/var/www
-command=php cli.php process:invoices
+command=php cli.php process:image_example
 process_name=%(program_name)s_%(process_num)d
 user=www-data
 numprocs=1
@@ -758,11 +821,18 @@ autorestart=true
   </aside>
 </section>
 
-  <!-- *************************** -->
-  <section class="em1_4"><img src="/images/ScalingWorkers.jpg" width="1000px" />
-    <aside class="notes">
-    </aside>
-  </section>
+<!-- *************************** -->
+<section class="em1_4"><img src="/images/Supervisord.png" width="1200px" />
+  <aside class="notes">
+  </aside>
+</section>
+
+
+<!-- *************************** -->
+<section class="em1_4"><img src="/images/ScalingWorkers.jpg" width="1000px" />
+  <aside class="notes">
+  </aside>
+</section>
 
 
 
@@ -833,12 +903,45 @@ autorestart=true
 
 
 <!-- *************************** -->
-<section class="em1_4">
+<section class="left">
   <h2>"It's Time For Some Game Theory"</h2>
-  <p>
+  <p>Actually, no.</p>
+  <!--
+  <ul>
+    <li>Ps - predicted probability simple tech is correct choice</li>
+    <li>Cs - cost of implementing simple tech</li>
+    <li>Ca - cost of implementing advanced tech</li>
+    <li>Cs+a - cost of implementing simple tech then changing to advanced tech</li>
+  </ul>
 
 
-  </p>
+  <ul>
+    <li>Implement simple tech first, and is good eno</li>
+  </ul>
+
+
+  <table class="left" style="margin: 0px">
+
+    <tr>
+      <td></td>
+      <td>Implement </td>
+      <td>Ca</td>
+    </tr>
+
+    <tr>
+      <td>Simple tech correct choice</td>
+      <td>Cs</td>
+      <td>Ca</td>
+    </tr>
+
+    <tr>
+      <td>Advanced tech correct choice</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  -->
 
   <aside class="notes">
   </aside>
@@ -958,14 +1061,12 @@ function continuallyExecuteCallable($callable, int $maxRunTime)
     aka listen to signals.
   </p>
 
-  <p>
-    SIGINT -  Ctrl+C
-  </p>
+  <ul>
+    <li>SIGINT -  Ctrl+C</li>
+    <li>SIGTERM - graceful shut down</li>
+    <li>SIGKILL - ungraceful</li>
+  </ul>
 
-  <p>
-    SIGTERM - graceful shut down.
-    SIGKILL -
-  </p>
 
   <blockquote class="em1_0">
     “Upon the receival of the SIGTERM, each container should start a graceful shutdown of the running application and exit.”
@@ -1080,19 +1181,6 @@ function continuallyExecuteCallable($callable, int $maxRunTime)
 
 </section>
 
-<!-- *************************** -->
-<section class="em1_4">
-  <h1>Title</h1>
-
-  <p>
-    Words
-  </p>
-
-  <aside class="notes">
-
-  </aside>
-</section>
-
 
 <!-- *************************** -->
 <section style="width: 100%; text-align: center !important;">
@@ -1102,32 +1190,28 @@ function continuallyExecuteCallable($callable, int $maxRunTime)
 
 
 
+<!-- *************************** -->
+<section>
+  <h1>
+    The benefits of background workers.
+  </h1>
+
+  <p>
 
 
 
+  Some things that need to be processed in an web based application can take a long time to run.
 
-  <!-- *************************** -->
-  <section>
-    <h1>
-      The benefits of background workers.
-    </h1>
+  Moving this work to be done in a background worker can provide lots of benefits for the user and make your life easier as a developer.
 
-    <p>
+  Dan's going to talk about this stuff, going through exactly what the problems are, how to implement background workers, and the diverse benefits they give.
 
+  </p>
 
 
-    Some things that need to be processed in an web based application can take a long time to run.
-
-    Moving this work to be done in a background worker can provide lots of benefits for the user and make your life easier as a developer.
-
-    Dan's going to talk about this stuff, going through exactly what the problems are, how to implement background workers, and the diverse benefits they give.
-
-    </p>
-
-
-    <aside class="notes">
-    </aside>
-  </section>
+  <aside class="notes">
+  </aside>
+</section>
 
 
   </div>
