@@ -3,6 +3,8 @@ services:
   php_fpm:
     build: docker/php_fpm
     image: docs_php_fpm:latest
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "php", "service": "docs_phpfpm"}]'
     volumes:
       - .:/var/www
       - ../keys.php:/var/keys.php
@@ -12,6 +14,8 @@ services:
     image: docs_php_backend
     depends_on:
       - php_fpm
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "php", "service": "docs_phpfpm_debug"}]'
     volumes:
       - .:/var/www
       - ../keys.php:/var/keys.php
@@ -21,6 +25,8 @@ services:
     depends_on:
       - php_fpm
       - php_fpm_debug
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "nginx", "service": "docs_nginx"}]'
     volumes:
       - .:/var/www
     restart: always
