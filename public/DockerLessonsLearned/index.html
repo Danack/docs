@@ -340,27 +340,96 @@
 
 
 <!-- *************************** -->
+<section  style="width: 100%" >
+  <div class="em1_2" style="width: 100%; margin: 0px !important"  >
+    <h4>
+      Dockerfile tips
+    </h4>
+
+    <pre class="danackCode em1_1" style="width: 100%; margin: 0px !important" data-trim>
+<code class="bash"># Use repos, not the 'official' php image
+FROM debian:9-slim
+
+# root is technically bad
+USER root
+
+# This thing is going to change more often:
+RUN apt-get install imagick_version_3.2.1
+
+# Than this thing.
+RUN apt-get install php_and_everything_else
+
+WORKDIR /var/app
+
+# Running commands through bash scripts is
+# far easier to maintain
+CMD sh /var/app/php_fpm/entrypoint.sh
+</code></pre>
+
+  </div>
+  <aside class="notes">
+
+  </aside>
+</section>
+
+
+    <!-- *************************** -->
+    <section  style="width: 100%" >
+      <div class="em1_2" style="width: 100%; margin: 0px !important"  >
+        <h4>
+          Dockerfile tips
+        </h4>
+
+        <pre class="danackCode em1_1" style="width: 100%; margin: 0px !important" data-trim>
+<code class="bash"># Use repos, not the 'official' php image
+FROM debian:9-slim
+
+# root is technically bad
+USER root
+
+# Having them this way round
+RUN apt-get install php_and_everything_else
+
+# means the previous step can be cached
+RUN apt-get install imagick_version_3.2.2
+
+WORKDIR /var/app
+
+# Running commands through bash scripts is
+# far easier to maintain
+CMD sh /var/app/php_fpm/entrypoint.sh
+</code></pre>
+
+      </div>
+      <aside class="notes">
+
+      </aside>
+    </section>
+
+
+
+
+
+    <!-- *************************** -->
 <section>
   <div class="em1_4"  >
     <h1>
       Bootstrap container
     </h1>
 
+    <pre class="danackCode em1_1" data-trim>
+<code class="php">php composer.phar install
 
-
-    <pre class="danackCode" data-trim>
-<code class="php">
-php composer.phar install
-
+# Waits for DB to be available
 php cli.php misc:wait_for_db
 
-php vendor/bin/phinx migrate -e internal
+php vendor/bin/phinx migrate
 
 sh buildSassToCss.sh
 
 php cli.php seed:initial
 
-echo "Installer is finished, site should be available."
+echo "Bootstrap is finished"
 </code>
 </pre>
 
@@ -368,8 +437,11 @@ echo "Installer is finished, site should be available."
   </div>
   <aside class="notes">
 
+As I said, I really like to have a project work when checked out of source control, without needing to do manual steps.
 
+For PHP, this can be achieved by having a 'bootstrap' container that generates or updates files that aren't checked in.
 
+    So things like composer, compiling sass to CSS etc.
 
     </aside>
     </section>
@@ -614,12 +686,15 @@ xdebug.remote_host=10.254.254.254
         </h1>
       </div>
 
+
+      Good
       <pre class="danackCode em1_3" style="width: 100%" data-trim>
 <code class="bash">server_name
   *.api.phpimagick.com
   api.phpimagick.com;
 </code></pre>
 
+Tedious
       <pre class="danackCode em1_3" style="width: 100%" data-trim>
 <code class="bash">server_name
   api.local.phpimagick.com
