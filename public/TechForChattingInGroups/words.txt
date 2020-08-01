@@ -1,0 +1,37 @@
+
+Why this talk
+ * tales from the video game industry...
+
+Headphones
+ * prevent feedback
+
+
+Microphone
+ * Built-in microphones are fine for talking one to one, get really bad really fast.
+ * Microphones need to be close. A $15 lavalier
+ * Don't over tune your microphone.
+
+ cognitive load regarding video and audio.
+
+
+Lighting
+ * MOAR, MOAR, MOAR
+
+
+Camera
+ * come back to tech in a moment.
+ * camera needs to be at eye level.
+ * Look at the camera if you can
+
+
+Camera tech
+ * HDMI cable + cheap vid cam
+ * iriun
+ * DSLR cameras are overkill. Look for latency which is killer.
+
+Video is optional
+
+
+
+
+
