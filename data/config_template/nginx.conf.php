@@ -12,6 +12,8 @@ server {
     gzip_types text/plain text/css application/json application/javascript application/x-javascript text/javascript text/xml application/xml application/rss+xml application/atom+xml application/rdf+xml;
 
     gzip_buffers 16 8k;
+    
+    add_header X-DJA docs;
 
     # ~ nginx performs a regular expression match.
     # ~* removes case sensitivity from the matches
