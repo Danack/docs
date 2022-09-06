@@ -14,19 +14,14 @@ services:
     image: docs_php_backend
     depends_on:
       - php_fpm
-    labels:
-      com.datadoghq.ad.logs: '[{"source": "php", "service": "docs_phpfpm_debug"}]'
     volumes:
       - .:/var/www
-      - ../keys.php:/var/keys.php
     restart: always
   nginx:
     build: docker/nginx
     depends_on:
       - php_fpm
       - php_fpm_debug
-    labels:
-      com.datadoghq.ad.logs: '[{"source": "nginx", "service": "docs_nginx"}]'
     volumes:
       - .:/var/www
     restart: always

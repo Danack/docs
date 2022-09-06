@@ -1,9 +1,7 @@
 
-
 ## What this talk is about
 
 Union types and how they can be helpful in making code easier to use.
-
 
 * Introduce some code.
 
@@ -14,23 +12,24 @@ Union types and how they can be helpful in making code easier to use.
 
 ## The code i'm going to be talking about.
 
-Very simple graphics library
+Very simple graphics library. It can draw
 
-Can draw triangles.
-    * Triangles have 3 corners
+Triangles
+  * Triangles have 3 corners
     
 Rectangles
-    * Rectangles have top, bottom, left and right.
+  * Rectangles have top, bottom, left and right.
 
-Ellipses aka Circles 
-    * Circles have top, bottom, left and right bounds.
+Squished circles 
+  * Squished circles have top, bottom, left and right bounds.
 
+(there are other ways to define these, but this way allows touching shapes)
 
 ## The code for this could be written in multiple ways
 
-    * Separate methods
-    * Command parameters 
-    * Object types
+  * Separate methods
+  * Type + parameters 
+  * Object types
 
 ## Separate methods
 
@@ -55,7 +54,7 @@ interface Canvas
 }
 ```
 
-## Standard style in use
+## Separate methods in use
 
 ```
 function drawStuff(Canvas $c)
@@ -68,8 +67,7 @@ function drawStuff(Canvas $c)
 }
 ```
 
-
-## Raw parameters
+## Type + parameters
 
 ```
 interface Canvas
@@ -84,18 +82,17 @@ interface Canvas
 }
 ```
 
-## Raw parameters in use
+## Type + parameters in use
 ```
 function drawStuff(Canvas $c)
 {
     $c->draw('triangle', 50, 50, 100, 100, 100, 50);
 
-    $c->draw('rectangle',  10, 100, 200, 150);
+    $c->draw('rectangle', 10, 100, 200, 150);
 
     $c->draw('ellipse', 10, 100, 200, 150);
 }
 ```
-
 
 ## Object parameters
 
@@ -107,35 +104,37 @@ interface Canvas
 
 class Triangle 
 {
-    float $x1;
-    float $y1;
-
-    float $x2;
-    float $y2;
-
-    float $x3;
-    float $y3;
-
-    //  Constructor skipped for space
+    function __construct(
+        readonly float $x1;
+        readonly float $y1;
+        
+        readonly float $x2;
+        readonly float $y2;
+        
+        readonly float $x3;
+        readonly float $y3;    
+    ) {}
 }
 
 class Rectangle
 {
-    float $left;
-    float $top;
-    float $right;
-    float $bottom;
-
-    //  Constructor skipped for space
+    function __construct(
+        readonly float $left;
+        readonly float $top;
+        readonly float $right;
+        readonly float $bottom;
+    ) {}
 }
 
 
 class Ellipse
 {
-    float $left;
-    float $top;
-    float $right;
-    float $bottom;
+    function __construct(
+        float $left;
+        float $top;
+        float $right;
+        float $bottom;
+    ) {}
 }
 
 ```
@@ -155,7 +154,6 @@ function drawStuff(Canvas $c)
     $c->draw($ellipse);
 }
 ```
-
 
 ## Isomorphic
 
@@ -184,7 +182,6 @@ They all allow the same thing to be done.
 ## Talk about spaghetti sauce
 
 
-
 ## Okay so it was a trick question earlier
 
 Asking whether people like something or not is usually
@@ -194,4 +191,123 @@ Asking whether people like something or not is usually
 * Typos detected in IDE - typos not detected in IDE.
 
 * Easy to write code - easy 
-    
+   
+
+## Caches
+
+interface Cache
+{
+    public function get(string $key): string|null;
+    public function set(string $key, string $value): void;
+
+    <span class="fragment">public function exists($key);</span>
+
+    <span class="fragment">public function clear();</span>
+    <span class="fragment">public function delete(string $key);</span>
+
+    <span class="fragment">public function setWithTTL(string $key, string $value, int $milliseconds);</span>
+    <span class="fragment">public function set(string $key, string $value): void;</span>
+}
+
+
+## Diagram of cache complexity
+
+Cache_1
+Cache_2
+Cache_3
+
+## Cache - separate interfaces
+
+interface CacheBasic
+{
+    public function get(string $key): string|null;
+    public function set(string $key, string $value): void;
+}
+
+interface CacheExists
+{
+    public function exists($key);
+}
+
+interface CacheClear
+{
+    public function clear();
+}
+
+interface CacheDelete
+{
+    public function delete(string $key);
+}
+
+
+## PHP 8.1
+
+function foo(CacheBasic & CacheDelete & CacheExists $cache)
+{
+    // Static analysis says ok
+    $cache->get('foo');
+    $cache->delete('foo');
+    $cache->exists('foo');
+
+    // Static analysis reports as error
+    $cache->setWithTTL('foo', 'quux', 3600_000);
+}
+
+
+## Type definitions - PHP 8.2/8.3 ?
+
+type BarCache = CacheBasic & CacheClear & CacheExists;
+
+function foo(BarCache $cache)
+{
+    ...
+}
+
+
+
+
+## fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PSR-6: Caching Interface
+
+<?php
+
+namespace Psr\Cache;
+
+interface CacheItemPoolInterface
+{
+    public function getItem($key);
+    public function getItems(array $keys = array());
+    public function hasItem($key);
+    public function clear();
+    public function deleteItem($key);
+    public function deleteItems(array $keys);
+    public function save(CacheItemInterface $item);
+    public function saveDeferred(CacheItemInterface $item);
+    public function commit();
+}
+
+interface CacheItemInterface
+{
+    public function getKey();
+    public function get();
+    public function isHit();
+    public function set($value);
+    public function expiresAt($expiration);
+    public function expiresAfter($time);
+}
+
+interface CacheException {}
+
